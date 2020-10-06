@@ -1,0 +1,62 @@
+{
+  "name": "UnspecifiedBehavior",
+  "version": "1.0.0",
+  "description": "Unspecified Behavior Webpage",
+  "main": "index.js",
+  "scripts": {
+    "test": "test",
+    "start": "parcel index.html"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bstaab/cs414-f20-UnspecifiedBehavior.git"
+  },
+  "keywords": [
+    "Voting",
+    "Secuirty",
+    "DLT",
+    "Blockchain"
+  ],
+  "author": "Maddie Mihevc, Kai Griem, Keabeth Gonzalez, Adam Anderson, Brent Stabb",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bstaab/cs414-f20-UnspecifiedBehavior/issues"
+  },
+  "homepage": "https://github.com/bstaab/cs414-f20-UnspecifiedBehavior#readme",
+  "dependencies": {
+    "bulma": "^0.9.0",
+    "index.js": "0.0.3",
+    "react-router": "^5.2.0",
+    "react-router-bootstrap": "^0.25.0",
+    "react-router-dom": "^5.2.0",
+    "webpack": "^4.43.0"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.3",
+    "babel-loader": "^7.1.2",
+    "babel-polyfill": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-react": "^6.24.1",
+    "bootstrap": "^4.2.1",
+    "classnames": "^2.2.6",
+    "coordinate-parser": "^1.0.3",
+    "cross-env": "^5.1.1",
+    "css-loader": "^2.1.1",
+    "file-loader": "^3.0.1",
+    "leaflet": "^1.4.0",
+    "papaparse": "^5.1.1",
+    "react": "^16.13.1",
+    "react-beautiful-dnd": "^13.0.0",
+    "react-dom": "^16.13.1",
+    "react-leaflet": "^2.2.0",
+    "react-leaflet-control": "^2.1.2",
+    "reactstrap": "^7.0.2",
+    "style-loader": "^0.23.1",
+    "styled-components": "latest",
+    "tokml": "^0.4.0",
+    "ulog": "^1.1.0",
+    "webpack": "^4.43.0",
+    "webpack-cli": "^3.2.1"
+  }
+}
