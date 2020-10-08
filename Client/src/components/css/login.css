@@ -1,0 +1,31 @@
+.center {
+    text-align: left;
+    padding: 1em;
+    border: 2px solid #d3d3d3;
+    border-radius: .5em;
+    vertical-align: middle;
+    width: 600px;
+    margin: 100px auto 1em;
+}
+
+.form {
+    padding: 1em;
+}
+
+label {
+    display: flex;
+    font-weight: 600;
+}
+
+.submit {
+    justify-content: flex-end;
+}
+
+.sign-up {
+    display: grid;
+    place-items: center;
+}
+
+p {
+    padding-right: 15px;
+}
