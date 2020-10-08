@@ -1,4 +1,4 @@
-package a2;
+package Game;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.*;

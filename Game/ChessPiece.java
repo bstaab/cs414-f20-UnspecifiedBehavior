@@ -1,4 +1,4 @@
-package a2;
+package Game;
 
 import java.util.ArrayList;
 
@@ -43,7 +43,17 @@ public abstract class ChessPiece {
 		this.row = row_char - '1';
 		this.column = col_char - 'a';
 	}
-	
+	protected boolean validateNextMove(String nextMove) {
+		if(nextMove.length()!=2) {
+			return false;
+		}
+		if(nextMove.charAt(0)>=97&&nextMove.charAt(0)<=104&&nextMove.charAt(1)<=56&&nextMove.charAt(1)>=49) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
 	abstract public String toString();
 	abstract public ArrayList<String> legalMoves();
 	
