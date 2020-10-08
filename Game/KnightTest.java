@@ -1,4 +1,4 @@
-package a2;
+package Game;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -6,7 +6,7 @@ import org.junit.Test;
 import static org.junit.Assert.assertTrue;
 
 public class KnightTest {
-
+/*
 	@Test
 	public void testLegalMoves() {
 		ChessBoard testBoard = new ChessBoard();
@@ -26,7 +26,79 @@ public class KnightTest {
 	    assertTrue(whiteKnight1.legalMoves().isEmpty());
 	    assertTrue(whiteKnight2.legalMoves().isEmpty());
 	}
-	
+*/
+@Test
+public void KnightTestEmpty() {
+	ChessBoard myBoard=new ChessBoard();
+	Knight myKnight=new Knight(myBoard, ChessPiece.Color.WHITE);
+	myBoard.placePiece(myKnight, "d4");
+	assertEquals(myKnight.legalMoves().size(), 8);
+	try {
+		myBoard.move("d4", "f5");
+	}catch(IllegalMoveException e) {
+		fail();
+	}
+	try {
+		assertEquals(myKnight, myBoard.getPiece("f5"));
+	}catch(IllegalPositionException e) {
+		fail();
+	}
+}
+	@Test
+	public void KnightTestCapture() {
+		ChessBoard myBoard=new ChessBoard();
+		Knight myKnight=new Knight(myBoard, ChessPiece.Color.WHITE);
+		myBoard.placePiece(myKnight, "d4");
+		Knight enemyKnight=new Knight(myBoard, ChessPiece.Color.BLACK);
+		myBoard.placePiece(enemyKnight, "f5");
+		assertEquals(myKnight.legalMoves().size(), 8);
+		try {
+			myBoard.move("d4", "f5");
+		}catch(IllegalMoveException e) {
+			fail();
+		}
+		try {
+			assertEquals(myKnight, myBoard.getPiece("f5"));
+		}catch(IllegalPositionException e) {
+			fail();
+		}
+	}
+	@Test
+	public void KnightTestFriendly() {
+		ChessBoard myBoard=new ChessBoard();
+		Knight myKnight=new Knight(myBoard, ChessPiece.Color.WHITE);
+		myBoard.placePiece(myKnight, "d4");
+		Knight enemyKnight=new Knight(myBoard, ChessPiece.Color.WHITE);
+		myBoard.placePiece(enemyKnight, "f5");
+		assertEquals(myKnight.legalMoves().size(), 7);
+		try {
+			myBoard.move("d4", "f5");
+		}catch(IllegalMoveException e) {
+			assertEquals(1, 1);
+		}
+		try {
+			assertEquals(myKnight, myBoard.getPiece("d4"));
+		}catch(IllegalPositionException e) {
+			fail();
+		}
+	}
+	@Test
+	public void KnightTestInitial() {
+		ChessBoard myBoard=new ChessBoard();
+		Knight myKnight=new Knight(myBoard, ChessPiece.Color.WHITE);
+		myBoard.placePiece(myKnight, "c1");
+		assertEquals(myKnight.legalMoves().size(), 4);
+		try {
+			myBoard.move("c1", "d3");
+		}catch(IllegalMoveException e) {
+			fail();
+		}
+		try {
+			assertEquals(myKnight, myBoard.getPiece("d3"));
+		}catch(IllegalPositionException e) {
+			fail();
+		}
+	}
 	@Test
 	public void testIllegalPositionException() {
 		ChessBoard testBoard = new ChessBoard();
