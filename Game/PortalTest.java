@@ -16,37 +16,31 @@ class PortalTest {
     ChessBoard testBoard = new ChessBoard();
     
     Portal whitePortal = new Portal(testBoard, ChessPiece.Color.WHITE);
+    Portal blackPortal = new Portal(testBoard, ChessPiece.Color.WHITE);
     
-    testBoard.placePiece(whitePortal, "e3");
+    testBoard.placePiece(whitePortal, "e4");
+    testBoard.placePiece(blackPortal, "h5");
     
     ArrayList<String> legalMovesWhite = whitePortal.legalMoves();
 
-    assertEquals(25,legalMovesWhite.size());
-    assertTrue(legalMovesWhite.contains("e2"));
-    assertTrue(legalMovesWhite.contains("e1"));
-    assertTrue(legalMovesWhite.contains("e4"));
+    assertEquals(8,legalMovesWhite.size());
+    assertTrue(legalMovesWhite.contains("d5"));
     assertTrue(legalMovesWhite.contains("e5"));
-    assertTrue(legalMovesWhite.contains("e6"));
-    assertTrue(legalMovesWhite.contains("e7"));
-    assertTrue(legalMovesWhite.contains("e8"));
-    assertTrue(legalMovesWhite.contains("a3"));
-    assertTrue(legalMovesWhite.contains("b3"));
-    assertTrue(legalMovesWhite.contains("c3"));
-    assertTrue(legalMovesWhite.contains("d3"));
-    assertTrue(legalMovesWhite.contains("f3"));
-    assertTrue(legalMovesWhite.contains("g3"));
-    assertTrue(legalMovesWhite.contains("h3"));
-    assertTrue(legalMovesWhite.contains("d2"));
-    assertTrue(legalMovesWhite.contains("c1"));
-    assertTrue(legalMovesWhite.contains("f2"));
-    assertTrue(legalMovesWhite.contains("g1"));
+    assertTrue(legalMovesWhite.contains("f5"));
     assertTrue(legalMovesWhite.contains("f4"));
-    assertTrue(legalMovesWhite.contains("g5"));
-    assertTrue(legalMovesWhite.contains("h6"));
+    assertTrue(legalMovesWhite.contains("f3"));
+    assertTrue(legalMovesWhite.contains("e3"));
+    assertTrue(legalMovesWhite.contains("d3"));
     assertTrue(legalMovesWhite.contains("d4"));
-    assertTrue(legalMovesWhite.contains("c5"));
-    assertTrue(legalMovesWhite.contains("b6"));
-    assertTrue(legalMovesWhite.contains("a7"));
+    
+    ArrayList<String> legalMovesBlack = blackPortal.legalMoves();
+
+    assertEquals(5,legalMovesBlack.size());
+    assertTrue(legalMovesBlack.contains("g6"));
+    assertTrue(legalMovesBlack.contains("h6"));
+    assertTrue(legalMovesBlack.contains("g5"));
+    assertTrue(legalMovesBlack.contains("g4"));
+    assertTrue(legalMovesBlack.contains("h4"));    
   }
   
   //@Test
@@ -57,48 +51,54 @@ class PortalTest {
     Portal blackPortal = new Portal(testBoard, ChessPiece.Color.BLACK);
     Portal whitePortal = new Portal(testBoard, ChessPiece.Color.BLACK);
     
-    Queen blackQueen = new Queen(testBoard, ChessPiece.Color.BLACK);
     Pawn blackPawn1  = new Pawn(testBoard, ChessPiece.Color.BLACK);
     Pawn blackPawn2  = new Pawn(testBoard, ChessPiece.Color.BLACK);
     Pawn blackPawn3  = new Pawn(testBoard, ChessPiece.Color.BLACK);
     Pawn blackPawn4  = new Pawn(testBoard, ChessPiece.Color.BLACK);
     Pawn blackPawn5  = new Pawn(testBoard, ChessPiece.Color.BLACK);
-    Queen whiteQueen = new Queen(testBoard, ChessPiece.Color.WHITE);
     Pawn whitePawn1  = new Pawn(testBoard, ChessPiece.Color.WHITE);
     Pawn whitePawn2  = new Pawn(testBoard, ChessPiece.Color.WHITE);
     Pawn whitePawn3  = new Pawn(testBoard, ChessPiece.Color.WHITE);
     Pawn whitePawn4  = new Pawn(testBoard, ChessPiece.Color.WHITE);
     Pawn whitePawn5  = new Pawn(testBoard, ChessPiece.Color.WHITE);
         
-    testBoard.placePiece(blackPortal, "e4");
+    testBoard.placePiece(blackPortal, "e5");
     testBoard.placePiece(whitePortal, "e4");
     
-    testBoard.placePiece(blackQueen, "e4");
-    testBoard.placePiece(blackPawn1, "d4");
-    testBoard.placePiece(blackPawn2, "d5");
-    testBoard.placePiece(blackPawn3, "e5");
-    testBoard.placePiece(blackPawn4, "f5");
-    testBoard.placePiece(blackPawn5, "f4");
-    testBoard.placePiece(whiteQueen, "e3");
-    testBoard.placePiece(whitePawn1, "d3");
-    testBoard.placePiece(whitePawn2, "d2");
-    testBoard.placePiece(whitePawn3, "e2");
-    testBoard.placePiece(whitePawn4, "f2");
-    testBoard.placePiece(whitePawn5, "f3");
-
-    ArrayList<String> legalMovesBlack = blackQueen.legalMoves();
-
-    assertEquals(3,legalMovesBlack.size());
-    assertTrue(legalMovesBlack.contains("d3"));
-    assertTrue(legalMovesBlack.contains("e3"));
-    assertTrue(legalMovesBlack.contains("f3"));
+    testBoard.placePiece(blackPawn1, "d5");
+    testBoard.placePiece(blackPawn2, "d6");
+    testBoard.placePiece(blackPawn3, "e6");
+    testBoard.placePiece(blackPawn4, "f6");
+    testBoard.placePiece(blackPawn5, "f5");
     
-    ArrayList<String> legalMovesWhite = whiteQueen.legalMoves();
+    testBoard.placePiece(whitePawn1, "d4");
+    testBoard.placePiece(whitePawn2, "d3");
+    testBoard.placePiece(whitePawn3, "e3");
+    testBoard.placePiece(whitePawn4, "f3");
+    testBoard.placePiece(whitePawn5, "f4");
 
-    assertEquals(3,legalMovesWhite.size());
-    assertTrue(legalMovesWhite.contains("d4"));
-    assertTrue(legalMovesWhite.contains("e4"));
+    ArrayList<String> legalMovesBlack = blackPortal.legalMoves();
+
+    assertEquals(7,legalMovesBlack.size());
+    assertTrue(legalMovesBlack.contains("d6"));
+    assertTrue(legalMovesBlack.contains("e6"));
+    assertTrue(legalMovesBlack.contains("f6"));
+    assertTrue(legalMovesBlack.contains("f5"));
+    assertTrue(legalMovesBlack.contains("f4"));
+    assertTrue(legalMovesBlack.contains("d4"));
+    assertTrue(legalMovesBlack.contains("d5"));
+    
+    
+    ArrayList<String> legalMovesWhite = whitePortal.legalMoves();
+
+    assertEquals(7,legalMovesWhite.size());
+    assertTrue(legalMovesWhite.contains("d5"));
+    assertTrue(legalMovesWhite.contains("f5"));
     assertTrue(legalMovesWhite.contains("f4"));
+    assertTrue(legalMovesWhite.contains("f3"));
+    assertTrue(legalMovesWhite.contains("e3"));
+    assertTrue(legalMovesWhite.contains("d3"));
+    assertTrue(legalMovesWhite.contains("d4"));
   }
   
   @Test

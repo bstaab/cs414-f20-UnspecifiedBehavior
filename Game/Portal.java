@@ -33,50 +33,45 @@ public class Portal extends ChessPiece {
 			newRow = row - 1;
 			move = "" + col + newRow;
 			while(onBoard(move)) {
-				if(board.getPiece(move) == null) {
+				if(!(board.getPiece(move) instanceof Portal)) {
 					moves.add(move);
-				} else {
-					if(color != board.getPiece(move).color) {
-						moves.add(move);
-					} 
-					break;
 				}
+				
 				newRow -= 1;
 				move = "" + col + newRow;
+				
+				// restrict to one move for
+				break;
 			}
 						
 			// Move up
 			newRow = row + 1;
 			move = "" + col + newRow;
 			while(onBoard(move)) {	
-				if(board.getPiece(move) == null)
-				{
+				if(!(board.getPiece(move) instanceof Portal)) {
 					moves.add(move);
-				} else {
-					if(color != board.getPiece(move).color)	{
-						moves.add(move);
-					} 					
-					break;
 				}
+				
 				newRow += 1;
 				move = "" + col + newRow;
+				
+				// restrict to one move for
+				break;
 			}
 			
 			// Move left
 			newCol	 = (char) (col - 1);
 			move = "" + newCol + row;
 			while(onBoard(move)) {
-				if(board.getPiece(move) == null)
-				{
+				if(!(board.getPiece(move) instanceof Portal)) {
 					moves.add(move);
-				} else {
-					if(color != board.getPiece(move).color)	{
-						moves.add(move);
-					} 					
-					break;
 				}
+				
 				newCol -= 1;
 				move = "" + newCol + row;
+				
+				// restrict to one move for
+				break;
 			}
 			
 			// Move right
@@ -84,17 +79,15 @@ public class Portal extends ChessPiece {
 			newCol = (char) (col + 1);
 			move = "" + newCol + row;
 			while(onBoard(move)) {
-				if(board.getPiece(move) == null)
-				{
+				if(!(board.getPiece(move) instanceof Portal)) {
 					moves.add(move);
-				} else {
-					if(color != board.getPiece(move).color)	{
-						moves.add(move);
-					} 					
-					break;
 				}
+				
 				newCol += 1;
 				move = "" + newCol + row;
+				
+				// restrict to one move for
+				break;
 			}
 			
 			// Move lower-left
@@ -103,18 +96,16 @@ public class Portal extends ChessPiece {
 			newRow = row - 1;
 			move = "" + newCol + newRow;
 			while(onBoard(move)) {
-				if(board.getPiece(move) == null)
-				{
+				if(!(board.getPiece(move) instanceof Portal)) {
 					moves.add(move);
-				} else {
-					if(color != board.getPiece(move).color)	{
-						moves.add(move);
-					} 					
-					break;
 				}
+				
 				newCol -= 1;
 				newRow -= 1;
 				move = "" + newCol + newRow;
+				
+				// restrict to one move for
+				break;
 			}
 			
 			// Move lower-right
@@ -123,18 +114,16 @@ public class Portal extends ChessPiece {
 			newRow = row - 1;
 			move = "" + newCol + newRow;
 			while(onBoard(move)) {
-				if(board.getPiece(move) == null)
-				{
+				if(!(board.getPiece(move) instanceof Portal)) {
 					moves.add(move);
-				} else {
-					if(color != board.getPiece(move).color)	{
-						moves.add(move);
-					} 					
-					break;
 				}
+				
 				newCol += 1;
 				newRow -= 1;
 				move = "" + newCol + newRow;
+				
+				// restrict to one move for
+				break;
 			}
 			
 			// Move upper-right
@@ -143,18 +132,16 @@ public class Portal extends ChessPiece {
 			newRow = row + 1;
 			move = "" + newCol + newRow;
 			while(onBoard(move)) {
-				if(board.getPiece(move) == null)
-				{
+				if(!(board.getPiece(move) instanceof Portal)) {
 					moves.add(move);
-				} else {
-					if(color != board.getPiece(move).color)	{
-						moves.add(move);
-					} 					
-					break;
 				}
+				
 				newCol += 1;
 				newRow += 1;
 				move = "" + newCol + newRow;
+				
+				// restrict to one move for
+				break;
 			}
 			
 			// Move upper-left
@@ -163,18 +150,16 @@ public class Portal extends ChessPiece {
 			newRow = row + 1;
 			move = "" + newCol + newRow;
 			while(onBoard(move)) {
-				if(board.getPiece(move) == null)
-				{
+				if(!(board.getPiece(move) instanceof Portal)) {
 					moves.add(move);
-				} else {
-					if(color != board.getPiece(move).color)	{
-						moves.add(move);
-					} 					
-					break;
 				}
+				
 				newCol -= 1;
 				newRow += 1;
 				move = "" + newCol + newRow;
+				
+				// restrict to one move for
+				break;
 			}
 			
 		}catch(IllegalPositionException e) {
