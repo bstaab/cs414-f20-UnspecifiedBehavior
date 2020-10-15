@@ -42,13 +42,10 @@ public class Bishop extends ChessPiece {
 				if(board.getPiece(move) == null ) {
 					moves.add(move);
 				} else  {
-					if(color == board.getPiece(move).color) {
-						break;
-					}
 					if(color != board.getPiece(move).color)	{
 						moves.add(move);
-						break;
 					}	
+					break;
 				}
 			}
 			
@@ -67,13 +64,10 @@ public class Bishop extends ChessPiece {
 				{
 					moves.add(move);
 				} else {
-					if(color == board.getPiece(move).color)	{
-						break;
-					}
 					if(color != board.getPiece(move).color) {
 						moves.add(move);
-						break;
 					}
+					break;
 				}
 			}
 
@@ -92,12 +86,10 @@ public class Bishop extends ChessPiece {
 				if(board.getPiece(move) == null ) {
 					moves.add(move);
 				} else {
-					if(color == board.getPiece(move).color) {
-						break;
-					} else  {
+					if(color != board.getPiece(move).color) {
 						moves.add(move);
-						break;
-					}	
+					}
+					break;
 				}
 			}
 			
@@ -115,13 +107,10 @@ public class Bishop extends ChessPiece {
 				if(board.getPiece(move) == null ) {
 					moves.add(move);
 				} else {
-					if(color == board.getPiece(move).color) {
-						break;
-					}
 					if(color != board.getPiece(move).color) {
 						moves.add(move);
-						break;
 					}	
+					break;
 				}
 			}
 						

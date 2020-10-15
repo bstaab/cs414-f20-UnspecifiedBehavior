@@ -25,6 +25,7 @@ public class ChessBoard {
 		ChessPiece whitePawn6   = new Pawn(this,   ChessPiece.Color.WHITE);
 		ChessPiece whitePawn7   = new Pawn(this,   ChessPiece.Color.WHITE);
 		ChessPiece whitePawn8   = new Pawn(this,   ChessPiece.Color.WHITE);
+		ChessPiece whitePortal	= new Portal(this, ChessPiece.Color.WHITE);
 		
 		ChessPiece blackRook1   = new Rook  (this, ChessPiece.Color.BLACK);
 		ChessPiece blackKnight1 = new Knight(this, ChessPiece.Color.BLACK);

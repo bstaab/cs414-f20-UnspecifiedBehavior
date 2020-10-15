@@ -33,7 +33,9 @@ public class King extends ChessPiece {
 			for (int i = row - 1 ; i <= row + 1; ++i) {
 				move = "" + newColumn + i;
 				if(onBoard(move) && board.getPiece(move) == null || this.color != board.getPiece(move).color) {
-					moves.add(move);
+					if (!willBeAttacked(position, move)) {
+						moves.add(move);
+					}
 				}
 			}
 			
@@ -42,20 +44,26 @@ public class King extends ChessPiece {
 			for (int i = row - 1 ; i <= row + 1; ++i) {
 				move = "" + newColumn + i;
 				if(onBoard(move) && board.getPiece(move) == null || this.color != board.getPiece(move).color) {
-					moves.add(move);
+					if (!willBeAttacked(position, move)) {
+						moves.add(move);
+					} 
 				}
 			}
 						
 			// Check up
 			move = "" + col + (row + 1);
 			if(onBoard(move) && board.getPiece(move) == null || this.color != board.getPiece(move).color ) {
-				moves.add(move);
+				if (!willBeAttacked(position, move)) {
+					moves.add(move);
+				}
 			}
 			
 			// Check down
 			move = "" + col + (row - 1);
 			if(onBoard(move) && board.getPiece(move) == null || this.color != board.getPiece(move).color) {
-				moves.add(move);
+				if (!willBeAttacked(position, move)) {
+					moves.add(move);
+				}
 			}
 		
 		} catch (IllegalPositionException e) 
@@ -81,6 +89,361 @@ public class King extends ChessPiece {
 				}
 			}
 		}
+		return false;
+	}
+	
+	// Function to see if the king will be attacked by an enemy piece
+	// at the new location
+	private boolean willBeAttacked(String currentPosition, String newPosition) {
+		char col = newPosition.charAt(0);
+		int row = Integer.valueOf(newPosition.charAt(1) + "");
+		
+		char newCol;
+		int  newRow;
+		String move;
+		Color attackColor = (this.color == Color.WHITE) ? Color.BLACK : Color.WHITE;
+		int count;
+		ChessPiece piece;
+					
+		// Check left
+		newCol = (char) (col - 1);
+		move = "" + newCol + row;
+		count = 1;
+		while(onBoard(move)) {
+			try {
+				if (!move.equals(currentPosition)) {
+					piece = board.getPiece(move);
+					if(piece != null) {
+						if (piece.color == attackColor) {
+	 						if (piece instanceof Rook || piece instanceof Queen ||
+	 							(count == 1 && piece instanceof King)) {
+	 							return true;
+	 						}
+						}
+						break;
+					}
+				}
+			} catch (IllegalPositionException e) {
+
+			}
+			
+			count += 1;
+			newCol = (char) (newCol - 1);
+			move = "" + newCol + row;
+		}
+		
+		// Check right
+		newCol = (char) (col + 1);
+		move = "" + newCol + row;
+		count = 1;
+		while(onBoard(move)) {
+			try {
+				if (!move.equals(currentPosition)) {
+					piece = board.getPiece(move);
+					if(piece != null) {
+						if (piece.color == attackColor) {
+							if (piece instanceof Rook || piece instanceof Queen ||
+								(count == 1 && piece instanceof King)) {
+								return true;
+							}
+						}
+						break;
+					}
+				}
+			} catch (IllegalPositionException e) {
+
+			}
+			
+			count += 1;	
+			newCol = (char) (newCol + 1);
+			move = "" + newCol + row;
+		}
+		
+		// Check up
+		newRow = row + 1;
+		move = "" + col + newRow;
+		count = 1;
+		while(onBoard(move)) {
+			try {
+				if (!move.equals(currentPosition)) {
+					piece = board.getPiece(move);
+					if(piece != null) {
+						if (piece.color == attackColor) {
+							if (piece instanceof Rook || piece instanceof Queen) {
+								return true;
+							}
+							if (count == 1 && piece instanceof King) {
+									return true;
+							}
+							if (count <= 2 && attackColor == Color.BLACK && piece instanceof Pawn) {
+								return true;
+							}
+						}
+						break;
+					}
+				}
+			} catch (IllegalPositionException e) {
+				
+			}
+			
+			count += 1;	
+			newRow += 1;
+			move = "" + col + newRow;
+		}
+		
+		// Check down
+		newRow = row - 1;
+		move = "" + col + newRow;
+		count = 1;
+		while(onBoard(move)) {
+			try {
+				if (!move.equals(currentPosition)) {
+					piece = board.getPiece(move);
+					if(piece != null) {
+						if (piece.color == attackColor) {
+							if (piece instanceof Rook || piece instanceof Queen) {
+								return true;
+							}
+							if (count == 1 && piece instanceof King) {
+									return true;
+							}
+							if (count <= 2 && attackColor == Color.WHITE && piece instanceof Pawn) {
+								return true;
+							}
+						}
+						break;
+					}
+				}
+			} catch (IllegalPositionException e) {
+			
+			}
+			
+			count += 1;	
+			newRow -= 1;
+			move = "" + col + newRow;
+		}
+			
+		// Check diagonals lower left 
+		newRow = row - 1;
+		newCol = (char) (col - 1);
+		move = "" + newCol + newRow;
+		count = 1;
+		while(onBoard(move)) {
+			try {
+				if (!move.equals(currentPosition)) {
+					piece = board.getPiece(move);
+					if(piece != null) {
+						if (piece.color == attackColor) {
+							if (piece instanceof Bishop || piece instanceof Queen) {
+								return true;
+							}
+							if (count == 1 && piece instanceof King) {
+									return true;
+							}
+							if (count == 1 && attackColor == Color.WHITE && piece instanceof Pawn) {
+								return true;
+							}
+						}
+						break;
+					}
+				}
+			} catch (IllegalPositionException e) {
+				
+			}
+			
+			count += 1;
+			newRow -= 1;
+			newCol = (char) (newCol - 1);
+			move = "" + newCol + newRow;
+		}
+			
+		// Check diagonals lower right 
+		newRow = row - 1;
+		newCol = (char) (col + 1);
+		move = "" + newCol + newRow;
+		count = 1;
+		while(onBoard(move)) {
+			try {
+				if (!move.equals(currentPosition)) {
+					piece = board.getPiece(move);
+					if(piece != null) {
+						if (piece.color == attackColor) {
+							if (piece instanceof Bishop || piece instanceof Queen) {
+								return true;
+							}
+							if (count == 1 && piece instanceof King) {
+									return true;
+							}
+							if (count == 1 && attackColor == Color.WHITE && piece instanceof Pawn) {
+								return true;
+							}
+						}
+						break;
+					}
+				}
+			} catch (IllegalPositionException e) {
+				
+			}
+			
+			count += 1;
+			newRow -= 1;
+			newCol = (char) (newCol + 1);
+			move = "" + newCol + newRow;
+		}
+		
+		// Check diagonals upper right 
+		newRow = row + 1;
+		newCol = (char) (col + 1);
+		move = "" + newCol + newRow;
+		count = 1;
+		while(onBoard(move)) {
+			try {
+				if (!move.equals(currentPosition)) {
+					piece = board.getPiece(move);
+					if(piece != null) {
+						if (piece.color == attackColor) {
+							if (piece instanceof Bishop || piece instanceof Queen) {
+								return true;
+							}
+							if (count == 1 && piece instanceof King) {
+									return true;
+							}
+							if (count == 1 && attackColor == Color.BLACK && piece instanceof Pawn) {
+								return true;
+							}
+						}
+						break;
+					}
+				}
+			} catch (IllegalPositionException e) {
+				
+			}
+			
+			count += 1;
+			newRow += 1;
+			newCol = (char) (newCol + 1);
+			move = "" + newCol + newRow;
+		}
+			
+		// Check diagonals upper left 
+		newRow = row + 1;
+		newCol = (char) (col - 1);
+		move = "" + newCol + newRow;
+		count = 1;
+		while(onBoard(move)) {
+			try {
+				if (!move.equals(currentPosition)) {
+					piece = board.getPiece(move);
+					if(piece != null) {
+						if (piece.color == attackColor) {
+							if (piece instanceof Bishop || piece instanceof Queen) {
+								return true;
+							}
+							if (count == 1 && piece instanceof King) {
+									return true;
+							}
+							if (count == 1 && attackColor == Color.BLACK && piece instanceof Pawn) {
+								return true;
+							}
+						}
+						break;
+					}
+				}
+			} catch (IllegalPositionException e) {
+				
+			}
+			
+			count += 1;
+			newRow += 1;
+			newCol = (char) (newCol - 1);
+			move = "" + newCol + newRow;
+		}	
+		
+		// Check for knights
+		try {
+			move = "" + (char) (col - 2) + (row + 1);
+			if (!move.equals(currentPosition)) {
+				if (onBoard(move)) {
+					piece = board.getPiece(move);
+					if (piece != null && piece.color == attackColor && piece instanceof Knight) {
+						return true;
+					}
+				}
+			}
+			
+			move = "" + (char) (col - 2) + (row - 1);
+			if (!move.equals(currentPosition)) {
+				if (onBoard(move)) {
+					piece = board.getPiece(move);
+					if (piece != null && piece.color == attackColor && piece instanceof Knight) {
+							return true;
+					}
+				}
+			}
+			
+			move = "" + (char) (col - 1) + (row - 2);
+			if (!move.equals(currentPosition)) {
+				if (onBoard(move)) {
+					piece = board.getPiece(move);
+					if (piece != null && piece.color == attackColor && piece instanceof Knight) {
+							return true;
+					}
+				}
+			}
+			
+			move = "" + (char) (col - 1) + (row + 2);
+			if (!move.equals(currentPosition)) {
+				if (onBoard(move)) {
+					piece = board.getPiece(move);
+					if (piece != null && piece.color == attackColor && piece instanceof Knight) {
+							return true;
+					}
+				}
+			}
+			
+			move = "" + (char) (col + 1) + (row + 2);
+			if (!move.equals(currentPosition)) {
+				if (onBoard(move)) {
+					piece = board.getPiece(move);
+					if (piece != null && piece.color == attackColor && piece instanceof Knight) {
+							return true;
+					}
+				}
+			}
+			
+			move = "" + (char) (col + 1) + (row - 2);
+			if (!move.equals(currentPosition)) {
+				if (onBoard(move)) {
+					piece = board.getPiece(move);
+					if (piece != null && piece.color == attackColor && piece instanceof Knight) {
+							return true;
+					}
+				}
+			}
+			
+			move = "" + (char) (col + 2) + (row - 1);
+			if (!move.equals(currentPosition)) {
+				if (onBoard(move)) {
+					piece = board.getPiece(move);
+					if (piece != null && piece.color == attackColor && piece instanceof Knight) {
+							return true;
+					}
+				}
+			}
+			
+			move = "" + (char) (col + 2) + (row + 1);
+			if (!move.equals(currentPosition)) {
+				if (onBoard(move)) {
+					piece = board.getPiece(move);
+					if (piece != null && piece.color == attackColor && piece instanceof Knight) {
+							return true;
+					}
+				}
+			}
+		} catch (IllegalPositionException e) {
+				
+		}
+		
 		return false;
 	}
 }
