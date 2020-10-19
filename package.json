@@ -26,6 +26,7 @@
   "dependencies": {
     "bulma": "^0.9.0",
     "components": "^0.1.0",
+    "history": "^5.0.0",
     "index.js": "0.0.3",
     "parcel": "^1.12.4",
     "parcel-bundler": "^1.12.4",

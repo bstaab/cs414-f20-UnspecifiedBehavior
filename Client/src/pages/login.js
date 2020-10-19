@@ -4,11 +4,12 @@ import '../components/css/login.css';
 
 
 export default class Login extends Component {
+
     constructor(props) {
         super(props);
 
-        this.renderLogin.bind(this);
-        this.renderWelcome.bind(this);
+        this.renderLogin = this.renderLogin.bind(this);
+        this.renderWelcome = this.renderWelcome.bind(this);
     }
 
     render() {
@@ -45,19 +46,21 @@ export default class Login extends Component {
                             <Input type='password' name='password' />
                         </FormGroup>
                     </Col>
-                    <Button className='submit'>Submit</Button>
+                    <Button className='submit' onClick={event => window.location.href='home'}>Submit</Button>
                 </Container>
                 <Container className='sign-up'>
                     <Row>
                         <p>Not a registered user?</p>
-                        <Button>Sign up</Button>
+                        <Button onClick={event => window.location.href='register'}>Sign up</Button>
                     </Row>
                 </Container>
             </div>
-
         )
     }
 
-
-
 }
+
+
+
+
+
