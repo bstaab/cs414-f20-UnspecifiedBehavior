@@ -64,12 +64,12 @@ export default class Register extends Component {
                             <Input type='password' name='password' />
                         </FormGroup>
                     </Col>
-                    <Button className='submit'>Register</Button>
+                    <Button className='submit'  onClick={event => window.location.href='home'}>Register</Button>
                 </Container>
                 <Container className='sign-up'>
                     <Row>
                         <p>Already registered?</p>
-                        <Button>Login</Button>
+                        <Button  onClick={event => window.location.href='/'}>Login</Button>
                     </Row>
                 </Container>
             </div>
