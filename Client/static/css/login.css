@@ -1,31 +1,17 @@
-.center {
-    text-align: left;
-    padding: 1em;
-    border: 2px solid #d3d3d3;
-    border-radius: .5em;
-    vertical-align: middle;
-    width: 600px;
-    margin: 100px auto 1em;
-}
+.background-image {
+    background-image: url("../images/randy-fath-G1yhU1Ej-9A-unsplash.jpg");
+    position: fixed;
 
-.form {
-    padding: 1em;
-}
+    left: 0;
+    right: 0;
+    z-index: -1;
 
-label {
-    display: flex;
-    font-weight: 600;
-}
+    filter: blur(5px);
 
-.submit {
-    justify-content: flex-end;
-}
+    display: block;
+    height: 100vh;
 
-.sign-up {
-    display: grid;
-    place-items: center;
-}
-
-p {
-    padding-right: 15px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
