@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import Navigation from "../components/Navigation";
+import Navigation from "./Navigation";
 import Background from "../static/images/homeBackground.jpg";
 //import Container from "@material-ui/core/Container";
 import {
@@ -88,7 +88,7 @@ export default class Home extends Component {
     renderMenu() {
         return (
             <div>
-                <Container style={{backgroundColor: 'rgba(192,192,0.3)', width: '42%', height: '600px'}}>
+                <Container style={{backgroundColor: 'rgba(192,192,192, 0.3)', width: '42%', height: '600px', marginLeft: '0'}}>
                     <br />
                     <Button color='primary' block>Create A Game</Button>
                     <br />

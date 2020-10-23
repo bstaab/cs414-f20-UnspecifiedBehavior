@@ -31,7 +31,7 @@ const LoginLayout = props =>
                                 {
                                     location.pathname === "/" ?
                                         <div style={{width: "100%", position: "absolute", bottom: "30px", textAlign: "center"}}>
-                                            <Link onClick={() => history.push("/home")}>
+                                            <Link onClick={() => history.push("/register")}>
                                                 Not Registered? Sign Up Here!
                                             </Link>
                                         </div> : null
