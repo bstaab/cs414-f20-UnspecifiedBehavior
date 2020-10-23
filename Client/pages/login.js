@@ -1,54 +1,95 @@
-import React, {Component} from 'react';
+import React, {Component, useState} from 'react';
 import {FormGroup, Label, Input, Col, Button, Container, Row} from "reactstrap";
 import '../static/css/login.css';
 import {useHistory} from "react-router";
+import {Grid, InputAdornment, TextField, Typography} from "@material-ui/core";
+import PersonIcon from '@material-ui/icons/Person';
+import LockIcon from '@material-ui/icons/Lock';
 
 const renderLogin = () => {
 
     const history = useHistory();
+    const [username, setUsername] = useState("");
+    const [password, setPassword] = useState("");
 
     return (
-        <div >
-            <Container className='center'>
-                <h2>Sign In</h2>
-                <Col>
-                    <FormGroup className='form'>
-                        <Label>Email</Label>
-                        <Input type='email' name='email'/>
-                    </FormGroup>
-                </Col>
-                <Col>
-                    <FormGroup className='form'>
-                        <Label>Password</Label>
-                        <Input type='password' name='password' />
-                    </FormGroup>
-                </Col>
-                <Button className='submit' onClick={() => history.push('home')}>Submit</Button>
-            </Container>
-            <Container className='sign-up'>
-                <Row>
-                    <p>Not a registered user?</p>
-                    <Button onClick={() => history.push('register')}>Sign up</Button>
-                </Row>
-            </Container>
-            <Button onClick={() => history.push('board')}>Board</Button>
-        </div>
+        <Grid
+            container direction={"column"} justify={"center"} alignItems={"center"} alignContent={"center"}
+            spacing={8}
+        >
+            <Grid item>
+                <Typography variant={"h4"} align={"center"}>Welcome to Portal Chess</Typography>
+            </Grid>
+            <LoginFields
+                username={username} setUsername={setUsername}
+                password={password} setPassword={setPassword}
+                //login={login} {...props}
+            />
+            <Grid item container justify={"center"} alignItems={"center"} alignContent={"center"}>
+                <Grid item style={{width: "80%"}} align={"center"}>
+                    <Button
+                        color={"primary"} variant={"contained"} style={{width: "80%", height: "50px"}}
+                        onClick={() => history.push('home') }
+                    >
+                        Login
+                    </Button>
+                </Grid>
+            </Grid>
+        </Grid>
     )
 }
 
-function renderWelcome() {
-    return (
-        <div >
-            <h1 className='text-center'>Welcome to Portal Chess</h1>
-        </div>
-    )
+const LoginFields = props => {
+     return(
+        <Grid
+            item container direction={"column"} justify={"center"} alignItems={"center"} alignContent={"center"}
+            spacing={3} style={{width: '90%'}}
+        >
+            <Grid item style={{width: '100%'}}>
+                <TextField
+                    fullWidth color={"primary"} variant={"outlined"}
+                    autoComplete={"username"}
+                    label={"Username"} value={props.username} onChange={(e) => props.setUsername(e.target.value)}
+                    onKeyDown={(e) =>
+                    {
+                        if(e.keyCode === 13) props.login();
+                    }}
+                    InputProps={{
+                        startAdornment: (
+                            <InputAdornment position="start">
+                                <PersonIcon />
+                            </InputAdornment>
+                        ),
+                    }}
+                />
+            </Grid>
+            <Grid item style={{width: '100%'}}>
+                <TextField
+                    fullWidth color={"primary"} variant={"outlined"}
+                    type={"password"} autoComplete={"current-password"}
+                    label={"Password"} value={props.password} onChange={(e) => props.setPassword(e.target.value)}
+                    onKeyDown={(e) =>
+                    {
+                        if(e.keyCode === 13) props.login();
+                    }}
+                    InputProps={{
+                        startAdornment: (
+                            <InputAdornment position="start">
+                                <LockIcon />
+                            </InputAdornment>
+                        ),
+                    }}
+                />
+            </Grid>
+        </Grid>
+    );
 }
+
 
 function Login() {
 
     return (
         <div>
-            {renderWelcome()}
             {renderLogin()}
         </div>
     )

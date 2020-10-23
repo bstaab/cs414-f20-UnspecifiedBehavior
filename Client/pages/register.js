@@ -1,64 +1,122 @@
-import React, {Component} from 'react';
-import {FormGroup, Label, Input, Col, Button, Container, Row} from "reactstrap";
+import React, {useState} from 'react';
+import {Button} from "reactstrap";
 import '../static/css/login.css';
+import {Grid, Typography, TextField, InputAdornment} from "@material-ui/core";
+import {useHistory} from "react-router";
+
+import PersonIcon from "@material-ui/icons/Person";
+import LockIcon from "@material-ui/icons/Lock";
+import MailIcon from '@material-ui/icons/Mail';
+
 
 
     function Register()  {
         return (
             <div>
-                {renderWelcome()}
                 {renderRegister()}
             </div>
         )
     }
 
-    function renderWelcome() {
+    function renderRegister() {
+        const history = useHistory();
+
+        const [username, setUsername] = useState("");
+        const [password, setPassword] = useState("");
+        const [email, setEmail] = useState("");
+        const [phoneNumber, setPhoneNumber] = useState("");
+
         return (
-            <div >
-                <h1 className='text-center'>Welcome to Portal Chess</h1>
-            </div>
+            <Grid
+                container direction={"column"} justify={"center"} alignItems={"center"} alignContent={"center"}
+                spacing={8}
+            >
+                <Grid item>
+                    <Typography variant={"h4"} align={"center"}>Welcome to Portal Chess</Typography>
+                </Grid>
+                <LoginFields
+                    username={username} setUsername={setUsername}
+                    password={password} setPassword={setPassword}
+                    email={email} setEmail={setEmail}
+                    phoneNumber={phoneNumber} setPhoneNumber={setPhoneNumber}
+                    //createAccount={createAccount} {...props}
+                />
+                <Grid item container justify={"center"} alignItems={"center"} alignContent={"center"}>
+                    <Grid item style={{width: "80%"}} align={"center"}>
+                        <Button
+                            color={"primary"} variant={"contained"} style={{width: "80%", height: "50px"}}
+                            //disabled={disabledAccountCreation} onClick={() => createAccount()}
+                            onClick={() =>{history.push('home')}}
+                        >
+                            Create Account
+                        </Button>
+                    </Grid>
+                </Grid>
+            </Grid>
+
         )
     }
 
-    function renderRegister() {
+    const LoginFields = props => {
         return (
-            <div >
-                <Container className='center'>
-                    <h2>Register</h2>
-                    <Col>
-                        <FormGroup className='form'>
-                            <Label>Email</Label>
-                            <Input type='email' name='email'/>
-                        </FormGroup>
-                    </Col>
-                    <Col>
-                        <FormGroup className='form'>
-                            <Label>Username</Label>
-                            <Input type='email' name='email'/>
-                        </FormGroup>
-                    </Col>
-                    <Col>
-                        <FormGroup className='form'>
-                            <Label>Password</Label>
-                            <Input type='password' name='password' />
-                        </FormGroup>
-                    </Col>
-                    <Col>
-                        <FormGroup className='form'>
-                            <Label>Confirm Password</Label>
-                            <Input type='password' name='password' />
-                        </FormGroup>
-                    </Col>
-                    <Button className='submit'  onClick={event => window.location.href='home'}>Register</Button>
-                </Container>
-                <Container className='sign-up'>
-                    <Row>
-                        <p>Already registered?</p>
-                        <Button  onClick={event => window.location.href='/'}>Login</Button>
-                    </Row>
-                </Container>
-            </div>
-
+            <Grid
+                item container direction={"column"} justify={"center"} alignItems={"center"} alignContent={"center"}
+                spacing={3} style={{width: '90%'}}
+            >
+                <Grid item style={{width: '100%'}}>
+                    <TextField
+                        fullWidth color={"primary"} variant={"outlined"}
+                        autoComplete={"username"} required
+                        label={"New Username"} value={props.username} onChange={(e) => props.setUsername(e.target.value)}
+                        onKeyDown={(e) =>
+                        {
+                            //if(e.keyCode === 13) props.createAccount();
+                        }}
+                        InputProps={{
+                            startAdornment: (
+                                <InputAdornment position="start">
+                                    <PersonIcon />
+                                </InputAdornment>
+                            ),
+                        }}
+                    />
+                </Grid>
+                <Grid item style={{width: '100%'}}>
+                    <TextField
+                        fullWidth color={"primary"} variant={"outlined"}
+                        type={"password"} autoComplete={"current-password"} required
+                        label={"New Password"} value={props.password} onChange={(e) => props.setPassword(e.target.value)}
+                        onKeyDown={(e) =>
+                        {
+                            //if(e.keyCode === 13) props.createAccount();
+                        }}
+                        InputProps={{
+                            startAdornment: (
+                                <InputAdornment position="start">
+                                    <LockIcon />
+                                </InputAdornment>
+                            ),
+                        }}
+                    />
+                </Grid>
+                <Grid item style={{width: '100%'}}>
+                    <TextField
+                        fullWidth color={"primary"} variant={"outlined"} required
+                        label={"Email"} value={props.email} onChange={(e) => props.setEmail(e.target.value)}
+                        onKeyDown={(e) =>
+                        {
+                            //if(e.keyCode === 13) props.createAccount();
+                        }}
+                        InputProps={{
+                            startAdornment: (
+                                <InputAdornment position="start">
+                                    <MailIcon />
+                                </InputAdornment>
+                            ),
+                        }}
+                    />
+                </Grid>
+            </Grid>
         )
     }
 
