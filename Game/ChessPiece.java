@@ -54,6 +54,25 @@ public abstract class ChessPiece {
 			return false;
 		}
 	}
+	
+	public boolean onBoard(String position) {
+		if (position.length() == 2  &&
+			Character.isLetter(position.charAt(0)) && 
+			Character.isDigit(position.charAt(1))) {
+			
+			char column = position.charAt(0);
+			int row = Integer.valueOf(position.charAt(1) + "");
+			if (row >= 1 && row <= 8) {
+				if(column >= 'a' && column <= 'h') {
+					if (position.length() == 2) {
+						return true;
+					}
+				}
+			}
+		}
+		return false;
+	}
+	
 	abstract public String toString();
 	abstract public ArrayList<String> legalMoves();
 	

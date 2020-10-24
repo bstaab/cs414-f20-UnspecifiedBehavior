@@ -74,24 +74,7 @@ public class King extends ChessPiece {
 		return moves;
 	}
 
-	private boolean onBoard(String position) {
-		if (position.length() == 2  &&
-			Character.isLetter(position.charAt(0)) && 
-			Character.isDigit(position.charAt(1))) {
-			
-			char column = position.charAt(0);
-			int row = Integer.valueOf(position.charAt(1) + "");
-			if (row >= 1 && row <= 8) {
-				if(column >= 'a' && column <= 'h') {
-					if (position.length() == 2) {
-						return true;
-					}
-				}
-			}
-		}
-		return false;
-	}
-	
+
 	// Function to see if the king will be attacked by an enemy piece
 	// at the new location
 	private boolean willBeAttacked(String currentPosition, String newPosition) {

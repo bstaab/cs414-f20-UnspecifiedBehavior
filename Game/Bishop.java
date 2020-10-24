@@ -33,12 +33,11 @@ public class Bishop extends ChessPiece {
 			while(true) {
 				row += 1;
 				col = (char) (col - 1);
-				
-				if(row > 8 || col < 'a') {
+				move ="" + col + row;
+				if (!onBoard(move)) {
 					break;
 				}
 				
-				move ="" + col + row;
 				if(board.getPiece(move) == null ) {
 					moves.add(move);
 				} else  {
@@ -55,11 +54,11 @@ public class Bishop extends ChessPiece {
 			while(true){
 				row += 1;
 				col = (char) (col + 1);
-				if(row > 8 || col > 'h') {
+				move ="" + col + row;
+				if (!onBoard(move)) {
 					break;
 				}
 				
-				move ="" + col + row;
 				if(board.getPiece(move) == null)
 				{
 					moves.add(move);
@@ -77,12 +76,11 @@ public class Bishop extends ChessPiece {
 			while(true) {
 				row -= 1;
 				col = (char) (col - 1);
-				
-				if(row < 1 || col < 'a') {
+				move ="" + col + row;
+				if (!onBoard(move)) {
 					break;
 				}
 				
-				move ="" + col + row;
 				if(board.getPiece(move) == null ) {
 					moves.add(move);
 				} else {
@@ -99,11 +97,11 @@ public class Bishop extends ChessPiece {
 			while(true) {
 				row -= 1;
 				col = (char) (col + 1);
-				if(row < 1 || col > 'h') {
+				move ="" + col + row;
+				if (!onBoard(move)) {
 					break;
 				}
-				 
-				move ="" + col + row;
+				
 				if(board.getPiece(move) == null ) {
 					moves.add(move);
 				} else {

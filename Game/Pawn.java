@@ -43,7 +43,7 @@ public class Pawn extends ChessPiece {
 				// Subsequent moves can only be one space
 				newRow = row - 1;
 				move = "" + col + newRow;
-				if(board.getPiece(move) == null) {
+				if(onBoard(move) && board.getPiece(move) == null) {
 					moves.add(move);
 				}
 				
@@ -52,7 +52,7 @@ public class Pawn extends ChessPiece {
 				newCol = col;
 				newCol -= 1;
 				move = "" + newCol + newRow;
-				if(board.getPiece(move) != null) {
+				if(onBoard(move) && board.getPiece(move) != null) {
 					if(!(position.equals("h")) && board.getPiece(move).color.equals(Color.WHITE) ) {
 						moves.add(move);
 					}
@@ -62,7 +62,7 @@ public class Pawn extends ChessPiece {
 				newCol = col;
 				newCol += 1;
 				move = "" + newCol + newRow;
-				if(board.getPiece(move) != null) {
+				if(onBoard(move) && board.getPiece(move) != null) {
 					if(position != "a" && board.getPiece(move).color.equals(Color.WHITE)) {
 						moves.add(move);
 					}
@@ -75,7 +75,7 @@ public class Pawn extends ChessPiece {
 				if(row == 2 ){
 					newRow = row + 2;
 					move = "" + col + newRow;
-					if(board.getPiece(move) == null) {
+					if(onBoard(move) && board.getPiece(move) == null) {
 						moves.add(move);
 					}
 				}
@@ -83,7 +83,7 @@ public class Pawn extends ChessPiece {
 				// Subsequent moves can only be one space
 				newRow = row + 1;
 				move = "" + col + newRow;
-				if(board.getPiece(move) == null) {
+				if(onBoard(move) && board.getPiece(move) == null) {
 					moves.add(move);
 				}
 
@@ -91,7 +91,7 @@ public class Pawn extends ChessPiece {
 				newCol = col;
 				newCol += 1;
 				move = "" + newCol + newRow;
-				if(board.getPiece(move) != null) {
+				if(onBoard(move) && board.getPiece(move) != null) {
 					if(position != "a" && board.getPiece(move).color.equals(Color.BLACK)) {
 						moves.add(move);
 					}
@@ -102,7 +102,7 @@ public class Pawn extends ChessPiece {
 				newCol = col;
 				newCol -= 1;
 				move = "" + newCol + newRow;
-				if(board.getPiece(move) != null) {
+				if(onBoard(move) && board.getPiece(move) != null) {
 					if(!(position.equals("h")) && board.getPiece(move).color.equals(Color.BLACK)) {
 						moves.add(move);
 					}
