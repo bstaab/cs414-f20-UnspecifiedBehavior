@@ -42,16 +42,25 @@ public class ChessBoardTest{
 		  assertEquals("\u265E", testBoard.getPiece("g8").toString());
 		  assertEquals("\u2658", testBoard.getPiece("b1").toString());
 		  assertEquals("\u2658", testBoard.getPiece("g1").toString());
-
+		  
+		  // Portal
+		  assertEquals("\u26AA", testBoard.getPiece("a4").toString());
+		  assertEquals("\u26AB", testBoard.getPiece("a5").toString());
+		  
 		  // Pawn and empty squares
 		  for(char i = 'a'; i <= 'h'; ++i) {
 			  assertEquals("\u265F", testBoard.getPiece(i + "7").toString());
 			  assertEquals("\u2659", testBoard.getPiece(i + "2").toString());
 			  			  
-			  assertEquals(null, testBoard.getPiece(i + "3"));
-			  assertEquals(null, testBoard.getPiece(i + "4"));
-			  assertEquals(null, testBoard.getPiece(i + "5"));
-			  assertEquals(null, testBoard.getPiece(i + "6"));
+			  if (i == 'a') {
+				  assertEquals(null, testBoard.getPiece(i + "3"));
+				  assertEquals(null, testBoard.getPiece(i + "6"));  
+			  } else {
+				  assertEquals(null, testBoard.getPiece(i + "3"));
+				  assertEquals(null, testBoard.getPiece(i + "4"));
+				  assertEquals(null, testBoard.getPiece(i + "5"));
+				  assertEquals(null, testBoard.getPiece(i + "6"));  
+			  }
 		  }
 
 	  } catch (IllegalPositionException e) {

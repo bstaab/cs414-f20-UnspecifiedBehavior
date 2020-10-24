@@ -40,7 +40,7 @@ public class Portal extends ChessPiece {
 				newRow -= 1;
 				move = "" + col + newRow;
 				
-				// restrict to one move for
+				// restrict to one move for now
 				break;
 			}
 						
