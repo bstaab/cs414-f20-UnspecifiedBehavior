@@ -3,9 +3,16 @@ package Game;
 public class ChessBoard {
 
 	private ChessPiece[][] board;
+	private String whitePortal;
+	private String blackPortal;
 	
 	public ChessBoard(){
 		this.board = new ChessPiece[8][8];
+		
+		// Track the portals separately because the chess board 
+		// can't track two pieces at the same location.
+		this.whitePortal = "";
+		this.blackPortal = "";
 	}
 
 	public void initialize() {
@@ -25,7 +32,6 @@ public class ChessBoard {
 		ChessPiece whitePawn6   = new Pawn(this,   ChessPiece.Color.WHITE);
 		ChessPiece whitePawn7   = new Pawn(this,   ChessPiece.Color.WHITE);
 		ChessPiece whitePawn8   = new Pawn(this,   ChessPiece.Color.WHITE);
-		ChessPiece whitePortal	= new Portal(this, ChessPiece.Color.WHITE);
 		
 		ChessPiece blackRook1   = new Rook  (this, ChessPiece.Color.BLACK);
 		ChessPiece blackKnight1 = new Knight(this, ChessPiece.Color.BLACK);
@@ -59,7 +65,7 @@ public class ChessBoard {
 		placePiece(whitePawn5, 	"e2");
 		placePiece(whitePawn6, 	"f2");
 		placePiece(whitePawn7, 	"g2");
-		placePiece(whitePawn8, 	"h2");	
+		placePiece(whitePawn8, 	"h2");
 		
 		placePiece(blackRook1, 	"a8");
 		placePiece(blackKnight1,"b8");
@@ -78,6 +84,8 @@ public class ChessBoard {
 		placePiece(blackPawn7, 	"g7");
 		placePiece(blackPawn8, 	"h7");
 		
+		this.whitePortal = "a4";
+		this.blackPortal = "a5";
 	}
 
 	private boolean onBoard(String position) {
@@ -100,7 +108,6 @@ public class ChessBoard {
 	
 	
 	public ChessPiece getPiece(String position) throws IllegalPositionException {
-
 		if(!onBoard(position)) {
 			throw new IllegalPositionException(position);
 		}
@@ -111,6 +118,25 @@ public class ChessBoard {
 		return this.board[row][column];
 	}
 	
+	public String getPortalLocation(ChessPiece.Color color) {
+		if (color == ChessPiece.Color.WHITE) {
+			return this.whitePortal;
+		} else {
+			return this.blackPortal;
+		}
+	}
+		
+	public boolean setPortalLocation(ChessPiece.Color color, String position) {
+		if (onBoard(position)) {
+			if (color == ChessPiece.Color.WHITE) {
+				whitePortal = position;
+			} else {
+				blackPortal = position;
+			}
+			return true;
+		}
+		return false;
+	}
 	
 	public boolean placePiece(ChessPiece piece, String position) {
 		try {
