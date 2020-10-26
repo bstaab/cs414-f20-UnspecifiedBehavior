@@ -30,13 +30,9 @@ public class King extends ChessPiece {
 		String move = "";
 		
 		ChessPiece piece;
-		int initialRow = 2;
-		int moveDir = 1;
 		Color attackColor = Color.BLACK;
 		if (color == Color.BLACK) {
-			initialRow = 7;
-			moveDir = -1;
-			attackColor = Color.WHITE;			
+		attackColor = Color.WHITE;			
 		}
 		
 		// Get location of portals

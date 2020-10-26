@@ -2,6 +2,8 @@ package Game;
 
 import java.util.ArrayList;
 
+import Game.ChessPiece.Color;
+
 public class Rook extends ChessPiece {
 
 	public Rook(ChessBoard board, Color color) {
@@ -22,91 +24,127 @@ public class Rook extends ChessPiece {
 
 		String position = getPosition();
 		int row = this.row + 1;
-		char col = position.charAt(0);
-		String move = "";
 		int newRow = row;
+		char col = position.charAt(0);
+		char newColumn;
+		String move = "";
+		
+		ChessPiece piece;
+		Color attackColor = Color.BLACK;
+		if (color == Color.BLACK) {
+		attackColor = Color.WHITE;			
+		}
+		
+		// Get location of portals
+		String whitePortalLocation = board.getPortalLocation(Color.WHITE);
+		String blackPortalLocation = board.getPortalLocation(Color.BLACK);
+		ChessPiece onWhitePortal = null;
+		ChessPiece onBlackPortal = null;
 		
 		try{
-			// Move down
-			newRow = row - 1;
-			move = "" + col + newRow;
-			while(onBoard(move)) {
-				if(board.getPiece(move) == null) {
-					moves.add(move);
-				} else {
-					if(color == board.getPiece(move).color) {
-						break;
-					} else {
-						moves.add(move);
-						break;
-					}
-				}
-				newRow -= 1;
-				move = "" + col + newRow;
+			// Get the piece on top of the portals
+			if (onBoard(whitePortalLocation)) {
+				onWhitePortal = board.getPiece(whitePortalLocation);
 			}
-						
-			// Move up
-			newRow = row + 1;
-			move = "" + col + newRow;
-			while(onBoard(move)) {	
-				if(board.getPiece(move) == null)
-				{
-					moves.add(move);
-				} else {
-					if(color == board.getPiece(move).color)	{
-						break;
-					} else {
-						moves.add(move);
-						break;
-					}
-				}
-				newRow += 1;
-				move = "" + col + newRow;
+			if (onBoard(blackPortalLocation)) {
+				onBlackPortal = board.getPiece(blackPortalLocation);
 			}
-			
-			// Move left
-			row = this.row + 1;
-			col	 = position.charAt(0);
-			while(true) {
-				col -= 1;
-				if(col == 'a' - 1) {
-					break;
+			// Move down and up
+			for(int moveDir = -1; moveDir <= 1; ++moveDir) {
+				if (moveDir == 0) {
+					continue;
 				}
-				
-				move = "" + col + row;
-				if (board.getPiece(move) == null ) {
-					moves.add(move);
-				}
-				
-				if (board.getPiece(move) != null )	{
-					if(color == board.getPiece(move).color) {
-						break;
-					} else {
+				row = this.row + 1;
+				newRow = row + moveDir;
+				col = position.charAt(0);
+				move = "" + col + newRow;
+				while(onBoard(move)) {
+					piece = board.getPiece(move);
+					if(piece == null) {
+						if (move.equals(whitePortalLocation)) {
+							if (onBlackPortal == null) {
+								moves.add(blackPortalLocation);
+							} else {
+								if (onBlackPortal.color == attackColor) {
+									moves.add(blackPortalLocation);
+								} else {
+									moves.add(move);
+								}
+								break;
+							} 
+						} else if (move.equals(blackPortalLocation)) {
+							if (onWhitePortal == null) {
+								moves.add(whitePortalLocation);
+							} else {
+								if (onWhitePortal.color == attackColor) {
+									moves.add(whitePortalLocation);
+								} else {
+									moves.add(move);
+								}
+								break;
+							}
+						} else {
+							moves.add(move);
+						}
+					} else if (piece.color == attackColor){
 						moves.add(move);
 						break;
 					}
+					
+					move = moves.get(moves.size() - 1);
+	 				col = move.charAt(0);
+	 				newRow = move.charAt(1) - '0' + moveDir;
+	 				move = "" + col + newRow;
 				}
 			}
 			
-			// Move right
+			// Move down and up
 			row = this.row + 1;
-			col	 = position.charAt(0);
-			while(true) {
-				col += 1;
-				if(col > 'h') {
-					break;
+			for(int moveDir = -1; moveDir <= 1; ++moveDir) {
+				if (moveDir == 0) {
+					continue;
 				}
-				
-				move ="" + col + row;
-				if(board.getPiece(move) == null ) {
-					moves.add(move);
-				} else {
-					if(color == board.getPiece(move).color) {
-						break;
-					} else {
+				row = this.row + 1;
+				col = position.charAt(0);
+				newColumn = (char)(col + moveDir);
+				move = "" + newColumn + row;
+				while(onBoard(move)) {
+					piece = board.getPiece(move);
+					if(piece == null) {
+						if (move.equals(whitePortalLocation)) {
+							if (onBlackPortal == null) {
+								moves.add(blackPortalLocation);
+							} else {
+								if (onBlackPortal.color == attackColor) {
+									moves.add(blackPortalLocation);
+								} else {
+									moves.add(move);
+								}
+								break;
+							} 
+						} else if (move.equals(blackPortalLocation)) {
+							if (onWhitePortal == null) {
+								moves.add(whitePortalLocation);
+							} else {
+								if (onWhitePortal.color == attackColor) {
+									moves.add(whitePortalLocation);
+								} else {
+									moves.add(move);
+								}
+								break;
+							}
+						} else {
+							moves.add(move);
+						}
+					} else if (piece.color == attackColor){
 						moves.add(move);
 						break;
 					}
+					move = moves.get(moves.size() - 1);
+					newRow = move.charAt(1);
+					col = move.charAt(0);
+					newColumn = (char)(col + moveDir);
+					move = "" + newColumn + row;
 				}
 			}
 		}catch(IllegalPositionException e) {
