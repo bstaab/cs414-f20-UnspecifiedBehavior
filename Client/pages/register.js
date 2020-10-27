@@ -39,7 +39,7 @@ import MailIcon from '@material-ui/icons/Mail';
                 container direction={"column"} justify={"center"} alignItems={"center"} alignContent={"center"}
                 spacing={8}
             >
-                <Grid item>
+                <Grid item style={{paddingTop: '50px', paddingBottom: '14px'}}>
                     <Typography variant={"h4"} align={"center"}>Welcome to Portal Chess</Typography>
                 </Grid>
                 <LoginFields
@@ -51,7 +51,7 @@ import MailIcon from '@material-ui/icons/Mail';
                     isEmailUnique={isEmailUnique}
                     //createAccount={createAccount} {...props}
                 />
-                <Grid item container justify={"center"} alignItems={"center"} alignContent={"center"}>
+                <Grid item container justify={"center"} alignItems={"center"} alignContent={"center"} style={{paddingTop: '0px'}}>
                     <Grid item style={{width: "80%"}} align={"center"}>
                         <Button
                             color={"primary"} variant={"contained"} style={{width: "80%", height: "50px"}}
@@ -71,7 +71,7 @@ import MailIcon from '@material-ui/icons/Mail';
         return (
             <Grid
                 item container direction={"column"} justify={"center"} alignItems={"center"} alignContent={"center"}
-                spacing={3} style={{width: '90%'}}
+                spacing={3} style={{width: '90%', paddingBottom: '20px'}}
             >
                 <Grid item style={{width: '100%'}}>
                     <TextField
@@ -82,7 +82,7 @@ import MailIcon from '@material-ui/icons/Mail';
                             //if(e.keyCode === 13) props.createAccount();
                         }}
                         error={!props.isEmailUnique}
-                        helperText={!props.isEmailUnique ? "This email already has an account" : ""}
+                        helperText={!props.isEmailUnique ? "This email already has an account" : " "}
                         InputProps={{
                             startAdornment: (
                                 <InputAdornment position="start">
@@ -102,7 +102,7 @@ import MailIcon from '@material-ui/icons/Mail';
                        //     //if(e.keyCode === 13) props.createAccount();
                        // }}
                         error={!props.isUsernameUnique}
-                        helperText={!props.isUsernameUnique ? "Username already taken" : ""}
+                        helperText={!props.isUsernameUnique ? "Username already taken" : " "}
                         InputProps={{
                             startAdornment: (
                                 <InputAdornment position="start">
