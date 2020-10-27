@@ -26,13 +26,17 @@ import MailIcon from '@material-ui/icons/Mail';
         const [email, setEmail] = useState("");
         const [phoneNumber, setPhoneNumber] = useState("");
         const [isUsernameUnique, setIsUsernameUnique] = useState(true);
-        const [isEmailUnique, setEmailUnique] = useState(true);
+        const [isEmailUnique, setIsEmailUnique] = useState(true);
 
         //const [queryResults] = useState([]);
 
         useEffect(() => {
             checkUniqueUsername(username, isUsernameUnique, setIsUsernameUnique);
         },[username]);
+
+        useEffect(() => {
+            checkUniqueEmail(email, isEmailUnique, setIsEmailUnique);
+        },[email]);
 
         return (
             <Grid
@@ -134,27 +138,32 @@ import MailIcon from '@material-ui/icons/Mail';
         )
     }
 
-    function checkUniqueEmail(email) {
+    function checkUniqueEmail(email, isEmailUnique, setIsEmailUnique) {
        // this.setState({queryResults: email}, () => {console.log(this.queryResults)}}
         //TODO Check if entered email is in database
         //TODO Send Query to server
-
+        if(email.length < 1) {return;}
+        //Make query with username
+        //sendRequestWithBody
+        //if(body.results.length > 0) {
+        if(email == 'user@rams.colostate.edu') {
+            setIsEmailUnique(false);
+        } else {
+            setIsEmailUnique(true);
+        }
     }
 
     function checkUniqueUsername(username, isUsernameUnique, setIsUsernameUnique) {
         //TODO Check if entered username is in database
-        console.log("Name: ", username);
         if(username.length < 1) {return;}
         //Make query with username
-
+        //sendRequestWithBody
         //if(body.results.length > 0) {
-        if(username == 'Anderon') {
+        if(username == 'user') {
             setIsUsernameUnique(false);
         } else {
             setIsUsernameUnique(true);
-
         }
-
     }
 
     function confirmMatchingPasswords() {
