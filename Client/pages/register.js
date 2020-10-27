@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Button} from "reactstrap";
 import '../static/css/login.css';
 import {Grid, Typography, TextField, InputAdornment} from "@material-ui/core";
@@ -25,6 +25,14 @@ import MailIcon from '@material-ui/icons/Mail';
         const [password, setPassword] = useState("");
         const [email, setEmail] = useState("");
         const [phoneNumber, setPhoneNumber] = useState("");
+        const [isUsernameUnique, setIsUsernameUnique] = useState(true);
+        const [isEmailUnique, setEmailUnique] = useState(true);
+
+        //const [queryResults] = useState([]);
+
+        useEffect(() => {
+            checkUniqueUsername(username, isUsernameUnique, setIsUsernameUnique);
+        },[username]);
 
         return (
             <Grid
@@ -39,6 +47,8 @@ import MailIcon from '@material-ui/icons/Mail';
                     password={password} setPassword={setPassword}
                     email={email} setEmail={setEmail}
                     phoneNumber={phoneNumber} setPhoneNumber={setPhoneNumber}
+                    isUsernameUnique={isUsernameUnique}
+                    isEmailUnique={isEmailUnique}
                     //createAccount={createAccount} {...props}
                 />
                 <Grid item container justify={"center"} alignItems={"center"} alignContent={"center"}>
@@ -65,13 +75,34 @@ import MailIcon from '@material-ui/icons/Mail';
             >
                 <Grid item style={{width: '100%'}}>
                     <TextField
-                        fullWidth color={"primary"} variant={"outlined"}
-                        autoComplete={"username"} required
-                        label={"New Username"} value={props.username} onChange={(e) => props.setUsername(e.target.value)}
+                        fullWidth color={"primary"} variant={"outlined"} required
+                        label={"Email"} value={props.email} onChange={(e) => props.setEmail(e.target.value)}
                         onKeyDown={(e) =>
                         {
                             //if(e.keyCode === 13) props.createAccount();
                         }}
+                        error={!props.isEmailUnique}
+                        helperText={!props.isEmailUnique ? "This email already has an account" : ""}
+                        InputProps={{
+                            startAdornment: (
+                                <InputAdornment position="start">
+                                    <MailIcon />
+                                </InputAdornment>
+                            ),
+                        }}
+                    />
+                </Grid>
+                <Grid item style={{width: '100%'}}>
+                    <TextField
+                        fullWidth color={"primary"} variant={"outlined"}
+                        autoComplete={"username"} required
+                        label={"New Username"} value={props.username} onChange={(e) => props.setUsername(e.target.value)}
+                       // onKeyDown={(e) =>
+                       // {
+                       //     //if(e.keyCode === 13) props.createAccount();
+                       // }}
+                        error={!props.isUsernameUnique}
+                        helperText={!props.isUsernameUnique ? "Username already taken" : ""}
                         InputProps={{
                             startAdornment: (
                                 <InputAdornment position="start">
@@ -99,33 +130,31 @@ import MailIcon from '@material-ui/icons/Mail';
                         }}
                     />
                 </Grid>
-                <Grid item style={{width: '100%'}}>
-                    <TextField
-                        fullWidth color={"primary"} variant={"outlined"} required
-                        label={"Email"} value={props.email} onChange={(e) => props.setEmail(e.target.value)}
-                        onKeyDown={(e) =>
-                        {
-                            //if(e.keyCode === 13) props.createAccount();
-                        }}
-                        InputProps={{
-                            startAdornment: (
-                                <InputAdornment position="start">
-                                    <MailIcon />
-                                </InputAdornment>
-                            ),
-                        }}
-                    />
-                </Grid>
             </Grid>
         )
     }
 
-    function checkUniqueEmail() {
+    function checkUniqueEmail(email) {
+       // this.setState({queryResults: email}, () => {console.log(this.queryResults)}}
         //TODO Check if entered email is in database
+        //TODO Send Query to server
+
     }
 
-    function checkUniqueUsername() {
+    function checkUniqueUsername(username, isUsernameUnique, setIsUsernameUnique) {
         //TODO Check if entered username is in database
+        console.log("Name: ", username);
+        if(username.length < 1) {return;}
+        //Make query with username
+
+        //if(body.results.length > 0) {
+        if(username == 'Anderon') {
+            setIsUsernameUnique(false);
+        } else {
+            setIsUsernameUnique(true);
+
+        }
+
     }
 
     function confirmMatchingPasswords() {
