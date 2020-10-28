@@ -20,36 +20,73 @@ public class Knight extends ChessPiece {
 	@Override
 	public ArrayList<String> legalMoves() {
 		ArrayList<String> moves = new ArrayList<String>();
+				
+		String position = getPosition();
+		int row = this.row + 1;
+		char col = position.charAt(0);
+		String move = "";
+		
 		int[] two_arr= {2, -2};
 		int[] one_arr= {1, -1};
-		String my_position=this.getPosition();
-		String nextMove="";
+		
 		for(int i=0;i<2;i++){
 			for(int j=0;j<2;j++) {
-				nextMove=""+(char)(my_position.charAt(0)+two_arr[i])+(char)(my_position.charAt(1)+one_arr[j]);
-				moves=checkMove(moves, nextMove);
-				nextMove=""+(char)(my_position.charAt(0)+one_arr[j])+(char)(my_position.charAt(1)+two_arr[i]);
-				moves=checkMove(moves, nextMove);
+				move=""+(char)(col + two_arr[i]) + (row + one_arr[j]);
+				moves=checkMove(moves, move);
+				move=""+(char)(col + one_arr[j]) + (row + two_arr[i]);
+				moves=checkMove(moves, move);
 			}
 		}
 		return moves;
 	}
 
-	private ArrayList<String> checkMove(ArrayList<String> legalMoves, String nextMove){
-		ChessPiece nextPiece;
-		if(this.validateNextMove(nextMove)) {
-			try {
-				nextPiece=board.getPiece(nextMove);
-				if(nextPiece==null) {
-					legalMoves.add(nextMove);
-				}
-				else if(nextPiece.color!=this.color) {
-					legalMoves.add(nextMove);
-				}
-			} catch (IllegalPositionException e) {
-				e.printStackTrace();
-				System.exit(-1);
+	private ArrayList<String> checkMove(ArrayList<String> legalMoves, String move){
+		// Get location of portals
+		String whitePortalLocation = board.getPortalLocation(Color.WHITE);
+		String blackPortalLocation = board.getPortalLocation(Color.BLACK);
+		ChessPiece onWhitePortal = null;
+		ChessPiece onBlackPortal = null;
+		
+		ChessPiece piece;
+		Color attackColor = Color.BLACK;
+		if (color == Color.BLACK) {
+		attackColor = Color.WHITE;			
+		}
+		
+		try{
+			// Get the piece on top of the portals
+			if (onBoard(whitePortalLocation)) {
+				onWhitePortal = board.getPiece(whitePortalLocation);
 			}
+			if (onBoard(blackPortalLocation)) {
+				onBlackPortal = board.getPiece(blackPortalLocation);
+			}
+		
+			if(onBoard(move)) {
+				piece = board.getPiece(move);
+				if(piece == null) {
+					if (move.equals(whitePortalLocation)) {
+						if (onBlackPortal == null || onBlackPortal.color == attackColor) {
+							legalMoves.add(blackPortalLocation);
+						} else {
+							legalMoves.add(move);
+						}
+					} else if (move.equals(blackPortalLocation)) {
+						if (onWhitePortal == null || onWhitePortal.color == attackColor) {
+							legalMoves.add(whitePortalLocation);
+						} else {
+							legalMoves.add(move);
+						}
+					} else {
+						legalMoves.add(move);
+					}
+				} else if (piece.color == attackColor){
+					legalMoves.add(move);
+				}					
+			}	
+		} catch (IllegalPositionException e) 
+		{
+			System.out.println("Illegal position for a Knight");
 		}
 		return legalMoves;
 	}

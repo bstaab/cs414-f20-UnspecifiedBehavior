@@ -2,8 +2,6 @@ package Game;
 
 import java.util.ArrayList;
 
-import Game.ChessPiece.Color;
-
 public class Bishop extends ChessPiece {
 
 	public Bishop(ChessBoard board, Color color) {

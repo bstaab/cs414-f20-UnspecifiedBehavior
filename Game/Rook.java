@@ -2,8 +2,6 @@ package Game;
 
 import java.util.ArrayList;
 
-import Game.ChessPiece.Color;
-
 public class Rook extends ChessPiece {
 
 	public Rook(ChessBoard board, Color color) {
@@ -32,7 +30,7 @@ public class Rook extends ChessPiece {
 		ChessPiece piece;
 		Color attackColor = Color.BLACK;
 		if (color == Color.BLACK) {
-		attackColor = Color.WHITE;			
+			attackColor = Color.WHITE;			
 		}
 		
 		// Get location of portals
@@ -86,14 +84,16 @@ public class Rook extends ChessPiece {
 						} else {
 							moves.add(move);
 						}
-					} else if (piece.color == attackColor){
-						moves.add(move);
+					} else {
+						if (piece.color == attackColor){
+							moves.add(move);
+						}
 						break;
 					}
 					
 					move = moves.get(moves.size() - 1);
 	 				col = move.charAt(0);
-	 				newRow = move.charAt(1) - '0' + moveDir;
+	 				newRow = (move.charAt(1) - '0') + moveDir;
 	 				move = "" + col + newRow;
 				}
 			}
@@ -136,8 +136,10 @@ public class Rook extends ChessPiece {
 						} else {
 							moves.add(move);
 						}
-					} else if (piece.color == attackColor){
-						moves.add(move);
+					} else {
+						if (piece.color == attackColor){
+							moves.add(move);
+						}
 						break;
 					}
 					move = moves.get(moves.size() - 1);
