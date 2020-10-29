@@ -88,8 +88,10 @@ public class Bishop extends ChessPiece {
 							} else {
 								moves.add(move);
 							}
-						} else if (piece.color == attackColor){
-							moves.add(move);
+						} else {
+							if (piece.color == attackColor){
+								moves.add(move);
+							}
 							break;
 						}
 						

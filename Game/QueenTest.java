@@ -95,6 +95,52 @@ public class QueenTest {
   }
   
   @Test
+  public void testLegalMovesPortal() {
+    ChessBoard testBoard = new ChessBoard();
+    
+    Queen whiteQueen1 = new Queen(testBoard, ChessPiece.Color.WHITE);
+    
+    testBoard.placePiece(whiteQueen1, "e4");
+    testBoard.setPortalLocation(ChessPiece.Color.BLACK, "d4");
+    testBoard.setPortalLocation(ChessPiece.Color.WHITE, "h3");
+    
+    ArrayList<String> legalMovesWhite = whiteQueen1.legalMoves();
+
+    assertEquals(31,legalMovesWhite.size());
+    assertTrue(legalMovesWhite.contains("e3"));
+    assertTrue(legalMovesWhite.contains("e2"));
+    assertTrue(legalMovesWhite.contains("e1"));
+    assertTrue(legalMovesWhite.contains("e5"));
+    assertTrue(legalMovesWhite.contains("e6"));
+    assertTrue(legalMovesWhite.contains("e7"));
+    assertTrue(legalMovesWhite.contains("e8"));
+    assertTrue(legalMovesWhite.contains("a3"));
+    assertTrue(legalMovesWhite.contains("b3"));
+    assertTrue(legalMovesWhite.contains("c3"));
+    assertTrue(legalMovesWhite.contains("d3"));
+    assertTrue(legalMovesWhite.contains("e3"));
+    assertTrue(legalMovesWhite.contains("f3"));
+    assertTrue(legalMovesWhite.contains("g3"));
+    assertTrue(legalMovesWhite.contains("h3"));
+    assertTrue(legalMovesWhite.contains("f4"));
+    assertTrue(legalMovesWhite.contains("g4"));
+    assertTrue(legalMovesWhite.contains("h4"));
+    assertTrue(legalMovesWhite.contains("d3"));
+    assertTrue(legalMovesWhite.contains("c2"));
+    assertTrue(legalMovesWhite.contains("b1"));
+    assertTrue(legalMovesWhite.contains("f3"));
+    assertTrue(legalMovesWhite.contains("g2"));
+    assertTrue(legalMovesWhite.contains("h1"));
+    assertTrue(legalMovesWhite.contains("f5"));
+    assertTrue(legalMovesWhite.contains("g6"));
+    assertTrue(legalMovesWhite.contains("h7"));
+    assertTrue(legalMovesWhite.contains("d5"));
+    assertTrue(legalMovesWhite.contains("c6"));
+    assertTrue(legalMovesWhite.contains("b7"));
+    assertTrue(legalMovesWhite.contains("a8"));
+  }
+  
+  @Test
   public void testIllegalPositionException() {
 	  ChessBoard testBoard = new ChessBoard();
 	  Queen whiteQueen = new Queen(testBoard, ChessPiece.Color.WHITE);
