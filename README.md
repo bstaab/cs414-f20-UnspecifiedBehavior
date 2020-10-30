@@ -1,6 +1,6 @@
 # Unspecified Behavior
 
-## To Deploy to LocalHost
+## To Deploy Locally
 * npm start
 * npm run build
 
