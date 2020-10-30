@@ -8,5 +8,9 @@
 * [P1](https://youtu.be/eE9ReTSFLEc)
 
 ## P1
+* [CRC Cards](Documents/CRC.pdf)
+* [Class Diagram](Documents/ClassDiagram.pdf)
+* [P1 Presentation](Documents/P1Presentation.pdf)
+* [User Stories and Tasks](Documents/UserStories&Tasks.pdf)
 
 ## P2
