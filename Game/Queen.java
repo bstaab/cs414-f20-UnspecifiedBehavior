@@ -2,7 +2,6 @@ package Game;
 
 import java.util.ArrayList;
 
-import Game.ChessPiece.Color;
 
 public class Queen extends ChessPiece{
 
