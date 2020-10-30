@@ -43,17 +43,25 @@ public abstract class ChessPiece {
 		this.row = row_char - '1';
 		this.column = col_char - 'a';
 	}
-	protected boolean validateNextMove(String nextMove) {
-		if(nextMove.length()!=2) {
-			return false;
+	
+	public boolean onBoard(String position) {
+		if (position.length() == 2  &&
+			Character.isLetter(position.charAt(0)) && 
+			Character.isDigit(position.charAt(1))) {
+			
+			char column = position.charAt(0);
+			int row = Integer.valueOf(position.charAt(1) + "");
+			if (row >= 1 && row <= 8) {
+				if(column >= 'a' && column <= 'h') {
+					if (position.length() == 2) {
+						return true;
+					}
+				}
+			}
 		}
-		if(nextMove.charAt(0)>=97&&nextMove.charAt(0)<=104&&nextMove.charAt(1)<=56&&nextMove.charAt(1)>=49) {
-			return true;
-		}
-		else {
-			return false;
-		}
+		return false;
 	}
+	
 	abstract public String toString();
 	abstract public ArrayList<String> legalMoves();
 	

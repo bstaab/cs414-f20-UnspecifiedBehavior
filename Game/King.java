@@ -27,71 +27,84 @@ public class King extends ChessPiece {
 		char newColumn;
 		String move = "";
 		
+		ChessPiece piece;
+		Color attackColor = Color.BLACK;
+		if (color == Color.BLACK) {
+		attackColor = Color.WHITE;			
+		}
+		
+		// Get location of portals
+		String whitePortalLocation = board.getPortalLocation(Color.WHITE);
+		String blackPortalLocation = board.getPortalLocation(Color.BLACK);
+		ChessPiece onWhitePortal = null;
+		ChessPiece onBlackPortal = null;
+		
 		try{
+			// Get the piece on top of the portals
+			if (onBoard(whitePortalLocation)) {
+				onWhitePortal = board.getPiece(whitePortalLocation);
+			}
+			if (onBoard(blackPortalLocation)) {
+				onBlackPortal = board.getPiece(blackPortalLocation);
+			}
+			
+			
 			// Check the right side
 			newColumn = (char) (col + 1);
-			for (int i = row - 1 ; i <= row + 1; ++i) {
-				move = "" + newColumn + i;
-				if(onBoard(move) && board.getPiece(move) == null || this.color != board.getPiece(move).color) {
-					if (!willBeAttacked(position, move)) {
-						moves.add(move);
+			for (int rowOffset = row - 1 ; rowOffset <= row + 1; ++rowOffset) {
+				for(int colOffset = - 1; colOffset <= 1; ++colOffset) {
+					newColumn = (char) (col + colOffset);
+					move = "" + newColumn + rowOffset;
+					
+					if (move.equals(position)) {
+						continue;
+					}
+					
+					if(onBoard(move)) {
+						piece = board.getPiece(move);
+						if(piece == null) {
+							if (move.equals(whitePortalLocation)) {
+								if (onBlackPortal == null || onBlackPortal.color == attackColor) {
+									if (!willBeAttacked(position, blackPortalLocation)) {
+										moves.add(blackPortalLocation);
+									}
+								} else {
+									if (!willBeAttacked(position, move)) {
+										moves.add(move);
+									}
+								}
+							} else if (move.equals(blackPortalLocation)) {
+								if (onWhitePortal == null || onWhitePortal.color == attackColor) {
+									if (!willBeAttacked(position, whitePortalLocation)) {
+										moves.add(whitePortalLocation);
+									}
+								} else {
+									if (!willBeAttacked(position, move)) {
+										moves.add(move);
+									}
+								}
+							} else {
+								if (!willBeAttacked(position, move)) {
+									moves.add(move);
+								}
+							}
+						} else if (piece.color == attackColor){
+							if (!willBeAttacked(position, move)) {
+								moves.add(move);
+							}
+						}					
 					}
 				}
 			}
-			
-			// Check the left side
-			newColumn = (char) (col - 1);
-			for (int i = row - 1 ; i <= row + 1; ++i) {
-				move = "" + newColumn + i;
-				if(onBoard(move) && board.getPiece(move) == null || this.color != board.getPiece(move).color) {
-					if (!willBeAttacked(position, move)) {
-						moves.add(move);
-					} 
-				}
-			}
-						
-			// Check up
-			move = "" + col + (row + 1);
-			if(onBoard(move) && board.getPiece(move) == null || this.color != board.getPiece(move).color ) {
-				if (!willBeAttacked(position, move)) {
-					moves.add(move);
-				}
-			}
-			
-			// Check down
-			move = "" + col + (row - 1);
-			if(onBoard(move) && board.getPiece(move) == null || this.color != board.getPiece(move).color) {
-				if (!willBeAttacked(position, move)) {
-					moves.add(move);
-				}
-			}
-		
 		} catch (IllegalPositionException e) 
 		{
 			System.out.println("Illegal position for a King");
 		}
-
+		
 		return moves;
 	}
 
-	private boolean onBoard(String position) {
-		if (position.length() == 2  &&
-			Character.isLetter(position.charAt(0)) && 
-			Character.isDigit(position.charAt(1))) {
-			
-			char column = position.charAt(0);
-			int row = Integer.valueOf(position.charAt(1) + "");
-			if (row >= 1 && row <= 8) {
-				if(column >= 'a' && column <= 'h') {
-					if (position.length() == 2) {
-						return true;
-					}
-				}
-			}
-		}
-		return false;
-	}
-	
+
 	// Function to see if the king will be attacked by an enemy piece
 	// at the new location
 	private boolean willBeAttacked(String currentPosition, String newPosition) {

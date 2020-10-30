@@ -109,6 +109,77 @@ public class KingTest {
   }
   
   @Test
+  public void testLegalMovesPortal1(){
+    ChessBoard testBoard = new ChessBoard();
+    King whiteKing = new King(testBoard, ChessPiece.Color.WHITE);
+    King blackKing = new King(testBoard, ChessPiece.Color.BLACK);
+    Bishop blackBishop = new Bishop(testBoard, ChessPiece.Color.BLACK);
+    
+    testBoard.placePiece(whiteKing, "d2");
+    testBoard.placePiece(blackKing, "d7");
+    testBoard.setPortalLocation(ChessPiece.Color.BLACK, "d7");
+    testBoard.setPortalLocation(ChessPiece.Color.WHITE, "d3");
+        
+    ArrayList<String> legalMovesWhite = whiteKing.legalMoves();
+    assertEquals(8, legalMovesWhite.size());
+    assertTrue(legalMovesWhite.contains("c1"));
+    assertTrue(legalMovesWhite.contains("c2"));
+    assertTrue(legalMovesWhite.contains("c3"));
+    assertTrue(legalMovesWhite.contains("d1"));
+    assertTrue(legalMovesWhite.contains("d7"));
+    assertTrue(legalMovesWhite.contains("e1"));
+    assertTrue(legalMovesWhite.contains("e2"));
+    assertTrue(legalMovesWhite.contains("e3"));
+    
+    ArrayList<String> legalMovesBlack = blackKing.legalMoves();
+    assertEquals(8, legalMovesBlack.size());
+    assertTrue(legalMovesBlack.contains("c8"));
+    assertTrue(legalMovesBlack.contains("c7"));
+    assertTrue(legalMovesBlack.contains("c6"));
+    assertTrue(legalMovesBlack.contains("d6"));
+    assertTrue(legalMovesBlack.contains("d8"));
+    assertTrue(legalMovesBlack.contains("e6"));
+    assertTrue(legalMovesBlack.contains("e7"));
+    assertTrue(legalMovesBlack.contains("e8"));
+    
+    testBoard.setPortalLocation(ChessPiece.Color.BLACK, "d6");
+    legalMovesWhite = whiteKing.legalMoves();
+    assertEquals(7, legalMovesWhite.size());
+    assertTrue(legalMovesWhite.contains("c1"));
+    assertTrue(legalMovesWhite.contains("c2"));
+    assertTrue(legalMovesWhite.contains("c3"));
+    assertTrue(legalMovesWhite.contains("d1"));
+    assertTrue(legalMovesWhite.contains("e1"));
+    assertTrue(legalMovesWhite.contains("e2"));
+    assertTrue(legalMovesWhite.contains("e3"));
+    
+    testBoard.setPortalLocation(ChessPiece.Color.BLACK, "d5");
+    legalMovesWhite = whiteKing.legalMoves();
+    assertEquals(8, legalMovesWhite.size());
+    assertTrue(legalMovesWhite.contains("c1"));
+    assertTrue(legalMovesWhite.contains("c2"));
+    assertTrue(legalMovesWhite.contains("c3"));
+    assertTrue(legalMovesWhite.contains("d1"));
+    assertTrue(legalMovesWhite.contains("d5"));
+    assertTrue(legalMovesWhite.contains("e1"));
+    assertTrue(legalMovesWhite.contains("e2"));
+    assertTrue(legalMovesWhite.contains("e3"));
+    
+    testBoard.placePiece(blackBishop, "g8");
+    testBoard.setPortalLocation(ChessPiece.Color.BLACK, "d5");
+    legalMovesWhite = whiteKing.legalMoves();
+    assertEquals(7, legalMovesWhite.size());
+    assertTrue(legalMovesWhite.contains("c1"));
+    assertTrue(legalMovesWhite.contains("c2"));
+    assertTrue(legalMovesWhite.contains("c3"));
+    assertTrue(legalMovesWhite.contains("d1"));
+    assertTrue(legalMovesWhite.contains("e1"));
+    assertTrue(legalMovesWhite.contains("e2"));
+    assertTrue(legalMovesWhite.contains("e3"));
+    
+  }
+  
+  @Test
   public void testIllegalPositionException() {
 	  ChessBoard testBoard = new ChessBoard();
 	  King whiteKing = new King(testBoard, ChessPiece.Color.WHITE);

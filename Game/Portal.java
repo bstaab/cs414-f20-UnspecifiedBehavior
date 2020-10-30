@@ -40,7 +40,7 @@ public class Portal extends ChessPiece {
 				newRow -= 1;
 				move = "" + col + newRow;
 				
-				// restrict to one move for
+				// restrict to one move for now
 				break;
 			}
 						
@@ -169,22 +169,5 @@ public class Portal extends ChessPiece {
 		return moves;
 	}
 
-	private boolean onBoard(String position) {
-		if (position.length() == 2  &&
-			Character.isLetter(position.charAt(0)) && 
-			Character.isDigit(position.charAt(1))) {
-			
-			char column = position.charAt(0);
-			int row = Integer.valueOf(position.charAt(1) + "");
-			if (row >= 1 && row <= 8) {
-				if(column >= 'a' && column <= 'h') {
-					if (position.length() == 2) {
-						return true;
-					}
-				}
-			}
-		}
-		return false;
-	}
 }
 

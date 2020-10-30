@@ -14,12 +14,12 @@ public class PawnTest {
   @Test
   public void testLegalMoves() {
     ChessBoard testBoard = new ChessBoard();
-    Pawn blackPawn = new Pawn(testBoard, ChessPiece.Color.BLACK);
+    Pawn blackPawn     = new Pawn(testBoard, ChessPiece.Color.BLACK);
     Pawn testPawnWhite = new Pawn(testBoard, ChessPiece.Color.WHITE);
-    Pawn whitePawn = new Pawn(testBoard, ChessPiece.Color.WHITE);
+    Pawn whitePawn     = new Pawn(testBoard, ChessPiece.Color.WHITE);
     
-    Pawn whitePawn1 = new Pawn(testBoard, ChessPiece.Color.WHITE);
-    Pawn blackPawn1 = new Pawn(testBoard, ChessPiece.Color.BLACK);
+    Pawn whitePawn1      = new Pawn(testBoard, ChessPiece.Color.WHITE);
+    Pawn blackPawn1      = new Pawn(testBoard, ChessPiece.Color.BLACK);
     Pawn testPawnBlackc  = new Pawn(testBoard, ChessPiece.Color.BLACK);
     
     testBoard.placePiece(blackPawn, "e3");
@@ -42,6 +42,46 @@ public class PawnTest {
     assertTrue(legalMovesBlack.contains("c6"));
     assertTrue(legalMovesBlack.contains("d6"));
     assertTrue(legalMovesBlack.contains("d5"));
+  }
+  
+  @Test
+  public void testLegalMovesWithPortals1() {
+    ChessBoard testBoard = new ChessBoard();
+    Pawn blackPawn     = new Pawn(testBoard, ChessPiece.Color.BLACK);
+    Pawn testPawnWhite = new Pawn(testBoard, ChessPiece.Color.WHITE);
+        
+    testBoard.placePiece(blackPawn,     "c7");
+    testBoard.placePiece(testPawnWhite, "c2");
+    testBoard.setPortalLocation(ChessPiece.Color.BLACK, "c4");
+    testBoard.setPortalLocation(ChessPiece.Color.WHITE, "c7");
+    
+    ArrayList<String> legalMovesWhite = testPawnWhite.legalMoves();
+
+    assertEquals(4,legalMovesWhite.size());
+    assertTrue(legalMovesWhite.contains("c3"));
+    assertTrue(legalMovesWhite.contains("c7"));
+    assertTrue(legalMovesWhite.contains("b3"));
+    assertTrue(legalMovesWhite.contains("d3"));
+  }
+  
+  @Test
+  public void testLegalMovesWithPortals2() {
+    ChessBoard testBoard = new ChessBoard();
+    Pawn blackPawn1     = new Pawn(testBoard, ChessPiece.Color.BLACK);
+    Pawn blackPawn2     = new Pawn(testBoard, ChessPiece.Color.BLACK);
+        
+    testBoard.placePiece(blackPawn1, "c7");
+    testBoard.placePiece(blackPawn2, "c2");
+    testBoard.setPortalLocation(ChessPiece.Color.BLACK, "c2");
+    testBoard.setPortalLocation(ChessPiece.Color.WHITE, "c5");
+    
+    ArrayList<String> legalMovesBlack1 = blackPawn1.legalMoves();
+
+    assertEquals(4,legalMovesBlack1.size());
+    assertTrue(legalMovesBlack1.contains("c6"));
+    assertTrue(legalMovesBlack1.contains("c5"));
+    assertTrue(legalMovesBlack1.contains("d6"));
+    assertTrue(legalMovesBlack1.contains("b6"));
   }
   
   @Test

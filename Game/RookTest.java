@@ -47,6 +47,38 @@ public class RookTest {
   }
   
   @Test
+  public void testLegalMovesPortals() {
+    ChessBoard testBoard = new ChessBoard();
+    Rook testRookBlack = new Rook(testBoard, ChessPiece.Color.BLACK);
+        
+    testBoard.placePiece(testRookBlack, "c6");
+    testBoard.setPortalLocation(ChessPiece.Color.BLACK, "c4");
+    testBoard.setPortalLocation(ChessPiece.Color.WHITE, "a8");
+    
+    ArrayList<String> legalMovesWhite = testRookBlack.legalMoves();
+
+    assertEquals(18, legalMovesWhite.size());
+    assertTrue(legalMovesWhite.contains("c5"));
+    assertTrue(legalMovesWhite.contains("a8"));
+    assertTrue(legalMovesWhite.contains("a7"));
+    assertTrue(legalMovesWhite.contains("a6"));
+    assertTrue(legalMovesWhite.contains("a5"));
+    assertTrue(legalMovesWhite.contains("a4"));
+    assertTrue(legalMovesWhite.contains("a3"));
+    assertTrue(legalMovesWhite.contains("a2"));
+    assertTrue(legalMovesWhite.contains("a1"));
+    assertTrue(legalMovesWhite.contains("c7"));
+    assertTrue(legalMovesWhite.contains("c8"));
+    assertTrue(legalMovesWhite.contains("b6"));
+    assertTrue(legalMovesWhite.contains("a6"));
+    assertTrue(legalMovesWhite.contains("d6"));
+    assertTrue(legalMovesWhite.contains("e6"));
+    assertTrue(legalMovesWhite.contains("f6"));
+    assertTrue(legalMovesWhite.contains("g6"));
+    assertTrue(legalMovesWhite.contains("h6"));
+  }
+  
+  @Test
   public void testIllegalPositionException() {
 	  ChessBoard testBoard = new ChessBoard();
 	  Rook whiteRook = new Rook(testBoard, ChessPiece.Color.WHITE);
