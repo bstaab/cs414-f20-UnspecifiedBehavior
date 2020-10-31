@@ -15,7 +15,8 @@
     "url": "git+https://github.com/bstaab/cs414-f20-UnspecifiedBehavior.git"
   },
   "keywords": [
-    "chess"
+    "chess",
+    "portal"
   ],
   "author": "Maddie Mihevc, Kai Griem, Keabeth Gonzalez, Adam Anderson, Brent Stabb",
   "license": "ISC",
