@@ -53,13 +53,13 @@ let isOpen = false;
                     <Collapse isOpen={isOpen} navbar>
                         <Nav className="mr-auto" navbar>
                             <NavItem>
-                                <NavLink >Profile</NavLink>
+                                <Button color="dark">Profile</Button>
                             </NavItem>
                             <NavItem>
                                 <Button color="dark" onClick={togglePopup}>Invitations</Button>
                             </NavItem>
                             <UncontrolledDropdown nav inNavbar>
-                                <DropdownToggle nav caret>
+                                <DropdownToggle style={{color: 'white'}} nav caret>
                                     Options
                                 </DropdownToggle>
                                 <DropdownMenu right>
@@ -75,6 +75,9 @@ let isOpen = false;
                                     </DropdownItem>
                                 </DropdownMenu>
                             </UncontrolledDropdown>
+                            <NavItem>
+                                <Button color="dark">Log Out</Button>
+                            </NavItem>
                         </Nav>
                     </Collapse>
                 </Navbar>
@@ -89,6 +92,8 @@ let isOpen = false;
                 <Container style={{backgroundColor: 'rgba(192,192,192, 0.3)', width: '42%', height: height, marginLeft: '0'}}>
                     <br />
                     <Button color='primary' block onClick={() => {history.push('board')}}>Create A Game</Button>
+                    <br />
+                    <Button color='secondary' block> Continue A Game</Button>
                     <br />
                     <Button color='secondary' block> Invitations</Button>
                     <br />
