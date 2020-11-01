@@ -15,3 +15,20 @@
     background-repeat: no-repeat;
     background-size: cover;
 }
+
+.home-image {
+    background-image: url("../images/homeBackground.jpg");
+    position: fixed;
+
+    left: 0;
+    right: 0;
+    z-index: -1;
+
+    display: block;
+    height: 100vh;
+
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+
+}
