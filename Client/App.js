@@ -15,7 +15,7 @@ function App() {
 
     return (
         <BrowserRouter>
-            <div id='body' className="container mt-2" style={{ marginTop: 40}}>
+            <div id='body' className="container mt-0" style={{ marginTop: 40}}>
             <Switch>
                 <Route exact path="/">
                     <LoginLayout width={width} height={height}>
@@ -23,7 +23,7 @@ function App() {
                     </LoginLayout>
                 </Route>
                 <Route  path="/Home">
-                    <Home />
+                    <Home width={width} height={height}/>
                 </Route>
                 <Route path="/Register">
                     <LoginLayout width={width} height={height} >

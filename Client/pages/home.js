@@ -21,23 +21,29 @@ import {useHistory} from "react-router";
 let popupOpen = false;
 let isOpen = false;
 
-function Home() {
+    const Home = props => {
+      return (
+          <div>
+              {renderHome(props.width, props.height)}
+          </div>
+      )
+    };
 
-
-    return (
-        <div style={{backgroundImage: "url(" + Background + ")", backgroundSize: 'cover', height: '600px'}}>
-            <Container style={{padding: '0px'}}>
-                <Row>
-                    <Col sm={12} md={{size: 12, offset: 0}}>
-                        {renderNavigation()}
-                        {renderMenu()}
-                        {renderPop()}
-                    </Col>
-                </Row>
-            </Container>
-        </div>
-    )
-}
+    function renderHome(width, height) {
+        return (
+            <div className="home-image">
+                <Container fluid style={{paddingLeft: '0px', paddingRight: '0px'}}>
+                    <Row>
+                        <Col sm={12} md={{size: 12, offset: 0}}>
+                            {renderNavigation()}
+                            {renderMenu(height)}
+                            {renderPop()}
+                        </Col>
+                    </Row>
+                </Container>
+            </div>
+        )
+    }
 
     function renderNavigation() {
         return (
@@ -76,13 +82,13 @@ function Home() {
         )
     }
 
-    function renderMenu() {
+    function renderMenu(height) {
         const history = useHistory();
         return (
             <div>
-                <Container style={{backgroundColor: 'rgba(192,192,192, 0.3)', width: '42%', height: '600px', marginLeft: '0'}}>
+                <Container style={{backgroundColor: 'rgba(192,192,192, 0.3)', width: '42%', height: height, marginLeft: '0'}}>
                     <br />
-                    <Button color='primary' onClick={() => {history.push('board')}}>Create A Game</Button>
+                    <Button color='primary' block onClick={() => {history.push('board')}}>Create A Game</Button>
                     <br />
                     <Button color='secondary' block> Invitations</Button>
                     <br />
