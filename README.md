@@ -16,3 +16,4 @@
 ## P2
 * [Traceability Link Matrix](Documents/TraceabilityLinkMatrix.xlsx)
 * [Development Manual](Documents/PortalChessDevelopmentManual.docx)
+* [Class Diagram](Documents/GameClassDiagram.vsd)
