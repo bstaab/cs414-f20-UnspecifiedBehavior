@@ -14,3 +14,5 @@
 * [User Stories and Tasks](Documents/UserStories&Tasks.pdf)
 
 ## P2
+* [Traceability Link Matrix](Documents/TraceabilityLinkMatrix.xlsx)
+* [Development Manual](Documents/PortalChessDevelopmentManual.docx)
