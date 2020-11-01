@@ -17,3 +17,4 @@
 * [Traceability Link Matrix](Documents/TraceabilityLinkMatrix.xlsx)
 * [Development Manual](Documents/PortalChessDevelopmentManual.docx)
 * [Class Diagram](Documents/GameClassDiagram.vsd)
+* [CRC Cards](Documents/CRC_P2.pdf)
