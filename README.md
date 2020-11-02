@@ -6,6 +6,7 @@
 
 ## Presentation Videos
 * [P1](https://youtu.be/eE9ReTSFLEc)
+* [P2](https://youtu.be/UoQXpszqEjc)
 
 ## P1
 * [CRC Cards](Documents/CRC.pdf)
