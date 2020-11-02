@@ -13,12 +13,14 @@
 * [CRC Cards](Documents/CRC.pdf)
 * [Class Diagram](Documents/ClassDiagram.pdf)
 * [User Stories and Tasks](Documents/UserStories&Tasks.pdf)
+* [Output of Scrum Ceremonies](Documents/OutputofScrumCeremonies.pdf)
 
 ## P2
 * [P2 Presentation](Documents/P2Presentation.pdf)
 * [CRC Cards](Documents/CRC_P2.pdf)
 * [Class Diagram](Documents/GameClassDiagram.vsd)
 * [User Stories and Tasks](Documents/UserStories&Tasks.pdf)
+* [Output of Scrum Ceremonies](Documents/P2OutputofScrumCeremonies.docx)
 * [Traceability Link Matrix](Documents/TraceabilityLinkMatrix.xlsx)
 * [Development Manual](Documents/PortalChessDevelopmentManual.docx)
 * [Acceptance Criteria](Documents/AcceptanceCriteria.md)
