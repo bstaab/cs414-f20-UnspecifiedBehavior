@@ -22,4 +22,5 @@
 * [Traceability Link Matrix](Documents/TraceabilityLinkMatrix.xlsx)
 * [Development Manual](Documents/PortalChessDevelopmentManual.docx)
 * [Acceptance Criteria](Documents/AcceptanceCriteria.md)
+* [Kanban Images](Documents/Kanban)
 
