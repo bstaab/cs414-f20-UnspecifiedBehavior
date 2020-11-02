@@ -16,7 +16,7 @@
 * [Output of Scrum Ceremonies](Documents/OutputofScrumCeremonies.pdf)
 
 ## P2
-* [P2 Presentation](Documents/P2Presentation.pdf)
+* [P2 Presentation](Documents/P2Presentation.pptx)
 * [CRC Cards](Documents/CRC_P2.pdf)
 * [Class Diagram](Documents/GameClassDiagram.vsd)
 * [User Stories and Tasks](Documents/UserStories&Tasks.pdf)
@@ -25,4 +25,5 @@
 * [Development Manual](Documents/PortalChessDevelopmentManual.docx)
 * [Acceptance Criteria](Documents/AcceptanceCriteria.md)
 * [Kanban Images](Documents/Kanban)
+
 
