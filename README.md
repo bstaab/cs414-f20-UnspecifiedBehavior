@@ -9,13 +9,17 @@
 * [P2](https://youtu.be/UoQXpszqEjc)
 
 ## P1
+* [P1 Presentation](Documents/P1Presentation.pdf)
 * [CRC Cards](Documents/CRC.pdf)
 * [Class Diagram](Documents/ClassDiagram.pdf)
-* [P1 Presentation](Documents/P1Presentation.pdf)
 * [User Stories and Tasks](Documents/UserStories&Tasks.pdf)
 
 ## P2
+* [P2 Presentation](Documents/P2Presentation.pdf)
+* [CRC Cards](Documents/CRC_P2.pdf)
+* [Class Diagram](Documents/GameClassDiagram.vsd)
+* [User Stories and Tasks](Documents/UserStories&Tasks.pdf)
 * [Traceability Link Matrix](Documents/TraceabilityLinkMatrix.xlsx)
 * [Development Manual](Documents/PortalChessDevelopmentManual.docx)
-* [Class Diagram](Documents/GameClassDiagram.vsd)
-* [CRC Cards](Documents/CRC_P2.pdf)
+* [Acceptance Criteria](Documents/AcceptanceCriteria.md)
+
