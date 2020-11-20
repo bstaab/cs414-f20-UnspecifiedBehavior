@@ -8,11 +8,12 @@ import Board from './pages/Board'
 import LoginLayout from "./pages/loginlayout";
 
 import useWindowSize from "./components/useWindowSize";
+import {sendPostRequest} from "./components/API";
 
 function App() {
     const {width, height} = useWindowSize();
     const [adminDashboard, setAdminDashboard] = useState(false);
-
+    sendPostRequest("move", {"hello": "world"}).then(r=>console.log(r.data))
     return (
         <BrowserRouter>
             <div id='body' className="container mt-2" style={{ marginTop: 40}}>

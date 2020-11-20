@@ -2,17 +2,33 @@ package Game;
 
 public class User {
     ChessMatch myGame;
+    String name;
+    String password;
+
+    private ChessPiece.Color color;
 
     public User(ChessMatch myGame){
         this.myGame=myGame;
     }
+
+    public void setColor(ChessPiece.Color color){
+        this.color=color;
+    }
+
+    public ChessPiece.Color getColor(){
+        return this.color;
+    }
+
     //probably have to parse a json file or something to get the move from the client
-    public void Move(String fromPosition, String toPosition){
+    public boolean Move(Move myMove){
         try{
-            myGame.board.move(fromPosition, toPosition);
+            myGame.board.move(myMove.getFrom(), myMove.getTo());
         }catch(IllegalMoveException e){
             e.printStackTrace();
+            return false;
         }
-        myGame.addMove(fromPosition, toPosition);
+        myGame.addMove(myMove);
+        myGame.nextTurn();
+        return true;
     }
 }

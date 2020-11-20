@@ -3,8 +3,11 @@
   "version": "1.0.0",
   "description": "Unspecified Behavior Webpage",
   "scripts": {
-    "start": "webpack-dev-server -d",
-    "build": "webpack -p"
+    "startClient": "webpack-dev-server -d",
+    "build": "webpack -p",
+    "buildServer": "mvn package -f Game/pom.xml",
+    "start": "concurrently\"npm run startClient\" \"npm run runServer\"",
+    "runServer": "java -Dorg.slf4j.simpleLogger.log.com.mrpowers=info -jar target/server-*.jar 8080"
   },
   "files": [
     "chessboard.d.ts",
@@ -24,6 +27,7 @@
   },
   "homepage": "https://github.com/bstaab/cs414-f20-UnspecifiedBehavior#readme",
   "dependencies": {
+    "axios": "^0.21.0",
     "@material-ui/core": "^4.11.0",
     "bootstrap": "^4.5.3",
     "chess.js": "^0.11.0",
