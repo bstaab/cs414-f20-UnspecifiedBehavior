@@ -1,4 +1,4 @@
-package com.mrpowers;
+package com.mrpowers.exceptions;
 
 public class IllegalPositionException extends java.lang.Exception {
 

@@ -1,4 +1,7 @@
-package com.mrpowers;
+package com.mrpowers.chess;
+
+import com.mrpowers.exceptions.IllegalMoveException;
+import com.mrpowers.exceptions.IllegalPositionException;
 
 public class ChessBoard {
 

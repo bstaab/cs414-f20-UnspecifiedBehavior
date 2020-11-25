@@ -1,7 +1,5 @@
 package com.mrpowers;
 
-import java.util.Arrays;
-
 public class QueryBuilderDemo {
     public static void main(String[] args){
         QueryBuilder.connectDb();
