@@ -8,6 +8,15 @@
     <version>1.0-SNAPSHOT</version>
 
     <build>
+        <directory>../target</directory>
+        <resources>
+            <resource>
+                <directory>../Client/dist</directory>
+            </resource>
+            <resource>
+                <directory>src/main/resources</directory>
+            </resource>
+        </resources>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

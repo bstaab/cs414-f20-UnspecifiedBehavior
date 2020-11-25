@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/JDBCQueryBuilder/JDBCQueryBuilder.iml" filepath="$PROJECT_DIR$/JDBCQueryBuilder/JDBCQueryBuilder.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/cs414-f20-UnspecifiedBehavior.iml" filepath="$PROJECT_DIR$/.idea/cs414-f20-UnspecifiedBehavior.iml" />
     </modules>
   </component>
