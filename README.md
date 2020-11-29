@@ -27,7 +27,7 @@
 * [Kanban Images](Documents/Kanban)
 
 ## P3
-* [P3 WIKI](wiki/P3)
+* [P3 WIKI](https://github.com/bstaab/cs414-f20-UnspecifiedBehavior/wiki/P3)
 * P2 Presentation - TODO
 * CRC Cards - TODO
 * Class Diagram - TODO
