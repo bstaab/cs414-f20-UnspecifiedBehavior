@@ -7,6 +7,11 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 
+import com.mrpowers.chess.*;
+import com.mrpowers.exceptions.IllegalPositionException;
+
+import static org.junit.Assert.assertThrows;
+
 public class RookTest {
   @Test
   public void testLegalMoves() {

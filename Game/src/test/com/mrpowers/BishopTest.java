@@ -3,7 +3,12 @@ package com.mrpowers;
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.Test;
+
+import com.mrpowers.chess.*;
+import com.mrpowers.exceptions.IllegalPositionException;
+
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;

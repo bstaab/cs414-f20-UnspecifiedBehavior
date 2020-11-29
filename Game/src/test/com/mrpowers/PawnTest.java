@@ -2,16 +2,17 @@ package com.mrpowers;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import com.mrpowers.ChessBoard;
-import com.mrpowers.ChessPiece;
-import com.mrpowers.IllegalPositionException;
-import com.mrpowers.Pawn;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+
+import com.mrpowers.chess.*;
+import com.mrpowers.exceptions.IllegalPositionException;
+
+import static org.junit.Assert.assertThrows;
 
 public class PawnTest {
 

@@ -5,6 +5,12 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
+import com.mrpowers.chess.*;
+import com.mrpowers.exceptions.IllegalMoveException;
+import com.mrpowers.exceptions.IllegalPositionException;
+
+import static org.junit.Assert.assertThrows;
+
 public class ChessBoardTest{
   @Test
    public void testChessBoard(){
