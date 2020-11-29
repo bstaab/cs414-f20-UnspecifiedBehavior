@@ -27,6 +27,15 @@
 * [Kanban Images](Documents/Kanban)
 
 ## P3
-
+* [P3 WIKI](wiki/P3)
+* P2 Presentation - TODO
+* CRC Cards - TODO
+* Class Diagram - TODO
+* User Stories and Tasks - TODO
+* Output of Scrum Ceremonies - TODO
+* Traceability Link Matrix - TODO
+* [Development Manual](Documents/PortalChessDevelopmentManual.docx)
+* Acceptance Criteria - TODO
+* [Kanban Images](Documents/Kanban)
 
 
