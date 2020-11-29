@@ -1,8 +1,6 @@
-package com.mrpowers;
+package com.mrpowers.chess;
 
-import com.mrpowers.ChessBoard;
-import com.mrpowers.ChessPiece;
-import com.mrpowers.IllegalPositionException;
+import com.mrpowers.exceptions.IllegalPositionException;
 
 import java.util.ArrayList;
 

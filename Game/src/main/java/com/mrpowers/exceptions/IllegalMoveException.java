@@ -1,4 +1,4 @@
-package com.mrpowers;
+package com.mrpowers.exceptions;
 
 public class IllegalMoveException extends java.lang.Exception {
 

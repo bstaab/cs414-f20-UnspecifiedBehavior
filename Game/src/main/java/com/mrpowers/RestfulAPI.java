@@ -1,52 +1,51 @@
 package com.mrpowers;
 
-//import com.mrpowers.misc.BadRequestException;
-//import com.mrpowers.misc.JSONValidator;
-//import com.mrpowers.requests.RequestConfig;
-//import com.mrpowers.requests.RequestHeader;
+import com.mrpowers.exceptions.IllegalMoveException;
+import com.mrpowers.requests.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import com.google.gson.Gson;
 
-import java.io.IOException;
 import java.lang.reflect.Type;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import com.google.gson.Gson;
 import static spark.Spark.*;
+import static spark.Spark.redirect;
 
-public class Server {
-    private final Logger log = LoggerFactory.getLogger(Server.class);
+
+public class RestfulAPI {
+    private final Logger log = LoggerFactory.getLogger(RestfulAPI.class);
     private DateTimeFormatter dateTimeFormat = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
 
     private final int HTTP_OK = 200;
     private final int HTTP_BAD_REQUEST = 400;
     private final int HTTP_SERVER_ERROR = 500;
 
-    public Server() {
-        configureServer();
-        processRestfulAPIrequests();
+    public static void main(String[] args) {
+        new RestfulAPI();
     }
 
-    /* Configure MicroServices Here. */
+    public RestfulAPI() {
+        configureServer();
+        processRestfulAPIRequest();
+    }
 
-    private void processRestfulAPIrequests() {
+    private void processRestfulAPIRequest() {
         path("/api", () -> {
             before("/*", (req, res) -> logRequest(req));
-            post("/config", (req, res) -> processHttpRequest(req, res, RequestConfig.class));
+            post("/move", (req, res) -> processHttpRequest(req, res, Move.class));
+            post("/match", (req, res) -> processHttpRequest(req, res, NewChessMatch.class));
+            post("/newUser", (req, res) -> processHttpRequest(req, res, NewUser.class));
         });
     }
-
-    /* You shouldn't need to change what is found below. */
 
     private String processHttpRequest(spark.Request httpRequest, spark.Response httpResponse, Type type) {
         setupResponse(httpResponse);
         String jsonString = httpRequest.body();
         try {
-            JSONValidator.validate(jsonString, type);
             return buildJSONResponse(new Gson().fromJson(jsonString, type));
-        } catch (IOException | BadRequestException e) {
+        } catch (RequestException | IllegalMoveException e) {
             log.info("Bad Request - {}", e.getMessage());
             httpResponse.status(HTTP_BAD_REQUEST);
         } catch (Exception e) {
@@ -63,22 +62,11 @@ public class Server {
         response.status(200);
     }
 
-    private String buildJSONResponse(RequestHeader request) throws BadRequestException {
+    private String buildJSONResponse(RequestData request) throws RequestException, IllegalMoveException {
         request.buildResponse();
         String responseBody = new Gson().toJson(request);
         log.trace("Response - {}", responseBody);
         return responseBody;
-    }
-
-    private void logRequest(spark.Request request) {
-        String message = "Request - "
-                + "[" + dateTimeFormat.format(LocalDateTime.now()) + "] "
-                + request.ip() + " "
-                + "\"" + request.requestMethod() + " "
-                + request.pathInfo() + " "
-                + request.protocol() + "\" "
-                + "[" + request.body() + "]";
-        log.info(message);
     }
 
     private void configureServer() {
@@ -87,20 +75,19 @@ public class Server {
         String keystorePassword = System.getenv("KEYSTORE_PASSWORD");
         if (keystoreFile != null && keystorePassword != null) {
             secure(keystoreFile, keystorePassword, null, null);
-            //log.info("MicroServer running using HTTPS on port {}.", serverPort);
         } else {
-            //log.info("MicroServer running using HTTP on port {}.", serverPort);
         }
-
-        // To Serve Static Files (SPA)
-
         staticFiles.location("/public/");
         redirect.get("/", "/index.html");
     }
 
-    public static void main(String[] args) {
-
-        Server server = new Server();
+    private void logRequest(spark.Request request) {
+        String message = "Request - "
+                + "[" + dateTimeFormat.format(LocalDateTime.now()) + "] "
+                + request.ip() + " "
+                + "\"" + request.requestMethod() + " "
+                + request.pathInfo() + " "
+                + request.protocol() + "\" ";
+        log.info(message);
     }
-
 }
