@@ -16,7 +16,7 @@ import org.slf4j.LoggerFactory;
 import com.google.gson.Gson;
 import static spark.Spark.*;
 
-public class Server {
+/*public class Server {
     private final Logger log = LoggerFactory.getLogger(Server.class);
     private DateTimeFormatter dateTimeFormat = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
 
@@ -29,7 +29,7 @@ public class Server {
         processRestfulAPIrequests();
     }
 
-    /* Configure MicroServices Here. */
+    /* Configure MicroServices Here.
 
     private void processRestfulAPIrequests() {
         path("/api", () -> {
@@ -38,13 +38,13 @@ public class Server {
         });
     }
 
-    /* You shouldn't need to change what is found below. */
+    /* You shouldn't need to change what is found below.
 
     private String processHttpRequest(spark.Request httpRequest, spark.Response httpResponse, Type type) {
         setupResponse(httpResponse);
         String jsonString = httpRequest.body();
         try {
-            JSONValidator.validate(jsonString, type);
+            //JSONValidator.validate(jsonString, type);
             return buildJSONResponse(new Gson().fromJson(jsonString, type));
         } catch (IOException | BadRequestException e) {
             log.info("Bad Request - {}", e.getMessage());
@@ -103,4 +103,4 @@ public class Server {
         Server server = new Server();
     }
 
-}
+}*/

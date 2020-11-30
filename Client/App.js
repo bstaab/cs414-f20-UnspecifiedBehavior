@@ -6,6 +6,7 @@ import Login from './pages/login'
 import Register from './pages/register'
 import Board from './pages/Board'
 import LoginLayout from "./pages/loginlayout";
+import MoveValidation from "./MoveValidation";
 
 import useWindowSize from "./components/useWindowSize";
 import {sendPostRequest} from "./components/API";
@@ -32,7 +33,7 @@ function App() {
                     </LoginLayout>
                 </Route>
                 <Route path="/Board">
-                    <Board />
+                    <MoveValidation />
                 </Route>
             </Switch>
             </div>

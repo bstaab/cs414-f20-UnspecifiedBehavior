@@ -9,10 +9,6 @@
     "start": "concurrently \"npm run startClient\" \"npm run runServer\"",
     "runServer": "java -Dorg.slf4j.simpleLogger.log.com.mrpowers=info -jar target/server-*.jar 8080"
   },
-  "files": [
-    "chessboard.d.ts",
-    "dist"
-  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/bstaab/cs414-f20-UnspecifiedBehavior.git"
