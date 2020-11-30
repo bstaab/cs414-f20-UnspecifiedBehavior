@@ -16,6 +16,5 @@ public class NewUser extends RequestData {
         QueryBuilder.getDBTable();
         QueryBuilder.createUser(user, email,password);
         QueryBuilder.disconnectDb();
-        System.out.println("test");
     }
 }

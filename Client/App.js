@@ -14,7 +14,7 @@ import {sendPostRequest} from "./components/API";
 function App() {
     const {width, height} = useWindowSize();
     const [adminDashboard, setAdminDashboard] = useState(false);
-    sendPostRequest("move", {"hello": "world"}).then(r=>console.log(r.data))
+    sendPostRequest("move", {"from": "b2","to":"b4","match":"1"}).then(r=>console.log(r.data))
     return (
         <BrowserRouter>
             <div id='body' className="container mt-0" style={{ marginTop: 40}}>
