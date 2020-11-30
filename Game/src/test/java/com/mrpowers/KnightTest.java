@@ -13,7 +13,8 @@ import com.mrpowers.chess.*;
 import com.mrpowers.exceptions.IllegalMoveException;
 import com.mrpowers.exceptions.IllegalPositionException;
 
-import static org.junit.Assert.assertThrows;
+import org.junit.jupiter.api.Assertions;
+//import static org.junit.Assert.assertThrows;
 
 public class KnightTest {
 

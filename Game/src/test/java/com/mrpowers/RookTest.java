@@ -3,6 +3,11 @@ package com.mrpowers;
 import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.*;
 
+import com.mrpowers.chess.ChessBoard;
+import com.mrpowers.chess.ChessPiece;
+import com.mrpowers.exceptions.IllegalPositionException;
+import com.mrpowers.chess.Pawn;
+import com.mrpowers.chess.Rook;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -10,7 +15,8 @@ import java.util.ArrayList;
 import com.mrpowers.chess.*;
 import com.mrpowers.exceptions.IllegalPositionException;
 
-import static org.junit.Assert.assertThrows;
+import org.junit.jupiter.api.Assertions;
+//import static org.junit.Assert.assertThrows;
 
 public class RookTest {
   @Test

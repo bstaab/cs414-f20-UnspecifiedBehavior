@@ -2,15 +2,20 @@ package com.mrpowers;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import com.mrpowers.chess.ChessBoard;
+import com.mrpowers.chess.ChessPiece;
+import com.mrpowers.exceptions.IllegalPositionException;
+import com.mrpowers.chess.Bishop;
+import com.mrpowers.chess.Pawn;
 import org.junit.Test;
 
 import com.mrpowers.chess.*;
 import com.mrpowers.exceptions.IllegalPositionException;
+//import static org.junit.Assert.assertEquals;
+//import static org.junit.Assert.assertThrows;
+//import static org.junit.Assert.assertTrue;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThrows;
-import static org.junit.Assert.assertTrue;
-
+import org.junit.jupiter.api.Assertions;
 import java.util.ArrayList;
 
 public class BishopTest {

@@ -1,17 +1,21 @@
 package com.mrpowers;
 
-import static org.junit.Assert.assertEquals;
+//import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
 
+import com.mrpowers.chess.ChessBoard;
+import com.mrpowers.chess.ChessPiece;
+import com.mrpowers.exceptions.IllegalMoveException;
+import com.mrpowers.exceptions.IllegalPositionException;
 import org.junit.jupiter.api.Test;
-
+import org.junit.jupiter.api.Assertions;
 import com.mrpowers.chess.*;
 import com.mrpowers.exceptions.IllegalMoveException;
 import com.mrpowers.exceptions.IllegalPositionException;
+//import static org.junit.Assert.assertThrows;
 
-import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
 
 public class ChessBoardTest{

@@ -1,5 +1,6 @@
 package com.mrpowers.requests;
 
+import com.mrpowers.chess.ChessBoard;
 import com.mrpowers.exceptions.IllegalMoveException;
 
 public class Move extends RequestData {
@@ -22,7 +23,13 @@ public class Move extends RequestData {
     @Override
     public void buildResponse() throws RequestException, IllegalMoveException {
         System.out.println("test");
-        //thisMatch.board.move(from, to);
-
+        ChessBoard board=new ChessBoard();
+        board.initialize();
+        try {
+            board.move(from, to);
+            System.out.println("success");
+        }catch(IllegalMoveException e){
+            System.out.println("fail");
+        }
     }
 }
