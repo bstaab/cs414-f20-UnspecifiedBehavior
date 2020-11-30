@@ -59,6 +59,10 @@ public class Pawn extends ChessPiece {
 			move = "" + col + newRow;
 			int maxMoves = (row == initialRow) ? 2 : 1;
 			for (int moveIdx = 0; moveIdx < maxMoves; ++moveIdx) {
+				if (!onBoard(move)) {
+					continue;
+				}
+				
  				piece = board.getPiece(move);
  				if(piece == null) {
 					if (move.equals(whitePortalLocation)) {
@@ -93,50 +97,54 @@ public class Pawn extends ChessPiece {
 			newRow = row + moveDir;
 			newCol = (char) (col + 1);
 			move = "" + newCol + newRow;
-			piece = board.getPiece(move);
-			if(piece == null) {
-				if (move.equals(whitePortalLocation)) {
-					if (onBlackPortal == null || onBlackPortal.color == attackColor) {
-						moves.add(blackPortalLocation);
+			if (onBoard(move)) {
+				piece = board.getPiece(move);
+				if(piece == null) {
+					if (move.equals(whitePortalLocation)) {
+						if (onBlackPortal == null || onBlackPortal.color == attackColor) {
+							moves.add(blackPortalLocation);
+						} else {
+							moves.add(move);
+						}
+					} else if (move.equals(blackPortalLocation)) {
+						if (onWhitePortal == null || onWhitePortal.color == attackColor) {
+							moves.add(whitePortalLocation);
+						} else {
+							moves.add(move);
+						}
 					} else {
 						moves.add(move);
 					}
-				} else if (move.equals(blackPortalLocation)) {
-					if (onWhitePortal == null || onWhitePortal.color == attackColor) {
-						moves.add(whitePortalLocation);
-					} else {
-						moves.add(move);
-					}
-				} else {
+				} else if (piece.color == attackColor){
 					moves.add(move);
 				}
-			} else if (piece.color == attackColor){
-				moves.add(move);
 			}
 			
 			// Check to the left
 			newRow = row + moveDir;
 			newCol = (char) (col - 1);
 			move = "" + newCol + newRow;
-			piece = board.getPiece(move);
-			if(piece == null) {
-				if (move.equals(whitePortalLocation)) {
-					if (onBlackPortal == null || onBlackPortal.color == attackColor) {
-						moves.add(blackPortalLocation);
+			if (onBoard(move)) {
+				piece = board.getPiece(move);
+				if(piece == null) {
+					if (move.equals(whitePortalLocation)) {
+						if (onBlackPortal == null || onBlackPortal.color == attackColor) {
+							moves.add(blackPortalLocation);
+						} else {
+							moves.add(move);
+						}
+					} else if (move.equals(blackPortalLocation)) {
+						if (onWhitePortal == null || onWhitePortal.color == attackColor) {
+							moves.add(whitePortalLocation);
+						} else {
+							moves.add(move);
+						}
 					} else {
 						moves.add(move);
 					}
-				} else if (move.equals(blackPortalLocation)) {
-					if (onWhitePortal == null || onWhitePortal.color == attackColor) {
-						moves.add(whitePortalLocation);
-					} else {
-						moves.add(move);
-					}
-				} else {
+				} else if (piece.color == attackColor){
 					moves.add(move);
 				}
-			} else if (piece.color == attackColor){
-				moves.add(move);
 			}
 						
 		}catch(IllegalPositionException e) {

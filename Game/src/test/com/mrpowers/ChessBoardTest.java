@@ -3,6 +3,8 @@ package com.mrpowers;
 import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.ArrayList;
+
 import org.junit.jupiter.api.Test;
 
 import com.mrpowers.chess.*;
@@ -10,6 +12,7 @@ import com.mrpowers.exceptions.IllegalMoveException;
 import com.mrpowers.exceptions.IllegalPositionException;
 
 import static org.junit.Assert.assertThrows;
+import static org.junit.Assert.assertTrue;
 
 public class ChessBoardTest{
   @Test
@@ -95,7 +98,7 @@ public class ChessBoardTest{
   }
   
   @Test
-  public void testPlacePiece() {
+  public void testPlacePiece1() {
 	  ChessBoard testBoard = new ChessBoard();
 	  
 	  testBoard.initialize();
@@ -138,5 +141,544 @@ public class ChessBoardTest{
 		  e.printStackTrace();
 	  }
   }
+
+  @Test
+  public void testPlacePiece2() {
+	  ChessBoard testBoard = new ChessBoard();
+	  
+	  testBoard.initialize();
+	  
+	  try {
+		  ChessPiece whitePiece = testBoard.getPiece("a2");
+		  ChessPiece blackPiece = testBoard.getPiece("h7");
+
+		  // Place piece on empty square and verify new position
+		  assertEquals(true, testBoard.placePiece(whitePiece, "a3"));
+		  assertEquals("a3", whitePiece.getPosition());
+		  
+		  // Place piece on square occupied by same color, verify old position
+		  assertEquals(false, testBoard.placePiece(whitePiece, "a1"));
+		  assertEquals("a3", whitePiece.getPosition());
+		  
+		  // Verify piece at destination square, place piece on square occupied 
+		  // by different color, verify new position
+		  assertEquals("\u265F", testBoard.getPiece("a7").toString());
+		  assertEquals(true, testBoard.placePiece(whitePiece, "a7"));
+		  assertEquals("a7", whitePiece.getPosition());
+		  assertEquals("\u2659", testBoard.getPiece("a7").toString());
+		  
+		  // Place piece on empty square and verify new position
+		  assertEquals(true, testBoard.placePiece(blackPiece, "h6"));
+		  assertEquals("h6", blackPiece.getPosition());
+		  
+		  // Place piece on square occupied by same color, verify old position
+		  assertEquals(false, testBoard.placePiece(blackPiece, "g7"));
+		  assertEquals("h6", blackPiece.getPosition());
+		  
+		  // Verify piece at destination square, place piece on square occupied 
+		  // by different color, verify new position
+		  assertEquals("\u2659", testBoard.getPiece("h2").toString());
+		  assertEquals(true, testBoard.placePiece(blackPiece, "h2"));
+		  assertEquals("h2", blackPiece.getPosition());
+		  assertEquals("\u265F", testBoard.getPiece("h2").toString());
+		  
+	  } catch (IllegalPositionException e) {
+		  e.printStackTrace();
+	  }
+  }
+  
+  @ Test
+  public void testMoves1() {
+	  ChessBoard testBoard = new ChessBoard();
+	  
+	  testBoard.initialize();
+	  
+	  try {
+		  // Verify initial portal location
+		  assertEquals("a4", testBoard.getPortalLocation(ChessPiece.Color.WHITE));
+		  assertEquals("a5", testBoard.getPortalLocation(ChessPiece.Color.BLACK));
+		  
+		  // Place piece on empty square and verify new position
+		  assertEquals(true, testBoard.setPortalLocation(ChessPiece.Color.WHITE, "a8"));
+		  assertEquals(true, testBoard.setPortalLocation(ChessPiece.Color.BLACK, "a3"));
+		  
+		  // Get pawn located at a2
+		  ChessPiece Piece = testBoard.getPiece("a2");
+		  		  
+		  // get valid moves
+		  ArrayList<String> legalMoves = Piece.legalMoves();
+
+		  // Verify it can move to the portal location
+		  assertTrue(legalMoves.contains("a8"));
+		  
+	  } catch (IllegalPositionException e) {
+		  e.printStackTrace();
+	  }
+  }
+  
+  @ Test
+  public void testMoves2() {
+	  ChessBoard testBoard = new ChessBoard();
+	  
+	  testBoard.initialize();
+	  
+	  try {
+		  // Verify initial portal location
+		  assertEquals("a4", testBoard.getPortalLocation(ChessPiece.Color.WHITE));
+		  assertEquals("a5", testBoard.getPortalLocation(ChessPiece.Color.BLACK));
+		  
+		  // Place piece on empty square and verify new position
+		  assertEquals(true, testBoard.setPortalLocation(ChessPiece.Color.WHITE, "a7"));
+		  assertEquals(true, testBoard.setPortalLocation(ChessPiece.Color.BLACK, "a3"));
+		  
+		  // Get pawn located at a2
+		  ChessPiece Piece = testBoard.getPiece("a2");
+		  		  
+		  // get valid moves
+		  ArrayList<String> legalMoves = Piece.legalMoves();
+
+		  // Verify it can move to the portal location
+		  assertTrue(legalMoves.contains("a7"));
+		  
+	  } catch (IllegalPositionException e) {
+		  e.printStackTrace();
+	  }
+  }
+  
+  @ Test
+  public void testMoves3() {
+	  ChessBoard testBoard = new ChessBoard();
+	  
+	  testBoard.initialize();
+	  
+	  try {
+		  // Verify initial portal location
+		  assertEquals("a4", testBoard.getPortalLocation(ChessPiece.Color.WHITE));
+		  assertEquals("a5", testBoard.getPortalLocation(ChessPiece.Color.BLACK));
+		  
+		  // Place piece on empty square and verify new position
+		  assertEquals(true, testBoard.setPortalLocation(ChessPiece.Color.WHITE, "b8"));
+		  assertEquals(true, testBoard.setPortalLocation(ChessPiece.Color.BLACK, "b3"));
+		  
+		  // Get pawn located at a2
+		  ChessPiece Piece = testBoard.getPiece("b2");
+		  		  
+		  // get valid moves
+		  ArrayList<String> legalMoves = Piece.legalMoves();
+
+		  // Verify it can move to the portal location
+		  assertTrue(legalMoves.contains("b8"));
+		  
+	  } catch (IllegalPositionException e) {
+		  e.printStackTrace();
+	  }
+  }
+  
+  @ Test
+  public void testMoves4() {
+	  ChessBoard testBoard = new ChessBoard();
+	  
+	  testBoard.initialize();
+	  
+	  try {
+		  // Verify initial portal location
+		  assertEquals("a4", testBoard.getPortalLocation(ChessPiece.Color.WHITE));
+		  assertEquals("a5", testBoard.getPortalLocation(ChessPiece.Color.BLACK));
+		  
+		  // Place piece on empty square and verify new position
+		  assertEquals(true, testBoard.setPortalLocation(ChessPiece.Color.WHITE, "b7"));
+		  assertEquals(true, testBoard.setPortalLocation(ChessPiece.Color.BLACK, "b3"));
+		  
+		  // Get pawn located at a2
+		  ChessPiece Piece = testBoard.getPiece("a2");
+		  		  
+		  // get valid moves
+		  ArrayList<String> legalMoves = Piece.legalMoves();
+
+		  // Verify it can move to the portal location
+		  assertTrue(legalMoves.contains("b7"));
+		  
+	  } catch (IllegalPositionException e) {
+		  e.printStackTrace();
+	  }
+  }
+  
+  @ Test
+  public void testMoves5() {
+	  ChessBoard testBoard = new ChessBoard();
+	  
+	  testBoard.initialize();
+	  
+	  try {
+		  // Verify initial portal location
+		  assertEquals("a4", testBoard.getPortalLocation(ChessPiece.Color.WHITE));
+		  assertEquals("a5", testBoard.getPortalLocation(ChessPiece.Color.BLACK));
+		  
+		  // Place piece on empty square and verify new position
+		  assertEquals(true, testBoard.setPortalLocation(ChessPiece.Color.WHITE, "c8"));
+		  assertEquals(true, testBoard.setPortalLocation(ChessPiece.Color.BLACK, "a3"));
+		  
+		  // Get pawn located at a2
+		  ChessPiece Piece = testBoard.getPiece("a2");
+		  		  
+		  // get valid moves
+		  ArrayList<String> legalMoves = Piece.legalMoves();
+
+		  // Verify it can move to the portal location
+		  assertTrue(legalMoves.contains("c8"));
+		  
+	  } catch (IllegalPositionException e) {
+		  e.printStackTrace();
+	  }
+  }
+	  
+  @ Test
+  public void testMoves6() {
+	  ChessBoard testBoard = new ChessBoard();
+	  
+	  testBoard.initialize();
+	  
+	  try {
+		  // Verify initial portal location
+		  assertEquals("a4", testBoard.getPortalLocation(ChessPiece.Color.WHITE));
+		  assertEquals("a5", testBoard.getPortalLocation(ChessPiece.Color.BLACK));
+		  
+		  // Place piece on empty square and verify new position
+		  assertEquals(true, testBoard.setPortalLocation(ChessPiece.Color.WHITE, "d8"));
+		  assertEquals(true, testBoard.setPortalLocation(ChessPiece.Color.BLACK, "a3"));
+		  
+		  // Get pawn located at a2
+		  ChessPiece Piece = testBoard.getPiece("a2");
+		  		  
+		  // get valid moves
+		  ArrayList<String> legalMoves = Piece.legalMoves();
+
+		  // Verify it can move to the portal location
+		  assertTrue(legalMoves.contains("d8"));
+		  
+	  } catch (IllegalPositionException e) {
+		  e.printStackTrace();
+	  }
+  }
+  
+  @ Test
+  public void testMoves7() {
+	  ChessBoard testBoard = new ChessBoard();
+	  
+	  testBoard.initialize();
+	  
+	  try {
+		  // Verify initial portal location
+		  assertEquals("a4", testBoard.getPortalLocation(ChessPiece.Color.WHITE));
+		  assertEquals("a5", testBoard.getPortalLocation(ChessPiece.Color.BLACK));
+		  
+		  // Place piece on empty square and verify new position
+		  assertEquals(true, testBoard.setPortalLocation(ChessPiece.Color.WHITE, "e8"));
+		  assertEquals(true, testBoard.setPortalLocation(ChessPiece.Color.BLACK, "a3"));
+		  
+		  // Get pawn located at a2
+		  ChessPiece Piece = testBoard.getPiece("a2");
+		  		  
+		  // get valid moves
+		  ArrayList<String> legalMoves = Piece.legalMoves();
+
+		  // Verify it can move to the portal location
+		  assertTrue(legalMoves.contains("e8"));
+		  
+	  } catch (IllegalPositionException e) {
+		  e.printStackTrace();
+	  }
+  }
+  
+  @ Test
+  public void testMoves8() {
+	  ChessBoard testBoard = new ChessBoard();
+	  
+	  testBoard.initialize();
+	  
+	  try {
+		  // Verify initial portal location
+		  assertEquals("a4", testBoard.getPortalLocation(ChessPiece.Color.WHITE));
+		  assertEquals("a5", testBoard.getPortalLocation(ChessPiece.Color.BLACK));
+		  
+		  // Place piece on empty square and verify new position
+		  assertEquals(true, testBoard.setPortalLocation(ChessPiece.Color.WHITE, "f8"));
+		  assertEquals(true, testBoard.setPortalLocation(ChessPiece.Color.BLACK, "a3"));
+		  
+		  // Get pawn located at a2
+		  ChessPiece Piece = testBoard.getPiece("a2");
+		  		  
+		  // get valid moves
+		  ArrayList<String> legalMoves = Piece.legalMoves();
+
+		  // Verify it can move to the portal location
+		  assertTrue(legalMoves.contains("f8"));
+		  
+	  } catch (IllegalPositionException e) {
+		  e.printStackTrace();
+	  }
+  }
+  
+  @ Test
+  public void testMoves9() {
+	  ChessBoard testBoard = new ChessBoard();
+	  
+	  testBoard.initialize();
+	  
+	  try {
+		  // Verify initial portal location
+		  assertEquals("a4", testBoard.getPortalLocation(ChessPiece.Color.WHITE));
+		  assertEquals("a5", testBoard.getPortalLocation(ChessPiece.Color.BLACK));
+		  
+		  // Place piece on empty square and verify new position
+		  assertEquals(true, testBoard.setPortalLocation(ChessPiece.Color.WHITE, "g8"));
+		  assertEquals(true, testBoard.setPortalLocation(ChessPiece.Color.BLACK, "a3"));
+		  
+		  // Get pawn located at a2
+		  ChessPiece Piece = testBoard.getPiece("a2");
+		  		  
+		  // get valid moves
+		  ArrayList<String> legalMoves = Piece.legalMoves();
+
+		  // Verify it can move to the portal location
+		  assertTrue(legalMoves.contains("g8"));
+		  
+	  } catch (IllegalPositionException e) {
+		  e.printStackTrace();
+	  }
+  }
+  
+  @ Test
+  public void testMoves10() {
+	  ChessBoard testBoard = new ChessBoard();
+	  
+	  testBoard.initialize();
+	  
+	  try {
+		  // Verify initial portal location
+		  assertEquals("a4", testBoard.getPortalLocation(ChessPiece.Color.WHITE));
+		  assertEquals("a5", testBoard.getPortalLocation(ChessPiece.Color.BLACK));
+		  
+		  // Place piece on empty square and verify new position
+		  assertEquals(true, testBoard.setPortalLocation(ChessPiece.Color.WHITE, "h8"));
+		  assertEquals(true, testBoard.setPortalLocation(ChessPiece.Color.BLACK, "a3"));
+		  
+		  // Get pawn located at a2
+		  ChessPiece Piece = testBoard.getPiece("a2");
+		  		  
+		  // get valid moves
+		  ArrayList<String> legalMoves = Piece.legalMoves();
+
+		  // Verify it can move to the portal location
+		  assertTrue(legalMoves.contains("h8"));
+		  
+	  } catch (IllegalPositionException e) {
+		  e.printStackTrace();
+	  }
+  }
+  
+  @ Test
+  public void testMoves11() {
+	  ChessBoard testBoard = new ChessBoard();
+	  
+	  testBoard.initialize();
+	  
+	  try {
+		  // Verify initial portal location
+		  assertEquals("a4", testBoard.getPortalLocation(ChessPiece.Color.WHITE));
+		  assertEquals("a5", testBoard.getPortalLocation(ChessPiece.Color.BLACK));
+		  
+		  // Place piece on empty square and verify new position
+		  assertEquals(true, testBoard.setPortalLocation(ChessPiece.Color.WHITE, "b2"));
+		  assertEquals(true, testBoard.setPortalLocation(ChessPiece.Color.BLACK, "a3"));
+		  
+		  // Get pawn located at a2
+		  ChessPiece Piece = testBoard.getPiece("a2");
+		  		  
+		  // get valid moves
+		  ArrayList<String> legalMoves = Piece.legalMoves();
+
+		  // Verify it can move to the portal location
+		  assertTrue(!legalMoves.contains("b2"));
+		  
+	  } catch (IllegalPositionException e) {
+		  e.printStackTrace();
+	  }
+  }
+  
+  @ Test
+  public void testMoves12() {
+	  ChessBoard testBoard = new ChessBoard();
+	  
+	  testBoard.initialize();
+	  
+	  try {
+		  // Verify initial portal location
+		  assertEquals("a4", testBoard.getPortalLocation(ChessPiece.Color.WHITE));
+		  assertEquals("a5", testBoard.getPortalLocation(ChessPiece.Color.BLACK));
+		  
+		  // Place piece on empty square and verify new position
+		  assertEquals(true, testBoard.setPortalLocation(ChessPiece.Color.WHITE, "c2"));
+		  assertEquals(true, testBoard.setPortalLocation(ChessPiece.Color.BLACK, "a3"));
+		  
+		  // Get pawn located at a2
+		  ChessPiece Piece = testBoard.getPiece("a2");
+		  		  
+		  // get valid moves
+		  ArrayList<String> legalMoves = Piece.legalMoves();
+
+		  // Verify it can move to the portal location
+		  assertTrue(!legalMoves.contains("c2"));
+		  
+	  } catch (IllegalPositionException e) {
+		  e.printStackTrace();
+	  }
+  }
+  
+  @ Test
+  public void testMoves13() {
+	  ChessBoard testBoard = new ChessBoard();
+	  
+	  testBoard.initialize();
+	  
+	  try {
+		  // Verify initial portal location
+		  assertEquals("a4", testBoard.getPortalLocation(ChessPiece.Color.WHITE));
+		  assertEquals("a5", testBoard.getPortalLocation(ChessPiece.Color.BLACK));
+		  
+		  // Place piece on empty square and verify new position
+		  assertEquals(true, testBoard.setPortalLocation(ChessPiece.Color.WHITE, "d2"));
+		  assertEquals(true, testBoard.setPortalLocation(ChessPiece.Color.BLACK, "a3"));
+		  
+		  // Get pawn located at a2
+		  ChessPiece Piece = testBoard.getPiece("a2");
+		  		  
+		  // get valid moves
+		  ArrayList<String> legalMoves = Piece.legalMoves();
+
+		  // Verify it can move to the portal location
+		  assertTrue(!legalMoves.contains("d2"));
+		  
+	  } catch (IllegalPositionException e) {
+		  e.printStackTrace();
+	  }
+  }
+  
+  @ Test
+  public void testMoves14() {
+	  ChessBoard testBoard = new ChessBoard();
+	  
+	  testBoard.initialize();
+	  
+	  try {
+		  // Verify initial portal location
+		  assertEquals("a4", testBoard.getPortalLocation(ChessPiece.Color.WHITE));
+		  assertEquals("a5", testBoard.getPortalLocation(ChessPiece.Color.BLACK));
+		  
+		  // Place piece on empty square and verify new position
+		  assertEquals(true, testBoard.setPortalLocation(ChessPiece.Color.WHITE, "e2"));
+		  assertEquals(true, testBoard.setPortalLocation(ChessPiece.Color.BLACK, "a3"));
+		  
+		  // Get pawn located at a2
+		  ChessPiece Piece = testBoard.getPiece("a2");
+		  		  
+		  // get valid moves
+		  ArrayList<String> legalMoves = Piece.legalMoves();
+
+		  // Verify it can move to the portal location
+		  assertTrue(!legalMoves.contains("e2"));
+		  
+	  } catch (IllegalPositionException e) {
+		  e.printStackTrace();
+	  }
+  }
+  
+  @ Test
+  public void testMoves15() {
+	  ChessBoard testBoard = new ChessBoard();
+	  
+	  testBoard.initialize();
+	  
+	  try {
+		  // Verify initial portal location
+		  assertEquals("a4", testBoard.getPortalLocation(ChessPiece.Color.WHITE));
+		  assertEquals("a5", testBoard.getPortalLocation(ChessPiece.Color.BLACK));
+		  
+		  // Place piece on empty square and verify new position
+		  assertEquals(true, testBoard.setPortalLocation(ChessPiece.Color.WHITE, "f2"));
+		  assertEquals(true, testBoard.setPortalLocation(ChessPiece.Color.BLACK, "a3"));
+		  
+		  // Get pawn located at a2
+		  ChessPiece Piece = testBoard.getPiece("a2");
+		  		  
+		  // get valid moves
+		  ArrayList<String> legalMoves = Piece.legalMoves();
+
+		  // Verify it can move to the portal location
+		  assertTrue(!legalMoves.contains("f2"));
+		  
+	  } catch (IllegalPositionException e) {
+		  e.printStackTrace();
+	  }
+  }
+  
+  @ Test
+  public void testMoves16() {
+	  ChessBoard testBoard = new ChessBoard();
+	  
+	  testBoard.initialize();
+	  
+	  try {
+		  // Verify initial portal location
+		  assertEquals("a4", testBoard.getPortalLocation(ChessPiece.Color.WHITE));
+		  assertEquals("a5", testBoard.getPortalLocation(ChessPiece.Color.BLACK));
+		  
+		  // Place piece on empty square and verify new position
+		  assertEquals(true, testBoard.setPortalLocation(ChessPiece.Color.WHITE, "g2"));
+		  assertEquals(true, testBoard.setPortalLocation(ChessPiece.Color.BLACK, "a3"));
+		  
+		  // Get pawn located at a2
+		  ChessPiece Piece = testBoard.getPiece("a2");
+		  		  
+		  // get valid moves
+		  ArrayList<String> legalMoves = Piece.legalMoves();
+
+		  // Verify it can move to the portal location
+		  assertTrue(!legalMoves.contains("g2"));
+		  
+	  } catch (IllegalPositionException e) {
+		  e.printStackTrace();
+	  }
+  }
+  
+  @ Test
+  public void testMoves17() {
+	  ChessBoard testBoard = new ChessBoard();
+	  
+	  testBoard.initialize();
+	  
+	  try {
+		  // Verify initial portal location
+		  assertEquals("a4", testBoard.getPortalLocation(ChessPiece.Color.WHITE));
+		  assertEquals("a5", testBoard.getPortalLocation(ChessPiece.Color.BLACK));
+		  
+		  // Place piece on empty square and verify new position
+		  assertEquals(true, testBoard.setPortalLocation(ChessPiece.Color.WHITE, "h2"));
+		  assertEquals(true, testBoard.setPortalLocation(ChessPiece.Color.BLACK, "a3"));
+		  
+		  // Get pawn located at a2
+		  ChessPiece Piece = testBoard.getPiece("a2");
+		  		  
+		  // get valid moves
+		  ArrayList<String> legalMoves = Piece.legalMoves();
+
+		  // Verify it can move to the portal location
+		  assertTrue(!legalMoves.contains("h2"));
+		  
+	  } catch (IllegalPositionException e) {
+		  e.printStackTrace();
+	  }
+  }
+  
 }
 
