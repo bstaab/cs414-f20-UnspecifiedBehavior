@@ -2,7 +2,7 @@ import React, { Component } from 'react'; // eslint-disable-line no-unused-vars
 import PropTypes from 'prop-types';
 import Chess from 'chess.js';
 
-import Chessboard from "chessboardjsx";
+import Chessboard from "./pages/Board";
 
 class MoveValidation extends Component {
     static propTypes = { children: PropTypes.func };
@@ -17,7 +17,8 @@ class MoveValidation extends Component {
         pieceSquare: '',
         // currently clicked square
         square: '',
-        history: []
+        history: [],
+        move : ''
     };
 
     componentDidMount() {
@@ -60,11 +61,11 @@ class MoveValidation extends Component {
 
     onDrop = ({ sourceSquare, targetSquare }) => {
         // see if the move is legal
-        let move = this.game.move({
+        this.move = this.setState(this.game.move({
             from: sourceSquare,
             to: targetSquare,
             promotion: 'q' // always promote to a queen for example simplicity
-        });
+        }));
 
         // illegal move
         if (move === null) return;
@@ -147,6 +148,14 @@ class MoveValidation extends Component {
             onSquareRightClick: this.onSquareRightClick
         });
     }
+}
+
+export function getMoveFrom() {
+    return this.move.from;
+}
+
+export function getMoveTo() {
+    return this.move.to;
 }
 
 export default function WithMoveValidation() {

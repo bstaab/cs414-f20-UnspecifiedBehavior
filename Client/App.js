@@ -6,7 +6,7 @@ import Login from './pages/login'
 import Register from './pages/register'
 import Board from './pages/Board'
 import LoginLayout from "./pages/loginlayout";
-import MoveValidation from "./MoveValidation";
+import MoveValidation, {getMoveFrom, getMoveTo} from "./MoveValidation";
 
 import useWindowSize from "./components/useWindowSize";
 import {sendPostRequest} from "./components/API";
@@ -14,7 +14,7 @@ import {sendPostRequest} from "./components/API";
 function App() {
     const {width, height} = useWindowSize();
     const [adminDashboard, setAdminDashboard] = useState(false);
-    sendPostRequest("move", {"hello": "world"}).then(r=>console.log(r.data))
+    sendPostRequest("move", {"from" : getMoveFrom, "to": getMoveTo, "match" : "1"}).then(r=>console.log(r.data))
     return (
         <BrowserRouter>
             <div id='body' className="container mt-0" style={{ marginTop: 40}}>
