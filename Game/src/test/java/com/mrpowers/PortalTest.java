@@ -6,13 +6,14 @@ import java.util.ArrayList;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+//import static org.junit.Assert.assertEquals;
+//import static org.junit.Assert.assertTrue;
 
 import com.mrpowers.chess.*;
 import com.mrpowers.exceptions.IllegalPositionException;
 
-import static org.junit.Assert.assertThrows;
+import org.junit.jupiter.api.Assertions;
+//import static org.junit.Assert.assertThrows;
 
 class PortalTest {
 
