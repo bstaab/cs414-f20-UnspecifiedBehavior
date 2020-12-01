@@ -7,7 +7,7 @@ import {useHistory} from "react-router";
 import PersonIcon from "@material-ui/icons/Person";
 import LockIcon from "@material-ui/icons/Lock";
 import MailIcon from '@material-ui/icons/Mail';
-
+import {sendPostRequest} from "../components/API";
 
 
     function Register()  {
@@ -60,7 +60,7 @@ import MailIcon from '@material-ui/icons/Mail';
                         <Button
                             color={"primary"} variant={"contained"} style={{width: "80%", height: "50px"}}
                             //disabled={disabledAccountCreation} onClick={() => createAccount()}
-                            onClick={() =>{history.push('home')}}
+                            onClick={() => registerUser()}
                         >
                             Create Account
                         </Button>
@@ -81,6 +81,7 @@ import MailIcon from '@material-ui/icons/Mail';
                     <TextField
                         fullWidth color={"primary"} variant={"outlined"} required
                         label={"Email"} value={props.email} onChange={(e) => props.setEmail(e.target.value)}
+                        id={'email'}
                         onKeyDown={(e) =>
                         {
                             //if(e.keyCode === 13) props.createAccount();
@@ -99,7 +100,7 @@ import MailIcon from '@material-ui/icons/Mail';
                 <Grid item style={{width: '100%'}}>
                     <TextField
                         fullWidth color={"primary"} variant={"outlined"}
-                        autoComplete={"username"} required
+                        autoComplete={"username"} required id={'username'}
                         label={"New Username"} value={props.username} onChange={(e) => props.setUsername(e.target.value)}
                        // onKeyDown={(e) =>
                        // {
@@ -119,7 +120,7 @@ import MailIcon from '@material-ui/icons/Mail';
                 <Grid item style={{width: '100%'}}>
                     <TextField
                         fullWidth color={"primary"} variant={"outlined"}
-                        type={"password"} autoComplete={"current-password"} required
+                        type={"password"} autoComplete={"current-password"} required id={'password'}
                         label={"New Password"} value={props.password} onChange={(e) => props.setPassword(e.target.value)}
                         onKeyDown={(e) =>
                         {
@@ -172,6 +173,13 @@ import MailIcon from '@material-ui/icons/Mail';
 
     function registerNewUser() {
         //TODO Add user email, nickname, and password to the user database
+    }
+
+    function registerUser() {
+        let username = window.document.getElementById('username').value;
+        let password = window.document.getElementById('password').value;
+        let email = window.document.getElementById('email').value;
+        sendPostRequest("newUser", {"user" : username, "password": password, "email" : email}).then(r=>console.log(r.data));
     }
 
     export default Register;
