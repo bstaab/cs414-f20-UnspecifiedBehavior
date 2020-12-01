@@ -29,8 +29,9 @@ public class Move extends RequestData {
         try {
             board.move(from, to);
             System.out.println("success");
+            this.from="fuck ya";
         }catch(IllegalMoveException e){
-            System.out.println("fail");
+            throw new RequestException();
         }
     }
 }
