@@ -5,6 +5,7 @@ import {useHistory} from "react-router";
 import {Grid, InputAdornment, TextField, Typography} from "@material-ui/core";
 import PersonIcon from '@material-ui/icons/Person';
 import LockIcon from '@material-ui/icons/Lock';
+import {sendPostRequest} from "../components/API";
 
 const renderLogin = () => {
 
@@ -29,7 +30,7 @@ const renderLogin = () => {
                 <Grid item style={{width: "80%"}} align={"center"}>
                     <Button
                         color={"primary"} variant={"contained"} style={{width: "80%", height: "50px"}}
-                        onClick={() => history.push('home') }
+                        onClick={() => loginUser()}
                     >
                         Login
                     </Button>
@@ -48,7 +49,7 @@ const LoginFields = props => {
             <Grid item style={{width: '100%'}}>
                 <TextField
                     fullWidth color={"primary"} variant={"outlined"}
-                    autoComplete={"username"}
+                    autoComplete={"username"} id={'username'}
                     label={"Username"} value={props.username} onChange={(e) => props.setUsername(e.target.value)}
                     onKeyDown={(e) =>
                     {
@@ -66,7 +67,7 @@ const LoginFields = props => {
             <Grid item style={{width: '100%'}}>
                 <TextField
                     fullWidth color={"primary"} variant={"outlined"}
-                    type={"password"} autoComplete={"current-password"}
+                    type={"password"} autoComplete={"current-password"} id={'password'}
                     label={"Password"} value={props.password} onChange={(e) => props.setPassword(e.target.value)}
                     onKeyDown={(e) =>
                     {
@@ -83,6 +84,12 @@ const LoginFields = props => {
             </Grid>
         </Grid>
     );
+}
+
+function loginUser() {
+    let username = window.document.getElementById('username').value;
+    let password = window.document.getElementById('password').value;
+    sendPostRequest("login", {"username" : username, "password": password}).then(r=>console.log(r.data));
 }
 
 
