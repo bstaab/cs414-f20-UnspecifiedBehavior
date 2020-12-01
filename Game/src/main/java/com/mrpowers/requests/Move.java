@@ -22,7 +22,8 @@ public class Move extends RequestData {
 
     @Override
     public void buildResponse() throws RequestException, IllegalMoveException {
-        System.out.println("test");
+        System.out.println(from);
+        System.out.println(to);
         ChessBoard board=new ChessBoard();
         board.initialize();
         try {
