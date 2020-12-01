@@ -4,9 +4,9 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 import Home from './pages/home'
 import Login from './pages/login'
 import Register from './pages/register'
-import Board from './pages/Board'
+import Board, {getSourceSquare,getTargetSquare} from './pages/Board'
 import LoginLayout from "./pages/loginlayout";
-import MoveValidation from "./MoveValidation";
+//import MoveValidation, {getMoveFrom, getMoveTo} from "./MoveValidation";
 
 import useWindowSize from "./components/useWindowSize";
 import {sendPostRequest} from "./components/API";
@@ -34,7 +34,7 @@ function App() {
                     </LoginLayout>
                 </Route>
                 <Route path="/Board">
-                    <MoveValidation />
+                    <Board />
                 </Route>
             </Switch>
             </div>

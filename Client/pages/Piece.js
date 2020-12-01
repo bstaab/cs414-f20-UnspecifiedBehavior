@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { getEmptyImage } from 'react-dnd-html5-backend';
 
 import { ItemTypes } from './helpers';
+import {sendPostRequest} from "../components/API";
 
 /* eslint react/prop-types: 0 */
 export const renderChessPiece = ({
@@ -203,6 +204,8 @@ const pieceSource = {
                     piece
                 });
             }
+            //sendPostRequest("move", {"from" : this.beginDrag, "to": dropResults.target, "match" : "1"}).then(r=>console.log(r.data))
+
             // set new position
             setPosition({
                 sourceSquare: square,
@@ -210,6 +213,7 @@ const pieceSource = {
                 piece
             });
         }
+
     }
 };
 
