@@ -90,6 +90,8 @@ public class QueryBuilder {
     }
 
     public static boolean createUser(String username, String email, String password){
+        System.out.println("db");
+        System.out.println(username);
         try {
             String insertQuery = "INSERT INTO registry (Username,Email,PASSWORD) VALUES (?,?,?)";
             prepObj = connObj.prepareStatement(insertQuery);
