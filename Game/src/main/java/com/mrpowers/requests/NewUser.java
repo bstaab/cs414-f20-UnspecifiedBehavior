@@ -16,12 +16,14 @@ public class NewUser extends RequestData {
 
     @Override
     public void buildResponse() throws RequestException, IllegalMoveException {
-        System.out.println(user);
-        System.out.println(password);
-        System.out.println(email);
+        System.out.println("0");
         QueryBuilder.connectDb();
+        System.out.println("1");
         QueryBuilder.getDBTable();
-        QueryBuilder.createUser(user, email,password);
+        System.out.println("2");
+        QueryBuilder.createUser(user, email, password);
+        System.out.println("3");
         QueryBuilder.disconnectDb();
+        System.out.println("4");
     }
 }
