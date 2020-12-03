@@ -30,7 +30,7 @@ const renderLogin = () => {
                 <Grid item style={{width: "80%"}} align={"center"}>
                     <Button
                         color={"primary"} variant={"contained"} style={{width: "80%", height: "50px"}}
-                        onClick={() => loginUser()}
+                        onClick={() => {loginUser(); history.push('home')}}
                     >
                         Login
                     </Button>

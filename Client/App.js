@@ -1,19 +1,23 @@
 import React, {useState} from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
+import Chess from './pages/chessground'
+import "react-chessground/dist/styles/chessground.css"
 
 import Home from './pages/home'
 import Login from './pages/login'
 import Register from './pages/register'
-import Board, {getSourceSquare,getTargetSquare} from './pages/Board'
 import LoginLayout from "./pages/loginlayout";
-//import MoveValidation, {getMoveFrom, getMoveTo} from "./MoveValidation";
 
 import useWindowSize from "./components/useWindowSize";
 import {sendPostRequest} from "./components/API";
 
+
+
 function App() {
     const {width, height} = useWindowSize();
     const [adminDashboard, setAdminDashboard] = useState(false);
+
+
     sendPostRequest("newUser", {"user":"test0", "password":"test1", "email":"test2"}).then(r=>console.log(r.data))
     sendPostRequest("move", {"from": "b2","to":"b4","match":"1"}).then(r=>console.log(r.data))
     return (
@@ -34,12 +38,13 @@ function App() {
                     </LoginLayout>
                 </Route>
                 <Route path="/Board">
-                    <Board />
+                    <Chess/>
                 </Route>
             </Switch>
             </div>
         </BrowserRouter>
     )
 }
+
 
 export default App;
