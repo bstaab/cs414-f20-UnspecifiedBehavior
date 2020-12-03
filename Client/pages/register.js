@@ -60,7 +60,7 @@ import {sendPostRequest} from "../components/API";
                         <Button
                             color={"primary"} variant={"contained"} style={{width: "80%", height: "50px"}}
                             //disabled={disabledAccountCreation} onClick={() => createAccount()}
-                            onClick={() => registerUser()}
+                            onClick={() => {registerUser(); history.push('home')}}
                         >
                             Create Account
                         </Button>
