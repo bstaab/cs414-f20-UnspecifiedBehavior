@@ -1,12 +1,12 @@
 # Unspecified Behavior
 
 ## To Deploy Locally
-* npm start
-* npm run build
+* just open the package.json and run from there
 
 ## Presentation Videos
 * [P1](https://youtu.be/eE9ReTSFLEc)
 * [P2](https://youtu.be/UoQXpszqEjc)
+* [P3]()
 
 ## P1
 * [P1 Presentation](Documents/P1Presentation.pdf)
@@ -28,7 +28,7 @@
 
 ## P3
 * [P3 WIKI](https://github.com/bstaab/cs414-f20-UnspecifiedBehavior/wiki/P3)
-* P2 Presentation - TODO
+* P3 Presentation - TODO
 * CRC Cards - TODO
 * Class Diagram - TODO
 * User Stories and Tasks - TODO
