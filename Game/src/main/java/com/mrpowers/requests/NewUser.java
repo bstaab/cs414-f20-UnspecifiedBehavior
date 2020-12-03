@@ -13,17 +13,31 @@ public class NewUser extends RequestData {
         this.password=password;
         this.user=user;
     }
-
+    public String getUser(){
+        return user;
+    }
+    public String getPassword(){
+        return password;
+    }
+    public String getEmail(){
+        return email;
+    }
     @Override
     public void buildResponse() throws RequestException, IllegalMoveException {
-        System.out.println("0");
         QueryBuilder.connectDb();
-        System.out.println("1");
         QueryBuilder.getDBTable();
-        System.out.println("2");
         QueryBuilder.createUser(user, email, password);
-        System.out.println("3");
         QueryBuilder.disconnectDb();
-        System.out.println("4");
+    }
+
+    public static void main(String[] args){
+        NewUser aUser=new NewUser("user", "password", "user@mail.com");
+        try {
+            aUser.buildResponse();
+        }catch(RequestException e){
+            System.out.println("error");
+        }catch(IllegalMoveException e){
+            System.out.println("error");
+        }
     }
 }

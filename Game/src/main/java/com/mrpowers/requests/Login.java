@@ -18,15 +18,24 @@ public class Login extends RequestData{
         QueryBuilder.getDBTable();
         if(QueryBuilder.checkUsername(username)){
             String[] results=QueryBuilder.searchUser(username);
+            QueryBuilder.disconnectDb();
             if(password==results[2]){
-                QueryBuilder.disconnectDb();
                 return;
             }
             else{throw new RequestException();}
         }
         else{
-            QueryBuilder.disconnectDb();
             throw new RequestException();
+        }
+    }
+    public static void main(String[] args){
+        Login aLogin=new Login("user", "password");
+        try{
+            aLogin.buildResponse();
+        }catch(IllegalMoveException e){
+
+        }catch(RequestException e){
+
         }
     }
 }
