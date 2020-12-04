@@ -8,6 +8,12 @@ public class Knight extends ChessPiece {
 
 	public Knight(ChessBoard board, Color color) {
 		super(board, color);
+
+		if (this.color == Color.WHITE) {
+			this.fenChar = 'N';
+		} else {
+			this.fenChar = 'n';
+		}
 	}
 
 	@Override

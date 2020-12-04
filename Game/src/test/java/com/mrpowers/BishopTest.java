@@ -1,5 +1,6 @@
 package com.mrpowers;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.*;
 
 import com.mrpowers.chess.ChessBoard;
@@ -181,4 +182,18 @@ public class BishopTest {
   	  assertEquals("\u2657", whiteBishop.toString());
   	  assertEquals("\u265D", blackBishop.toString());
   }
+
+    @Test
+    public void testFenCharWhite() {
+        ChessBoard testBoard = new ChessBoard();
+        Bishop whiteBishop = new Bishop(testBoard, ChessPiece.Color.WHITE);
+        assertEquals('B', whiteBishop.getFenChar());
+    }
+
+    @Test
+    public void testFenCharBlack() {
+        ChessBoard testBoard = new ChessBoard();
+        Bishop blackBishop = new Bishop(testBoard, ChessPiece.Color.BLACK);
+        assertEquals('b', blackBishop.getFenChar());
+    }
 }

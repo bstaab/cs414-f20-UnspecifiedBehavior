@@ -31,12 +31,12 @@ public class ChessBoardTest{
 		  testBoard.initialize();
 		  
 		  // King
-		  assertEquals("\u2654", testBoard.getPiece("d1").toString());
-		  assertEquals("\u265A", testBoard.getPiece("d8").toString());
+		  assertEquals("\u2654", testBoard.getPiece("e1").toString());
+		  assertEquals("\u265A", testBoard.getPiece("e8").toString());
 		  
 		  // Queen
-		  assertEquals("\u265B", testBoard.getPiece("e8").toString());
-		  assertEquals("\u2655", testBoard.getPiece("e1").toString());
+		  assertEquals("\u265B", testBoard.getPiece("d8").toString());
+		  assertEquals("\u2655", testBoard.getPiece("d1").toString());
 		  
 		  // Bishop
 		  assertEquals("\u265D", testBoard.getPiece("f8").toString());
@@ -1368,5 +1368,67 @@ public class ChessBoardTest{
 	  assertEquals(true, testBoard.setPortalLocation(ChessPiece.Color.WHITE, "h2"));
 	  assertEquals(true, testBoard.setPortalLocation(ChessPiece.Color.BLACK, "h7"));
   }
+
+  @Test
+  public void testRowColToPosition() {
+  	  ChessBoard testBoard = new ChessBoard();
+  	  String test = testBoard.rowColToPosition(7,0);
+
+  	  assertEquals(test, "a8");
+  }
+
+  @Test
+  public void testInitialFen() {
+  	ChessBoard testBoard = new ChessBoard();
+  	testBoard.initialize();
+	String initialPosition =  "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w - - - 0";
+
+  	assertEquals(testBoard.getFenBoard(),initialPosition);
+  }
+
+	@Test
+	public void testInitialEndGame() {
+		ChessBoard testBoard = new ChessBoard();
+
+		String endGamePosition =  "1k1r4/1p6/pb4p1/8/4N3/6P1/2P2P1P/4R1K1 b - - - 1";
+
+		try {
+			Pawn blackPawnOne = new Pawn(testBoard, ChessPiece.Color.BLACK);
+			Pawn blackPawnTwo = new Pawn(testBoard, ChessPiece.Color.BLACK);
+			Pawn blackPawnThree = new Pawn(testBoard, ChessPiece.Color.BLACK);
+			Bishop blackBishop = new Bishop(testBoard, ChessPiece.Color.BLACK);
+			Rook blackRook = new Rook(testBoard, ChessPiece.Color.BLACK);
+			King blackKing = new King(testBoard, ChessPiece.Color.BLACK);
+
+			Pawn whitePawnOne = new Pawn(testBoard, ChessPiece.Color.WHITE);
+			Pawn whitePawnTwo = new Pawn(testBoard, ChessPiece.Color.WHITE);
+			Pawn whitePawnThree = new Pawn(testBoard, ChessPiece.Color.WHITE);
+			Pawn whitePawnFour = new Pawn(testBoard, ChessPiece.Color.WHITE);
+			Knight whiteKnight = new Knight(testBoard, ChessPiece.Color.WHITE);
+			Rook whiteRook = new Rook(testBoard, ChessPiece.Color.WHITE);
+			King whiteKing = new King(testBoard, ChessPiece.Color.WHITE);
+
+			testBoard.placePiece(blackPawnOne, "a6");
+			testBoard.placePiece(blackPawnTwo, "b7");
+			testBoard.placePiece(blackPawnThree, "g6");
+			testBoard.placePiece(blackBishop, "b6");
+			testBoard.placePiece(blackRook, "d8");
+			testBoard.placePiece(blackKing, "b8");
+
+			testBoard.placePiece(whitePawnOne, "c1");
+			testBoard.placePiece(whitePawnTwo, "f2");
+			testBoard.placePiece(whitePawnThree, "g3");
+			testBoard.placePiece(whitePawnFour, "h2");
+			testBoard.placePiece(whiteKnight, "e4");
+			testBoard.placePiece(whiteRook, "e1");
+			testBoard.placePiece(whiteKing, "g1");
+
+			testBoard.move("c1","c2");
+
+		} catch(Exception e) {}
+
+		assertEquals(testBoard.getFenBoard(), endGamePosition);
+	}
+
 }
 

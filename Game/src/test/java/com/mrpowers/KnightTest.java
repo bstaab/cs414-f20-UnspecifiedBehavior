@@ -177,7 +177,21 @@ public class KnightTest {
 		assertThrows(IllegalPositionException.class, () -> blackKnight.setPosition("2c"));
 		assertThrows(IllegalPositionException.class, () -> blackKnight.setPosition("D33"));
 		assertThrows(IllegalPositionException.class, () -> blackKnight.setPosition("EE4"));
-	}	
+	}
+
+	@Test
+	public void testFenCharWhite() {
+		ChessBoard testBoard = new ChessBoard();
+		Knight whiteKnight = new Knight(testBoard, ChessPiece.Color.WHITE);
+		assertEquals('N', whiteKnight.getFenChar());
+	}
+
+	@Test
+	public void testFenCharBlack() {
+		ChessBoard testBoard = new ChessBoard();
+		Knight blackKnight = new Knight(testBoard, ChessPiece.Color.BLACK);
+		assertEquals('n', blackKnight.getFenChar());
+	}
 }
 
 

@@ -2,7 +2,8 @@ package com.mrpowers;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
+//import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 
@@ -140,5 +141,19 @@ public class PawnTest {
   	  assertEquals("\u2659", whitePawn.toString());
   	  assertEquals("\u265F", blackPawn.toString());
   }
-  
+
+  @Test
+  public void testFenCharWhite() {
+      ChessBoard testBoard = new ChessBoard();
+      Pawn whitePawn = new Pawn(testBoard, ChessPiece.Color.WHITE);
+      assertEquals('P', whitePawn.getFenChar());
+  }
+
+  @Test
+  public void testFenCharBlack() {
+      ChessBoard testBoard = new ChessBoard();
+      Pawn blackPawn = new Pawn(testBoard, ChessPiece.Color.BLACK);
+      assertEquals('p', blackPawn.getFenChar());
+  }
+
 }

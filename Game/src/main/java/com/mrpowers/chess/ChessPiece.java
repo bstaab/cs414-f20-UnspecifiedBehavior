@@ -10,6 +10,7 @@ public abstract class ChessPiece {
 	protected int row;          // The index of the horizontal rows in the range 0..7.
 	protected int column;       // The index of the vertical column in the range 0..7.
 	protected Color color;      // The color of the piece.
+	protected char fenChar;     // Character that represents the piece in fen notation
 	
 	public ChessPiece(ChessBoard board, Color color) {
 		this.board = board;
@@ -19,7 +20,9 @@ public abstract class ChessPiece {
 	public Color getColor() {
 		return this.color;
 	}
-	
+
+	public char getFenChar() {return this.fenChar;}
+
 	public String getPosition() {
 		// Returns the position of the piece in a two-character string: 
 		// a single letter (a..h) followed by a single digit (1..8)
