@@ -1,5 +1,6 @@
 import React, {Component, useState} from 'react';
 import Navigation from "./Navigation";
+import CreateMatch from "./CreateMatch";
 import Background from "../static/images/homeBackground.jpg";
 //import Container from "@material-ui/core/Container";
 import {
@@ -24,6 +25,7 @@ import Link from "@material-ui/core/Link";
             super(props);
 
             this.togglePopup = this.togglePopup.bind(this);
+            this.toggleMatchPopup = this.toggleMatchPopup.bind(this);
             this.renderNavigation = this.renderNavigation.bind(this);
             this.renderMenu = this.renderMenu.bind(this);
 
@@ -110,7 +112,7 @@ import Link from "@material-ui/core/Link";
                         marginLeft: '0'
                     }}>
                         <br/>
-                        <Button color='primary' block onClick={() => {this.props.history.push('board')}}>Create A Game</Button>
+                        <Button color='primary' block onClick={this.toggleMatchPopup}>Create A Game</Button>
                         <br/>
                         <Button color='secondary' block onClick={() => {this.props.history.push('board')}}> Continue A Game</Button>
                         <br/>
@@ -134,7 +136,7 @@ import Link from "@material-ui/core/Link";
         }
 
         toggleMatchPopup() {
-            this.setState({matchPopup: !this.matchPopup});
+            this.setState({matchPopup: !this.state.matchPopup});
         }
 
     }

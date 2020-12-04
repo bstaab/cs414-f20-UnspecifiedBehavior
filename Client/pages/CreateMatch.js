@@ -1,5 +1,5 @@
 import React, {Component } from 'react';
-import {Button, Modal, ModalBody, ModalFooter, Table} from "reactstrap";
+import {Button, Modal, ModalBody, ModalFooter, ModalHeader, Input, Table} from "reactstrap";
 import TextField from "@material-ui/core/TextField";
 
 export default class CreateMatch extends Component {
@@ -8,6 +8,7 @@ export default class CreateMatch extends Component {
 
         this.defineName = this.defineName.bind(this);
         this.togglePopup = this.togglePopup.bind(this);
+        this.updateOpponentName = this.updateOpponentName.bind(this);
 
         this.state = {
             opponentName: " "
@@ -17,11 +18,13 @@ export default class CreateMatch extends Component {
     render() {
         return (
             <Modal isOpen={this.props.popupOpen} centered={true} toggle={this.togglePopup}>
+                <ModalHeader>Invite an opponent</ModalHeader>
                 <ModalBody>
-                    {this.defineName()}
+                    <Input onChange={(e) => this.updateOpponentName(e.target.value)} placeholder="Enter username"></Input>
                 </ModalBody>
                 <ModalFooter>
                     <Button color="secondary" onClick={this.togglePopup}>Close</Button>
+                    <Button color="primary" onClick={this.sendInvite}>Invite</Button>
                 </ModalFooter>
             </Modal>
         )
@@ -32,18 +35,13 @@ export default class CreateMatch extends Component {
             <TextField />
         )
     }
-    //Use to render table once we have info to populate
-    renderInvitations() {
-        return (
-            <tr>
-                <td>INVITATION</td>
-                <td>2 DAYS AGO</td>
-                <td>
-                    <Button style={{backgroundColor: 'green'}}>✓</Button>
-                    <Button style={{backgroundColor: 'red'}}>X</Button>
-                </td>
-            </tr>
-        )
+
+    sendInvite() {
+
+    }
+
+    updateOpponentName(name) {
+        this.setState({opponentName: name});
     }
 
     togglePopup() {
