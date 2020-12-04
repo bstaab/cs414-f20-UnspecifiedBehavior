@@ -30,7 +30,8 @@ import Link from "@material-ui/core/Link";
             this.state = {
                 placeName: " ",
                 popupOpen: false,
-                isOpen: false
+                isOpen: false,
+                matchPopup: false
             }
         }
 
@@ -51,6 +52,7 @@ import Link from "@material-ui/core/Link";
                                 {this.renderNavigation()}
                                 {this.renderMenu(this.props.height)}
                                 {this.renderPop()}
+                                {this.renderMatchPopup()}
                             </Col>
                         </Row>
                     </Container>
@@ -125,6 +127,14 @@ import Link from "@material-ui/core/Link";
 
         togglePopup() {
             this.setState({popupOpen: !this.state.popupOpen});
+        }
+
+        renderMatchPopup() {
+            return <CreateMatch popupOpen={this.state.matchPopup} togglePopup={this.toggleMatchPopup} />
+        }
+
+        toggleMatchPopup() {
+            this.setState({matchPopup: !this.matchPopup});
         }
 
     }
