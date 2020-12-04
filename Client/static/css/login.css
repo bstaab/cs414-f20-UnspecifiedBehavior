@@ -32,3 +32,19 @@
     background-size: cover;
 
 }
+
+.profile-image {
+    background-image: url("../images/jeshoots-com-fzOITuS1DIQ-unsplash.jpg");
+    position: fixed;
+
+    left: 0;
+    right: 0;
+    z-index: -1;
+
+    display: block;
+    height: 100vh;
+
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}

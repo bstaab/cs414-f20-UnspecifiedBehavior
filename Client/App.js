@@ -8,10 +8,11 @@ import Home from './pages/home'
 import Login from './pages/login'
 import Register from './pages/register'
 import LoginLayout from "./pages/loginlayout";
+import Profile from './pages/profile'
 
 import useWindowSize from "./components/useWindowSize";
 import {sendPostRequest} from "./components/API";
-import {Col} from "reactstrap";
+
 
 
 function App() {
@@ -40,6 +41,11 @@ function App() {
                 </Route>
                 <Route path="/Board">
                     <Chessboard/>
+                </Route>
+                <Route path='/Profile'>
+                    <LoginLayout>
+                        <Profile/>
+                    </LoginLayout>
                 </Route>
             </Switch>
             </div>

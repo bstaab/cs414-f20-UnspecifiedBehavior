@@ -1,11 +1,12 @@
-import React, {Component, useState} from 'react';
-import {FormGroup, Label, Input, Col, Button, Container, Row} from "reactstrap";
+import React, {useState} from 'react';
+import {Button} from "reactstrap";
 import '../static/css/login.css';
 import {useHistory} from "react-router";
 import {Grid, InputAdornment, TextField, Typography} from "@material-ui/core";
 import PersonIcon from '@material-ui/icons/Person';
 import LockIcon from '@material-ui/icons/Lock';
 import {sendPostRequest} from "../components/API";
+
 
 const renderLogin = () => {
 
