@@ -9,6 +9,12 @@ public class Queen extends ChessPiece {
 
 	public Queen(ChessBoard board, Color color) {
 		super(board, color);
+
+		if (this.color == Color.WHITE) {
+			this.fenChar = 'Q';
+		} else {
+			this.fenChar = 'q';
+		}
 	}
 
 	@Override
