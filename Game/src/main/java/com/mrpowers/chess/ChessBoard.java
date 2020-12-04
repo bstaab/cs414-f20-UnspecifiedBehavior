@@ -228,7 +228,61 @@ public class ChessBoard {
 	    chess+=bottomLine;
 	    return chess;
 	}
-	
+
+	public String rowColToPosition(int row, int col) {
+		String ret = "";
+
+		switch (col) {
+			case 0: ret += 'a';break;
+			case 1: ret += 'b';break;
+			case 2: ret += 'c';break;
+			case 3: ret += 'd';break;
+			case 4: ret += 'e';break;
+			case 5: ret += 'f';break;
+			case 6: ret += 'g';break;
+			case 7: ret += 'h';break;
+		}
+		ret += Integer.toString(row + 1);
+		return ret;
+	}
+
+	public String toFen() {
+		String ret = "";
+		for (int rank = 7; rank >= 0; rank--) {
+			int empty = 0;
+			for (int file = 0; file < 8; file++) {
+				try {
+					String position = this.rowColToPosition(rank, file);
+					char piece = this.getPiece(position).getFenChar();
+					if (empty > 0) {
+						ret += empty;
+					}
+					ret += piece;
+					empty = 0;
+				} catch (Exception e){
+					empty++;
+					if (empty == 8 || file == 7) {
+						ret += empty;
+					}
+				}
+			}
+			if (rank != 0) {
+				ret += '/';
+			}
+		}
+
+		if (this.totalMoves % 2 == 0) {
+			ret += "w";
+		} else {
+			ret += "b";
+		}
+
+		ret += " - - - ";
+		ret += this.totalMoves;
+
+		return ret;
+	}
+
 	public static void main(String[] args) {
 		ChessBoard board = new ChessBoard();
 		board.initialize();
