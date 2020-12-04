@@ -1,7 +1,8 @@
 import React, {useState} from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
-import Chess from './pages/chessground'
-import "react-chessground/dist/styles/chessground.css"
+import Chessboard from './pages/chessground';
+import "react-chessground/dist/styles/chessground.css";
+import Chess from 'chess.js';
 
 import Home from './pages/home'
 import Login from './pages/login'
@@ -10,7 +11,7 @@ import LoginLayout from "./pages/loginlayout";
 
 import useWindowSize from "./components/useWindowSize";
 import {sendPostRequest} from "./components/API";
-
+import {Col} from "reactstrap";
 
 
 function App() {
@@ -18,8 +19,8 @@ function App() {
     const [adminDashboard, setAdminDashboard] = useState(false);
 
 
-    sendPostRequest("newUser", {"user":"test0", "password":"test1", "email":"test2"}).then(r=>console.log(r.data))
-    sendPostRequest("move", {"from": "b2","to":"b4","match":"1"}).then(r=>console.log(r.data))
+    //sendPostRequest("newUser", {"user":"test0", "password":"test1", "email":"test2"}).then(r=>console.log(r.data))
+    //sendPostRequest("move", {"from": "b2","to":"b4","match":"1"}).then(r=>console.log(r.data))
     return (
         <BrowserRouter>
             <div id='body' className="container mt-0" style={{ marginTop: 40}}>
@@ -38,13 +39,15 @@ function App() {
                     </LoginLayout>
                 </Route>
                 <Route path="/Board">
-                    <Chess/>
+                    <Chessboard/>
                 </Route>
             </Switch>
             </div>
         </BrowserRouter>
     )
 }
+
+
 
 
 export default App;
