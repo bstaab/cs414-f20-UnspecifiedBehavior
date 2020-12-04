@@ -40,7 +40,7 @@ function App() {
                     </LoginLayout>
                 </Route>
                 <Route path="/Board">
-                    <Chessboard/>
+                    <Chessboard />
                 </Route>
                 <Route path='/Profile'>
                     <LoginLayout>
