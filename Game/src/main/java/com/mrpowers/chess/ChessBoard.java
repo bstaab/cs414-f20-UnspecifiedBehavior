@@ -8,6 +8,8 @@ public class ChessBoard {
 	private ChessPiece[][] board;
 	private String whitePortal;
 	private String blackPortal;
+	private String fenBoard; //FEN notation of the board state
+	private int totalMoves;
 	
 	public ChessBoard(){
 		this.board = new ChessPiece[8][8];
@@ -16,6 +18,8 @@ public class ChessBoard {
 		// can't track two pieces at the same location.
 		this.whitePortal = "";
 		this.blackPortal = "";
+		this.fenBoard = "";
+		this.totalMoves = 0;
 	}
 
 	public void initialize() {
