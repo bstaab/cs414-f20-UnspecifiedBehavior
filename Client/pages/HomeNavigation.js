@@ -1,5 +1,6 @@
 import React, {Component, useState} from 'react';
 import Navigation from "./Navigation";
+import CreateMatch from "./CreateMatch";
 import Background from "../static/images/homeBackground.jpg";
 //import Container from "@material-ui/core/Container";
 import {
@@ -24,13 +25,15 @@ import Link from "@material-ui/core/Link";
             super(props);
 
             this.togglePopup = this.togglePopup.bind(this);
+            this.toggleMatchPopup = this.toggleMatchPopup.bind(this);
             this.renderNavigation = this.renderNavigation.bind(this);
             this.renderMenu = this.renderMenu.bind(this);
 
             this.state = {
                 placeName: " ",
                 popupOpen: false,
-                isOpen: false
+                isOpen: false,
+                matchPopup: false
             }
         }
 
@@ -51,6 +54,7 @@ import Link from "@material-ui/core/Link";
                                 {this.renderNavigation()}
                                 {this.renderMenu(this.props.height)}
                                 {this.renderPop()}
+                                {this.renderMatchPopup()}
                             </Col>
                         </Row>
                     </Container>
@@ -108,7 +112,7 @@ import Link from "@material-ui/core/Link";
                         marginLeft: '0'
                     }}>
                         <br/>
-                        <Button color='primary' block onClick={() => {this.props.history.push('board')}}>Create A Game</Button>
+                        <Button color='primary' block onClick={this.toggleMatchPopup}>Create A Game</Button>
                         <br/>
                         <Button color='secondary' block onClick={() => {this.props.history.push('board')}}> Continue A Game</Button>
                         <br/>
@@ -125,6 +129,14 @@ import Link from "@material-ui/core/Link";
 
         togglePopup() {
             this.setState({popupOpen: !this.state.popupOpen});
+        }
+
+        renderMatchPopup() {
+            return <CreateMatch popupOpen={this.state.matchPopup} togglePopup={this.toggleMatchPopup} />
+        }
+
+        toggleMatchPopup() {
+            this.setState({matchPopup: !this.state.matchPopup});
         }
 
     }
