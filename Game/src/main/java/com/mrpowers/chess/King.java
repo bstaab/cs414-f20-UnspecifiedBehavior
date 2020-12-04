@@ -8,6 +8,12 @@ public class King extends ChessPiece {
 
 	public King(ChessBoard board, Color color) {
 		super(board, color);
+
+		if (this.color == Color.WHITE) {
+			this.fenChar = 'K';
+		} else {
+			this.fenChar = 'k';
+		}
 	}
 
 	@Override

@@ -8,6 +8,12 @@ public class Bishop extends ChessPiece {
 
 	public Bishop(ChessBoard board, Color color) {
 		super(board, color);
+
+		if (this.color == Color.WHITE) {
+			this.fenChar = 'B';
+		} else {
+			this.fenChar = 'b';
+		}
 	}
 
 	@Override

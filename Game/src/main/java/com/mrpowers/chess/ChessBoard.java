@@ -8,6 +8,8 @@ public class ChessBoard {
 	private ChessPiece[][] board;
 	private String whitePortal;
 	private String blackPortal;
+	private String fenBoard; //FEN notation of the board state
+	private int totalMoves;
 	
 	public ChessBoard(){
 		this.board = new ChessPiece[8][8];
@@ -16,6 +18,12 @@ public class ChessBoard {
 		// can't track two pieces at the same location.
 		this.whitePortal = "";
 		this.blackPortal = "";
+		this.fenBoard = "";
+		this.totalMoves = 0;
+	}
+
+	public String getFenBoard() {
+		return this.fenBoard;
 	}
 
 	public void initialize() {
@@ -56,8 +64,8 @@ public class ChessBoard {
 		placePiece(whiteRook1, 	"a1");
 		placePiece(whiteKnight1,"b1");
 		placePiece(whiteBishop1,"c1");
-		placePiece(whiteKing, 	"d1");
-		placePiece(whiteQueen,  "e1");
+		placePiece(whiteKing, 	"e1");
+		placePiece(whiteQueen,  "d1");
 		placePiece(whiteBishop2,"f1");
 		placePiece(whiteKnight2,"g1");
 		placePiece(whiteRook2, 	"h1");
@@ -73,8 +81,8 @@ public class ChessBoard {
 		placePiece(blackRook1, 	"a8");
 		placePiece(blackKnight1,"b8");
 		placePiece(blackBishop1,"c8");
-		placePiece(blackKing, 	"d8");
-		placePiece(blackQueen,  "e8");
+		placePiece(blackKing, 	"e8");
+		placePiece(blackQueen,  "d8");
 		placePiece(blackBishop2,"f8");
 		placePiece(blackKnight2,"g8");
 		placePiece(blackRook2, 	"h8");
@@ -89,6 +97,8 @@ public class ChessBoard {
 		
 		this.whitePortal = "a4";
 		this.blackPortal = "a5";
+
+		this.fenBoard = this.toFen();
 	}
 
 	private boolean onBoard(String position) {
@@ -163,6 +173,8 @@ public class ChessBoard {
 				
 				placePiece(board[row][col], toPosition);
 				board[row][col] = null;
+				this.totalMoves++;
+				this.fenBoard = this.toFen();
 			} else {
 				throw new IllegalMoveException();
 			}
@@ -224,7 +236,61 @@ public class ChessBoard {
 	    chess+=bottomLine;
 	    return chess;
 	}
-	
+
+	public String rowColToPosition(int row, int col) {
+		String ret = "";
+
+		switch (col) {
+			case 0: ret += 'a';break;
+			case 1: ret += 'b';break;
+			case 2: ret += 'c';break;
+			case 3: ret += 'd';break;
+			case 4: ret += 'e';break;
+			case 5: ret += 'f';break;
+			case 6: ret += 'g';break;
+			case 7: ret += 'h';break;
+		}
+		ret += Integer.toString(row + 1);
+		return ret;
+	}
+
+	public String toFen() {
+		String ret = "";
+		for (int rank = 7; rank >= 0; rank--) {
+			int empty = 0;
+			for (int file = 0; file < 8; file++) {
+				try {
+					String position = this.rowColToPosition(rank, file);
+					char piece = this.getPiece(position).getFenChar();
+					if (empty > 0) {
+						ret += empty;
+					}
+					ret += piece;
+					empty = 0;
+				} catch (Exception e){
+					empty++;
+					if (empty == 8 || file == 7) {
+						ret += empty;
+					}
+				}
+			}
+			if (rank != 0) {
+				ret += '/';
+			}
+		}
+
+		if (this.totalMoves % 2 == 0) {
+			ret += " w";
+		} else {
+			ret += " b";
+		}
+
+		ret += " - - - ";
+		ret += this.totalMoves;
+
+		return ret;
+	}
+
 	public static void main(String[] args) {
 		ChessBoard board = new ChessBoard();
 		board.initialize();

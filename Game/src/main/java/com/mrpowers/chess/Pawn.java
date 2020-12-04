@@ -8,6 +8,11 @@ public class Pawn extends ChessPiece {
 	
 	public Pawn(ChessBoard board, Color color) {
 		super(board, color);
+		if (this.color == Color.WHITE) {
+			this.fenChar = 'P';
+		} else {
+			this.fenChar = 'p';
+		}
 	}
 
 	@Override

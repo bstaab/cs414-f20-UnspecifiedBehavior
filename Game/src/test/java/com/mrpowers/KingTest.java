@@ -237,5 +237,19 @@ public class KingTest {
   	  assertEquals("\u2654", whiteKing.toString());
   	  assertEquals("\u265A", blackKing.toString());
   }
-  
+
+  @Test
+  public void testFenCharWhite() {
+    ChessBoard testBoard = new ChessBoard();
+    King whiteKing = new King(testBoard, ChessPiece.Color.WHITE);
+    assertEquals('K', whiteKing.getFenChar());
+  }
+
+  @Test
+  public void testFenCharBlack() {
+    ChessBoard testBoard = new ChessBoard();
+    King blackKing = new King(testBoard, ChessPiece.Color.BLACK);
+    assertEquals('k', blackKing.getFenChar());
+  }
+
 }

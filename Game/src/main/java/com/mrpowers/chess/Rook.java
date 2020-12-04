@@ -8,6 +8,12 @@ public class Rook extends ChessPiece {
 
 	public Rook(ChessBoard board, Color color) {
 		super(board, color);
+
+		if (this.color == Color.WHITE) {
+			this.fenChar = 'R';
+		} else {
+			this.fenChar = 'r';
+		}
 	}
 
 	@Override
