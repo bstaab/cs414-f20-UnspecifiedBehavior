@@ -19,38 +19,30 @@ import {
 import {useHistory} from "react-router";
 import Link from "@material-ui/core/Link";
 
-    export default class HomeNavigation extends Component {
-        constructor(props) {
-            super(props);
 
-            this.togglePopup = this.togglePopup.bind(this);
-            this.renderNavigation = this.renderNavigation.bind(this);
-            this.renderMenu = this.renderMenu.bind(this);
+    function HomeNavigation() {
+        return (
+            <div>
+                {renderHome()}
+            </div>
+        )
+    }
 
-            this.state = {
-                placeName: " ",
-                popupOpen: false,
-                isOpen: false
-            }
-        }
+        function renderHome() {
+            //const [placeName, setPlaceName] = useState("");
+            //const [popupOpen, setPopupOpen] = useState(false);
+            localStorage.setItem('placeName', '');
+            localStorage.setItem('popupOpen', 'false');
+            localStorage.setItem('isOpen', 'false');
 
-        render() {
-            return (
-                <div>
-                    {this.renderHome()}
-                </div>
-            )
-        }
-
-        renderHome() {
             return (
                 <div className="home-image">
                     <Container fluid style={{paddingLeft: '0px', paddingRight: '0px'}}>
                         <Row>
                             <Col sm={12} md={{size: 12, offset: 0}}>
-                                {this.renderNavigation()}
-                                {this.renderMenu(this.props.height)}
-                                {this.renderPop()}
+                                {renderNavigation()}
+                                {renderMenu()}
+                                {renderPop()}
                             </Col>
                         </Row>
                     </Container>
@@ -58,18 +50,26 @@ import Link from "@material-ui/core/Link";
             )
         }
 
-        renderNavigation() {
+        function renderNavigation() {
+            const history = useHistory();
+            //const [isOpen, setIsOpen] = useState(false);
+            const open = localStorage.getItem('isOpen');
+            let isOpen = false;
+            if (open == 'true') {
+                isOpen = true;
+            }
+
             return (
                 <div>
                     <Navbar color="dark" dark expand="md">
                         <NavbarBrand>Portal Chess</NavbarBrand>
-                        <Collapse isOpen={this.state.isOpen} navbar>
+                        <Collapse isOpen={isOpen} navbar>
                             <Nav className="mr-auto" navbar>
                                 <NavItem>
-                                    <Button color="dark">Profile</Button>
+                                    <Button color="dark" onClick={() => {history.push('/Profile')}}>Profile</Button>
                                 </NavItem>
                                 <NavItem>
-                                    <Button color="dark" onClick={this.togglePopup}>Invitations</Button>
+                                    <Button color="dark" onClick={togglePopup}>Invitations</Button>
                                 </NavItem>
                                 <UncontrolledDropdown nav inNavbar>
                                     <DropdownToggle style={{color: 'white'}} nav caret>
@@ -98,33 +98,45 @@ import Link from "@material-ui/core/Link";
             )
         }
 
-        renderMenu() {
+        function renderMenu() {
+            const history = useHistory();
             return (
                 <div>
                     <Container style={{
                         backgroundColor: 'rgba(192,192,192, 0.3)',
                         width: '42%',
-                        height: this.props.height,
+                        height: 'auto',
                         marginLeft: '0'
                     }}>
                         <br/>
-                        <Button color='primary' block onClick={() => {this.props.history.push('board')}}>Create A Game</Button>
+                        <Button color='primary' block onClick={() => {history.push('/Board')}}>Create A Game</Button>
                         <br/>
-                        <Button color='secondary' block onClick={() => {this.props.history.push('board')}}> Continue A Game</Button>
+                        <Button color='secondary' block onClick={() => {history.push('/Board')}}> Continue A Game</Button>
                         <br/>
-                        <Button color='secondary' block onClick={this.togglePopup}> Invitations</Button>
+                        <Button color='secondary' block onClick={togglePopup}> Invitations</Button>
                         <br/>
                     </Container>
                 </div>
             )
         }
 
-        renderPop() {
-            return <Navigation popupOpen={this.state.popupOpen} togglePopup={this.togglePopup}/>
+        function renderPop() {
+            let popupOpen = false;
+            if (localStorage.getItem('popupOpen') == 'true') {
+                popupOpen = true;
+            }
+            return <Navigation popupOpen={popupOpen} togglePopup={togglePopup}/>
         }
 
-        togglePopup() {
-            this.setState({popupOpen: !this.state.popupOpen});
+        function togglePopup() {
+            const popupOpen = localStorage.getItem('popupOpen');
+            if (popupOpen == 'false') {
+                localStorage.setItem('popupOpen', 'true');
+            }
+            else {
+                localStorage.setItem('popupOpen', 'false');
+            }
+            //setPopupOpen({popupOpen: !popupOpen});
         }
 
-    }
+    export default HomeNavigation;
