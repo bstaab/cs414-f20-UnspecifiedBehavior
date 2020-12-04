@@ -1,5 +1,6 @@
 import React, {Component, useState} from 'react';
 import Navigation from "./Navigation";
+import CreateMatch from "./CreateMatch";
 import Background from "../static/images/homeBackground.jpg";
 //import Container from "@material-ui/core/Container";
 import {
@@ -34,6 +35,10 @@ import Link from "@material-ui/core/Link";
             localStorage.setItem('placeName', '');
             localStorage.setItem('popupOpen', 'false');
             localStorage.setItem('isOpen', 'false');
+
+            
+        }
+
 
             return (
                 <div className="home-image">
@@ -109,9 +114,10 @@ import Link from "@material-ui/core/Link";
                         marginLeft: '0'
                     }}>
                         <br/>
-                        <Button color='primary' block onClick={() => {history.push('/Board')}}>Create A Game</Button>
+
+                        <Button color='primary' block onClick={this.toggleMatchPopup}>Create A Game</Button>
                         <br/>
-                        <Button color='secondary' block onClick={() => {history.push('/Board')}}> Continue A Game</Button>
+                        <Button color='secondary' block onClick={() => {history.push('/Board')}}>Continue A Game</Button>
                         <br/>
                         <Button color='secondary' block onClick={togglePopup}> Invitations</Button>
                         <br/>
@@ -139,4 +145,15 @@ import Link from "@material-ui/core/Link";
             //setPopupOpen({popupOpen: !popupOpen});
         }
 
-    export default HomeNavigation;
+
+        renderMatchPopup() {
+            return <CreateMatch popupOpen={this.state.matchPopup} togglePopup={this.toggleMatchPopup} />
+        }
+
+        toggleMatchPopup() {
+            this.setState({matchPopup: !this.state.matchPopup});
+        }
+
+    }
+           export default HomeNavigation;
+

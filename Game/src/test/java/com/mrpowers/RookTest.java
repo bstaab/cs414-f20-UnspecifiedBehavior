@@ -139,6 +139,20 @@ public class RookTest {
   	  assertEquals("\u2656", whiteRook.toString());
   	  assertEquals("\u265C", blackRook.toString());
   }
+
+  @Test
+  public void testFenCharWhite() {
+      ChessBoard testBoard = new ChessBoard();
+      Rook whiteRook = new Rook(testBoard, ChessPiece.Color.WHITE);
+      assertEquals('R', whiteRook.getFenChar());
+  }
+
+  @Test
+  public void testFenCharBlack() {
+      ChessBoard testBoard = new ChessBoard();
+      Rook blackRook = new Rook(testBoard, ChessPiece.Color.BLACK);
+      assertEquals('r', blackRook.getFenChar());
+  }
   
 }
 

@@ -1,5 +1,6 @@
 package com.mrpowers;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
@@ -196,5 +197,19 @@ public class QueenTest {
   	  assertEquals("\u2655", whiteQueen.toString());
   	  assertEquals("\u265B", blackQueen.toString());
   }
-  
+
+  @Test
+  public void testFenCharWhite() {
+    ChessBoard testBoard = new ChessBoard();
+    Queen whiteQueen = new Queen(testBoard, ChessPiece.Color.WHITE);
+    assertEquals('Q', whiteQueen.getFenChar());
+  }
+
+  @Test
+  public void testFenCharBlack() {
+    ChessBoard testBoard = new ChessBoard();
+    Queen blackQueen = new Queen(testBoard, ChessPiece.Color.BLACK);
+    assertEquals('q', blackQueen.getFenChar());
+  }
+
 }
