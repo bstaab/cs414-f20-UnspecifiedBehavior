@@ -32,7 +32,7 @@
 * CRC Cards - TODO
 * Class Diagram - TODO
 * User Stories and Tasks - TODO
-* Output of Scrum Ceremonies - TODO
+* [Output of Scrum Ceremonies](Documents/P3OutputofScrumCeremonies.pdf)
 * Traceability Link Matrix - TODO
 * [Development Manual](Documents/PortalChessDevelopmentManual.docx)
 * Acceptance Criteria - TODO
