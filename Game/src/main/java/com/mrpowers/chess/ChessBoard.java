@@ -22,6 +22,10 @@ public class ChessBoard {
 		this.totalMoves = 0;
 	}
 
+	public String getFenBoard() {
+		return this.fenBoard;
+	}
+
 	public void initialize() {
 		ChessPiece whiteRook1   = new Rook(this,   ChessPiece.Color.WHITE);
 		ChessPiece whiteKnight1 = new Knight(this, ChessPiece.Color.WHITE);
@@ -60,8 +64,8 @@ public class ChessBoard {
 		placePiece(whiteRook1, 	"a1");
 		placePiece(whiteKnight1,"b1");
 		placePiece(whiteBishop1,"c1");
-		placePiece(whiteKing, 	"d1");
-		placePiece(whiteQueen,  "e1");
+		placePiece(whiteKing, 	"e1");
+		placePiece(whiteQueen,  "d1");
 		placePiece(whiteBishop2,"f1");
 		placePiece(whiteKnight2,"g1");
 		placePiece(whiteRook2, 	"h1");
@@ -77,8 +81,8 @@ public class ChessBoard {
 		placePiece(blackRook1, 	"a8");
 		placePiece(blackKnight1,"b8");
 		placePiece(blackBishop1,"c8");
-		placePiece(blackKing, 	"d8");
-		placePiece(blackQueen,  "e8");
+		placePiece(blackKing, 	"e8");
+		placePiece(blackQueen,  "d8");
 		placePiece(blackBishop2,"f8");
 		placePiece(blackKnight2,"g8");
 		placePiece(blackRook2, 	"h8");
@@ -93,6 +97,8 @@ public class ChessBoard {
 		
 		this.whitePortal = "a4";
 		this.blackPortal = "a5";
+
+		this.fenBoard = this.toFen();
 	}
 
 	private boolean onBoard(String position) {
@@ -167,6 +173,8 @@ public class ChessBoard {
 				
 				placePiece(board[row][col], toPosition);
 				board[row][col] = null;
+				this.totalMoves++;
+				this.fenBoard = this.toFen();
 			} else {
 				throw new IllegalMoveException();
 			}
@@ -272,9 +280,9 @@ public class ChessBoard {
 		}
 
 		if (this.totalMoves % 2 == 0) {
-			ret += "w";
+			ret += " w";
 		} else {
-			ret += "b";
+			ret += " b";
 		}
 
 		ret += " - - - ";
