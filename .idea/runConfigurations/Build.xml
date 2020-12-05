@@ -5,6 +5,7 @@
     <scripts>
       <script value="build" />
     </scripts>
+    <arguments value="--scripts-prepend-node-path" />
     <node-interpreter value="project" />
     <envs />
     <method v="2" />
