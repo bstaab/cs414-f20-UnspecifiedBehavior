@@ -1,18 +1,30 @@
 import React, {useState} from 'react';
-import {Button} from "reactstrap";
-import '../static/css/login.css';
-import {useHistory} from "react-router";
-import {Grid, InputAdornment, TextField, Typography} from "@material-ui/core";
+
+import {Button, Grid, InputAdornment, TextField, Typography} from "@material-ui/core";
+
 import PersonIcon from '@material-ui/icons/Person';
 import LockIcon from '@material-ui/icons/Lock';
+
+import '../static/css/login.scss';
+
 import {sendPostRequest} from "../components/API";
+import Chessground from "react-chessground";
 
 
-const renderLogin = () => {
+const Login = props => {
 
-    const history = useHistory();
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
+
+    function login(username, password) {
+        props.setUserData(username);
+        sendPostRequest("login", {"username" : username, "password": password})
+            .then(r => {
+                let validLogin = r.data.valid;
+                if (validLogin) props.history.push('home');
+                else props.produceSnackBar("Login Failed", "error");
+            });
+    }
 
     return (
         <Grid
@@ -25,13 +37,13 @@ const renderLogin = () => {
             <LoginFields
                 username={username} setUsername={setUsername}
                 password={password} setPassword={setPassword}
-                //login={login} {...props}
+                login={login} {...props}
             />
             <Grid item container justify={"center"} alignItems={"center"} alignContent={"center"}>
                 <Grid item style={{width: "80%"}} align={"center"}>
                     <Button
                         color={"primary"} variant={"contained"} style={{width: "80%", height: "50px"}}
-                        onClick={() => {loginUser(); history.push('home')}}
+                        onClick={() => {login(username, password); props.history.push('home')}}
                     >
                         Login
                     </Button>
@@ -54,7 +66,7 @@ const LoginFields = props => {
                     label={"Username"} value={props.username} onChange={(e) => props.setUsername(e.target.value)}
                     onKeyDown={(e) =>
                     {
-                        if(e.keyCode === 13) props.login();
+                        if(e.key === 'Enter') props.login();
                     }}
                     InputProps={{
                         startAdornment: (
@@ -72,7 +84,7 @@ const LoginFields = props => {
                     label={"Password"} value={props.password} onChange={(e) => props.setPassword(e.target.value)}
                     onKeyDown={(e) =>
                     {
-                        if(e.keyCode === 13) props.login();
+                        if(e.key === 'Enter') props.login();
                     }}
                     InputProps={{
                         startAdornment: (
@@ -85,22 +97,6 @@ const LoginFields = props => {
             </Grid>
         </Grid>
     );
-}
-
-function loginUser() {
-    let username = window.document.getElementById('username').value;
-    let password = window.document.getElementById('password').value;
-    sendPostRequest("login", {"username" : username, "password": password}).then(r=>console.log(r.data));
-}
-
-
-function Login() {
-
-    return (
-        <div>
-            {renderLogin()}
-        </div>
-    )
 }
 
 export default Login;
