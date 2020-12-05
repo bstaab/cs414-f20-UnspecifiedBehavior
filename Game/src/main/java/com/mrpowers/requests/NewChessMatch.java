@@ -1,5 +1,6 @@
 package com.mrpowers.requests;
 
+import com.mrpowers.QueryBuilder;
 import com.mrpowers.exceptions.IllegalMoveException;
 import com.mrpowers.chess.*;
 
@@ -15,6 +16,11 @@ public class NewChessMatch extends RequestData{
     @Override
     public void buildResponse() throws RequestException, IllegalMoveException {
         ChessBoard board=new ChessBoard();
-
+        board.initialize();
+        QueryBuilder.connectDb();
+        QueryBuilder.getDBTable();
+        QueryBuilder.getStateTable();
+        QueryBuilder.addGameState(user1, user2, board.toFen());
+        QueryBuilder.disconnectDb();
     }
 }

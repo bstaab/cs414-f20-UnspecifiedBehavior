@@ -23,6 +23,10 @@ public abstract class ChessPiece {
 
 	public char getFenChar() {return this.fenChar;}
 
+	public void setColor(Color color){
+		this.color=color;
+	}
+
 	public String getPosition() {
 		// Returns the position of the piece in a two-character string: 
 		// a single letter (a..h) followed by a single digit (1..8)

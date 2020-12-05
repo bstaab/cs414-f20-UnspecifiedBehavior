@@ -5,6 +5,7 @@ import com.mrpowers.exceptions.IllegalMoveException;
 public class Login extends RequestData{
     private String username;
     private String password;
+    private Boolean valid;
 
 
     public Login(String username, String password){
@@ -19,13 +20,16 @@ public class Login extends RequestData{
         if(QueryBuilder.checkUsername(username)){
             String[] results=QueryBuilder.searchUser(username);
             QueryBuilder.disconnectDb();
-            if(password==results[2]){
+            System.out.println(results[2]);
+            System.out.println(password);
+            if(password.equals(results[2])){
+                valid=true;
                 return;
             }
-            else{throw new RequestException();}
+            else{valid=false;}
         }
         else{
-            throw new RequestException();
+            valid=false;
         }
     }
     public static void main(String[] args){
