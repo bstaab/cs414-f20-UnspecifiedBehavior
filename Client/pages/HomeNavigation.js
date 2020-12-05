@@ -20,6 +20,7 @@ import {
 } from "reactstrap";
 import {useHistory} from "react-router";
 import Link from "@material-ui/core/Link";
+import Match from "./Match";
 
 export default class HomeNavigation extends Component {
     constructor(props) {
@@ -27,16 +28,16 @@ export default class HomeNavigation extends Component {
 
         this.togglePopup = this.togglePopup.bind(this);
         this.toggleMatchPopup = this.toggleMatchPopup.bind(this);
+        this.toggleGameList = this.toggleGameList.bind(this);
         this.renderNavigation = this.renderNavigation.bind(this);
         this.renderMenu = this.renderMenu.bind(this);
-        this.toggleChessPopup = this.toggleChessPopup.bind(this);
 
         this.state = {
             placeName: " ",
             popupOpen: false,
             isOpen: false,
             matchPopup: false,
-            chessboardPopup: false
+            gameListPopup: false
         }
     }
 
@@ -58,7 +59,7 @@ export default class HomeNavigation extends Component {
                             {this.renderMenu(this.props.height)}
                             {this.renderPop()}
                             {this.renderMatchPopup()}
-                            {this.renderChessBoard()}
+                            {this.renderGameList()}
                         </Col>
                     </Row>
                 </Container>
@@ -118,7 +119,7 @@ export default class HomeNavigation extends Component {
                     <br/>
                     <Button color='primary' block onClick={this.toggleMatchPopup}>Create A Game</Button>
                     <br/>
-                    <Button color='secondary' block onClick={this.toggleChessPopup}> Continue A Game</Button>
+                    <Button color='secondary' block onClick={this.toggleGameList}> Continue A Game</Button>
                     <br/>
                     <Button color='secondary' block onClick={this.togglePopup}> Invitations</Button>
                     <br/>
@@ -143,12 +144,11 @@ export default class HomeNavigation extends Component {
         this.setState({matchPopup: !this.state.matchPopup});
     }
 
-    renderChessBoard() {
-        return <Chessboard popupOpen={this.state.chessboardPopup} togglePopup={this.toggleChessPopup}/>
+    renderGameList() {
+        return <Match popupOpen={this.state.gameListPopup} togglePopup={this.toggleGameList}/>
     }
 
-    toggleChessPopup() {
-        this.setState({chessboardPopup : !this.state.chessboardPopup});
+    toggleGameList() {
+        this.setState({gameListPopup: !this.state.gameListPopup});
     }
-
 }

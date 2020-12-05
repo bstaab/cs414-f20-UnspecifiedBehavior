@@ -7,7 +7,6 @@ export default class Chessboard extends Component {
     constructor(props) {
         super(props);
 
-        this.defineName = this.defineName.bind(this);
         this.togglePopup = this.togglePopup.bind(this);
 
     }
@@ -22,14 +21,6 @@ export default class Chessboard extends Component {
             </Modal>
         )
     }
-
-    defineName() {
-        return (
-            <TextField/>
-        )
-    }
-
-
 
     togglePopup() {
         this.props.togglePopup();
