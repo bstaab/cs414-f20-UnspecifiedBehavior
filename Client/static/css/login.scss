@@ -1,0 +1,27 @@
+.background-image {
+    background-image: url("../images/randy-fath-G1yhU1Ej-9A-unsplash.jpg");
+    filter: blur(5px);
+}
+
+.home-image {
+    background-image: url("../images/homeBackground.jpg");
+}
+
+.profile-image {
+    background-image: url("../images/jeshoots-com-fzOITuS1DIQ-unsplash.jpg");
+}
+
+.background-image, .home-image, .profile-image {
+    position: fixed;
+
+    left: 0;
+    right: 0;
+    z-index: -1;
+
+    display: block;
+    height: 100vh;
+
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
