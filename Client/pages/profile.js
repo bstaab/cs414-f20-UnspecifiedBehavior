@@ -32,6 +32,8 @@ function displayStats() {
 
 }
 
+
+
 //TODO: get the user stats from the database
 function getUserStats(props) {
     sendPostRequest('userdata', {'username': props.userData})

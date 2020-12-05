@@ -1,0 +1,28 @@
+name: Build and Deploy
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+
+  build-and-deploy:
+
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - name: Checkout Repo
+        uses: actions/checkout@v2
+        with:
+          persist-credentials: false
+
+      - name: "Install Node Modules"
+        run: npm install --prefix Client
+
+      - name: "Build Site"
+        run: npm run build --prefix Client
+
+      - name: "Deploy Site"
+        run: echo "Hello"
+

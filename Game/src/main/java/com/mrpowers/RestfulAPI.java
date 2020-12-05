@@ -39,6 +39,10 @@ public class RestfulAPI {
             post("/newUser", (req, res) -> processHttpRequest(req, res, NewUser.class));
             post("/login", (req, res) -> processHttpRequest(req, res, Login.class));
             post("/userData", (req, res) -> processHttpRequest(req, res, UserData.class));
+            post("/unregister", (req, res) -> processHttpRequest(req, res, Unregister.class));
+            post("/matchRequest", (req, res) -> processHttpRequest(req, res, MatchRequest.class));
+            post("/checkMessages", (req, res) -> processHttpRequest(req, res, CheckMessages.class));
+            post("/newChessMatch", (req, res) -> processHttpRequest(req, res, NewChessMatch.class));
         });
     }
 
