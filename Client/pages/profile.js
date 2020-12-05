@@ -1,7 +1,7 @@
 import React from 'react';
-import {Avatar, Card, CardMedia, CardContent, Typography, Grid, Box} from "@material-ui/core";
-import {Row} from 'reactstrap';
-import PersonIcon from '@material-ui/icons/Person';
+import {Avatar, Card, CardMedia, CardContent, Typography, Grid, Box, Button} from "@material-ui/core";
+import SearchIcon from '@material-ui/icons/Search';
+import {sendPostRequest} from "../components/API";
 
 
 function Profile(props) {
@@ -10,16 +10,17 @@ function Profile(props) {
     )
 }
 
-//TODO: display stats from database
 function displayStats() {
     return (
         <>
+            <Button onClick={getOtherUserStats}>
+                <SearchIcon/>
+            </Button>
             <Grid
                 container direction={"column"} justify={"center"} alignItems={"center"} alignContent={"center"}
                 spacing={8}
             >
-                <Grid item style={{paddingTop: '50px', paddingBottom: '14px'}}>
-                    <Typography variant={"h4"} align={"center"}>User Profile</Typography>
+                <Grid item>
                 </Grid>
                 <Typography variant={"h6"} align={"center"}>Username: </Typography>
                 <Typography variant={"h6"} align={"center"}>Email: </Typography>
@@ -31,8 +32,14 @@ function displayStats() {
 
 }
 
+function getStats() {
+
+}
+
+
+
 //TODO: get the user stats from the database
-function getUserStats() {
+function getOtherUserStats() {
 
 }
 
