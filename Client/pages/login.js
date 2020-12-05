@@ -1,21 +1,23 @@
 import React, {useState} from 'react';
-import {Button} from "reactstrap";
-import '../static/css/login.scss';
-import {Grid, InputAdornment, TextField, Typography} from "@material-ui/core";
+
+import {Button, Grid, InputAdornment, TextField, Typography} from "@material-ui/core";
+
 import PersonIcon from '@material-ui/icons/Person';
 import LockIcon from '@material-ui/icons/Lock';
+
+import '../static/css/login.scss';
+
 import {sendPostRequest} from "../components/API";
+import Chessground from "react-chessground";
 
 
 const Login = props => {
-
-    console.log(props.history);
 
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
 
     function login(username, password) {
-
+        props.setUserData(username);
         sendPostRequest("login", {"username" : username, "password": password})
             .then(r => {
                 let validLogin = r.data.valid;

@@ -1,26 +1,26 @@
 import React from 'react';
-import {Avatar, Card, CardMedia, CardContent, Typography, Grid, Box, Button} from "@material-ui/core";
+import {Typography, Grid, TextField, InputAdornment} from "@material-ui/core";
 import SearchIcon from '@material-ui/icons/Search';
 import {sendPostRequest} from "../components/API";
 
 
 function Profile(props) {
+    getUserStats(props)
     return (
         displayStats()
     )
 }
 
+//TODO: display stats from database
 function displayStats() {
     return (
         <>
-            <Button onClick={getOtherUserStats}>
-                <SearchIcon/>
-            </Button>
             <Grid
                 container direction={"column"} justify={"center"} alignItems={"center"} alignContent={"center"}
-                spacing={8}
+                spacing={5}
             >
-                <Grid item>
+                <Grid item style={{paddingTop: '50px', paddingBottom: '14px'}}>
+                    <Typography variant={"h4"} align={"center"}>User Profile</Typography>
                 </Grid>
                 <Typography variant={"h6"} align={"center"}>Username: </Typography>
                 <Typography variant={"h6"} align={"center"}>Email: </Typography>
@@ -32,14 +32,15 @@ function displayStats() {
 
 }
 
-function getStats() {
-
-}
-
 
 
 //TODO: get the user stats from the database
-function getOtherUserStats() {
+function getUserStats(props) {
+    sendPostRequest('userdata', {'username': props.userData})
+        .then(r => {
+            let valid = r.data.valid;
+            if (!valid) props.produceSnackBar("Invalid Username", "error");
+        })
 
 }
 

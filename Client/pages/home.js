@@ -1,7 +1,6 @@
 import React, {Component, useState} from 'react';
 import Navigation from "./Navigation";
 import CreateMatch from "./CreateMatch";
-import Chessboard from './Chessboard'
 import Background from "../static/images/homeBackground.jpg";
 //import Container from "@material-ui/core/Container";
 import {
@@ -18,8 +17,8 @@ import {
     UncontrolledDropdown,
     Container
 } from "reactstrap";
-import {useHistory} from "react-router";
 import Link from "@material-ui/core/Link";
+import Chessground from "react-chessground";
 
 export default class Home extends Component {
     constructor(props) {
@@ -30,13 +29,15 @@ export default class Home extends Component {
         this.renderNavigation = this.renderNavigation.bind(this);
         this.renderMenu = this.renderMenu.bind(this);
         this.toggleChessPopup = this.toggleChessPopup.bind(this);
+        this.onMove = this.onMove.bind(this);
 
         this.state = {
             placeName: " ",
             popupOpen: false,
             isOpen: false,
             matchPopup: false,
-            chessboardPopup: false
+            chessboardPopup: false,
+            fen: "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR"
         }
     }
 
@@ -51,17 +52,23 @@ export default class Home extends Component {
     renderHome() {
         return (
             <div className="home-image">
-                <Container fluid style={{paddingLeft: '0px', paddingRight: '0px'}}>
-                    <Row>
-                        <Col sm={12} md={{size: 12, offset: 0}}>
-                            {this.renderNavigation()}
-                            {this.renderMenu(this.props.height)}
-                            {this.renderPop()}
-                            {this.renderMatchPopup()}
-                            {this.renderChessBoard()}
-                        </Col>
-                    </Row>
-                </Container>
+                {this.renderNavigation()}
+
+                <Row>
+                    <Col xs={3}>
+                        {this.renderMenu(this.props.height)}
+                        {this.renderPop()}
+                        {this.renderMatchPopup()}
+                    </Col>
+                    <Col xs={9}>
+                        {this.state.chessboardPopup ?
+                        <Chessground
+                            width="38vw"
+                            height="38vw"
+                            fen={'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR'}
+                        /> : null }
+                    </Col>
+                </Row>
             </div>
         )
     }
@@ -108,23 +115,20 @@ export default class Home extends Component {
 
     renderMenu() {
         return (
-            <div>
-                <Container style={{
-                    backgroundColor: 'rgba(192,192,192, 0.3)',
-                    width: '42%',
-                    height: this.props.height,
-                    marginLeft: '0'
-                }}>
-                    <br/>
-                    <Button color='primary' block onClick={this.toggleMatchPopup}>Create A Game</Button>
-                    <br/>
-                    <Button color='secondary' block onClick={this.toggleChessPopup}> Continue A Game</Button>
-                    <br/>
-                    <Button color='secondary' block onClick={this.togglePopup}> Invitations</Button>
-                    <br/>
-                </Container>
-            </div>
-        )
+            <Container style={{
+                backgroundColor: 'rgba(192,192,192, 0.3)',
+                height: this.props.height,
+                marginLeft: '0'
+            }}>
+                <br/>
+                <Button color='primary' block onClick={this.toggleMatchPopup}>Create A Game</Button>
+                <br/>
+                <Button color='secondary' block onClick={this.toggleChessPopup}> Continue A Game</Button>
+                <br/>
+                <Button color='secondary' block onClick={this.togglePopup}> Invitations</Button>
+                <br/>
+            </Container>
+        );
     }
 
     renderPop() {
@@ -143,8 +147,16 @@ export default class Home extends Component {
         this.setState({matchPopup: !this.state.matchPopup});
     }
 
-    renderChessBoard() {
-        return <Chessboard popupOpen={this.state.chessboardPopup} togglePopup={this.toggleChessPopup} fen={'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR'}/>
+    renderChessBoard() {return(
+        <Chessground
+            width="38vw"
+            height="38vw"
+            fen={'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR'}
+            onMove={this.onMove}
+        />    )}
+
+    onMove(from, to) {
+        console.log(from, to);
     }
 
     toggleChessPopup() {
