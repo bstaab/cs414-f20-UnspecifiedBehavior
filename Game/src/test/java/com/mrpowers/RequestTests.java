@@ -1,20 +1,28 @@
 package com.mrpowers;
 import com.mrpowers.exceptions.IllegalMoveException;
 import com.mrpowers.exceptions.IllegalPositionException;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import com.mrpowers.chess.*;
 import com.mrpowers.requests.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class RequestTests {
+
+    @BeforeAll
+    public void Before() {
+        Boolean CI = System.getenv("CI").equals("true");
+        if (CI) {
+            System.out.println(CI);
+        }
+    }
+
     @Test
     public void NewUserTest(){
         NewUser aUser=new NewUser("user", "password", "user@mail.com");
         try {
             aUser.buildResponse();
-        }catch(RequestException e){
-            System.out.println("error");
-        }catch(IllegalMoveException e){
+        }catch(RequestException | IllegalMoveException e){
             System.out.println("error");
         }
     }
