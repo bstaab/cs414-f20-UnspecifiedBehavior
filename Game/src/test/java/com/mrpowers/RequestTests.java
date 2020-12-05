@@ -25,8 +25,7 @@ public class RequestTests {
         String fen1 = "rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq e3 0 1";
         ChessBoard board0=aMove.makeBoard(fen0);
         ChessBoard board1=aMove.makeBoard(fen1);
-        System.out.println(board0.getPiece("c2").getClass());
-        if(board0.getPiece("c2").legalMoves().size()!=3){
+        if(board0.getPiece("c2").legalMoves().size()!=4){
             fail();
         }
         if(board1.getPiece("e4").legalMoves().size()!=3){
