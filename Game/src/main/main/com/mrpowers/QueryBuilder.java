@@ -304,6 +304,43 @@ public class QueryBuilder {
         return false;
     }
 
+    public static int getListSize(String username){
+        int c = 0;
+        try{
+            String countQuery ="SELECT COUNT(fromUser) FROM messages WHERE toUser = ?";
+            prepObj = connObj.prepareStatement(countQuery);
+            prepObj.setString(1,username);
+            ResultSet rs = prepObj.executeQuery();
+            rs.next();
+            c = rs.getInt(1);
+        }catch(Exception sqlException) {
+            sqlException.printStackTrace();
+        }
+        return c;
+    }
+
+    public static String[] getUsernamesFrom(String username){
+        String [] userList;
+        int listSize;
+        listSize = getListSize(username);
+        userList = new String[listSize];
+        try{
+            String updateQuery ="SELECT fromUser FROM messages WHERE toUser = ?";
+            prepObj = connObj.prepareStatement(updateQuery);
+            prepObj.setString(1,username);
+            ResultSet rs = prepObj.executeQuery();
+            int i = 0;
+            while(rs.next()){
+                String user = rs.getString("fromUser");
+                userList[i] = user;
+                i++;
+            }
+        }catch (Exception sqlException){
+            sqlException.printStackTrace();
+        }
+        return userList;
+    }
+
     public static void removeMessage(String to, String from, String msg){
         String deleteQuery = "DELETE FROM messages WHERE message = ? AND toUser = ? AND fromUser = ?";
         try {
