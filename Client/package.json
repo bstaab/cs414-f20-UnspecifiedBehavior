@@ -4,11 +4,12 @@
   "description": "Unspecified Behavior Webpage",
   "scripts": {
     "startClient": "webpack-dev-server -d",
+    "startServer": "java -Dorg.slf4j.simpleLogger.log.com.mrpowers=info -jar ../target/server-*.jar 8080",
     "buildClient": "webpack -p",
     "buildServer": "mvn package -f ../Game/pom.xml",
-    "test": "mvn test",
-    "build": "concurrently \"npm run buildClient\" \"npm run buildServer\"",
-    "start": "concurrently \"npm run startClient\" \"npm run runServer\""
+    "test": "mvn test -f ../Game/pom.xml",
+    "build": "npm run buildClient && npm run buildServer",
+    "start": "npm run buildServer && concurrently \"npm run startClient\" \"npm run startServer\""
   },
   "repository": {
     "type": "git",
