@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {Button} from "reactstrap";
-import '../static/css/login.css';
+import '../static/css/login.scss';
 import {useHistory} from "react-router";
 import {Grid, InputAdornment, TextField, Typography} from "@material-ui/core";
 import PersonIcon from '@material-ui/icons/Person';

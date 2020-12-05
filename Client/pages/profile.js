@@ -4,34 +4,29 @@ import {Row} from 'reactstrap';
 import PersonIcon from '@material-ui/icons/Person';
 
 
-
-function Profile() {
+function Profile(props) {
     return (
-        <div className={'profile-image'}>
-            {displayCard}
-        </div>
-    )
-}
-
-function displayCard() {
-    return (
-        <div>
-            <Grid
-                container direction={"column"} justify={"center"} alignItems={"center"} alignContent={"center"}
-                spacing={8}
-            >
-
-            </Grid>
-        </div>
+        displayStats()
     )
 }
 
 //TODO: display stats from database
 function displayStats() {
     return (
-        <div>
-
-        </div>
+        <>
+            <Grid
+                container direction={"column"} justify={"center"} alignItems={"center"} alignContent={"center"}
+                spacing={8}
+            >
+                <Grid item style={{paddingTop: '50px', paddingBottom: '14px'}}>
+                    <Typography variant={"h4"} align={"center"}>User Profile</Typography>
+                </Grid>
+                <Typography variant={"h6"} align={"center"}>Username: </Typography>
+                <Typography variant={"h6"} align={"center"}>Email: </Typography>
+                <Typography variant={"h6"} align={"center"}>Games Won: </Typography>
+                <Typography variant={"h6"} align={"center"}>Games Lost: </Typography>
+            </Grid>
+        </>
     )
 
 }
