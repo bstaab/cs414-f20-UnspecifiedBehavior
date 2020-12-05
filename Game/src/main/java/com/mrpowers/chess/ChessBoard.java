@@ -291,7 +291,7 @@ public class ChessBoard {
 		return ret;
 	}
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IllegalPositionException {
 		ChessBoard board = new ChessBoard();
 		board.initialize();
 		System.out.println(board);

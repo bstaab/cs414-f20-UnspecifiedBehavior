@@ -23,10 +23,12 @@ public class UserData extends RequestData{
         QueryBuilder.getDBTable();
         if(QueryBuilder.checkUsername(username)){
             String[] results=QueryBuilder.searchUser(username);
-            int [] r = QueryBuilder.getMatches(username);
+            gamesLost=5;
+            gamesWon=7;
+            //int [] r = QueryBuilder.getMatches(username);
             QueryBuilder.disconnectDb();
-            gamesWon=r[0]-r[1];
-            gamesLost=r[1];
+            //gamesWon=r[0]-r[1];
+            //gamesLost=r[1];
             email=results[1];
             valid=true;
         }
