@@ -144,7 +144,7 @@ export default class Home extends Component {
     }
 
     renderChessBoard() {
-        return <Chessboard popupOpen={this.state.chessboardPopup} togglePopup={this.toggleChessPopup}/>
+        return <Chessboard popupOpen={this.state.chessboardPopup} togglePopup={this.toggleChessPopup} fen={'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR'}/>
     }
 
     toggleChessPopup() {
