@@ -24,7 +24,6 @@ export default class Chessboard extends Component {
     }
 
     onMove(from, to) {
-        console.log(from, to);
         sendPostRequest('move', {'from': from, 'to': to, 'match': 1})
             .then(r => {
                 let validLogin = r.data.valid;
