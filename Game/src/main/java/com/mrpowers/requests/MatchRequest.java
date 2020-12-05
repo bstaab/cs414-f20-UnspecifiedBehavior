@@ -4,30 +4,34 @@ import com.mrpowers.QueryBuilder;
 import com.mrpowers.exceptions.IllegalMoveException;
 
 public class MatchRequest extends RequestData {
-    private String userRequesting;
-    private String userRequested;
+    private String from;
+    private String to;
     private Boolean valid;
-    private final String message="Would you like to play a game of chess?";
+    private final String message="INVITATION";
 
-    public MatchRequest(String userRequested, String userRequesting){
-        this.userRequested=userRequested;
-        this.userRequesting=userRequesting;
+    public MatchRequest(String to, String from){
+        this.to=to;
+        this.from=from;
     }
 
-
-    @Override
-    public void buildResponse() throws RequestException, IllegalMoveException {
+    public boolean Do(){
         QueryBuilder.connectDb();
         QueryBuilder.getDBTable();
         QueryBuilder.getMessagesTable();
-        QueryBuilder.addMessage(userRequested,userRequesting,message);
-        String s = QueryBuilder.getMessage(userRequested,userRequesting);
-        if(s==message){
+        QueryBuilder.addMessage(to, from, message);
+        String s = QueryBuilder.getMessage(to, from);
+        if(s.equals(message)){
             valid=true;
         }
         else{
             valid=false;
         }
         QueryBuilder.disconnectDb();
+        return valid;
+    }
+
+    @Override
+    public void buildResponse() throws RequestException, IllegalMoveException {
+        this.Do();
     }
 }
