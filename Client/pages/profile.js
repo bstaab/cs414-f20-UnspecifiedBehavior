@@ -4,10 +4,11 @@ import {Row} from 'reactstrap';
 import PersonIcon from '@material-ui/icons/Person';
 
 
+
 function Profile() {
     return (
         <div className={'profile-image'}>
-            {displayCard()}
+            {displayCard}
         </div>
     )
 }
@@ -19,12 +20,7 @@ function displayCard() {
                 container direction={"column"} justify={"center"} alignItems={"center"} alignContent={"center"}
                 spacing={8}
             >
-                <Grid item>
-                    <Typography variant={"h4"} align={"center"}>Insert User Name</Typography>
-                </Grid>
-                <Grid item style={{width: '100%'}}>
-                    Insert User Stats here
-                </Grid>
+
             </Grid>
         </div>
     )

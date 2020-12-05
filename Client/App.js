@@ -1,14 +1,13 @@
 import React, {useState} from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
-import Chessboard from './pages/chessground';
 import "react-chessground/dist/styles/chessground.css";
-import Chess from 'chess.js';
 
 import Home from './pages/home'
 import Login from './pages/login'
 import Register from './pages/register'
 import LoginLayout from "./pages/loginlayout";
 import Profile from './pages/profile'
+import ProfileLayout from "./pages/profilelayout";
 
 import useWindowSize from "./components/useWindowSize";
 import {sendPostRequest} from "./components/API";
@@ -39,13 +38,10 @@ function App() {
                         <Register />
                     </LoginLayout>
                 </Route>
-                <Route path="/Board">
-                    <Chessboard />
-                </Route>
                 <Route path='/Profile'>
-                    <LoginLayout>
-                        <Profile/>
-                    </LoginLayout>
+                    <ProfileLayout>
+                        <Profile width={width} height={height}/>
+                    </ProfileLayout>
                 </Route>
             </Switch>
             </div>

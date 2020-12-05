@@ -1,6 +1,7 @@
 import React, {Component, useState} from 'react';
 import Navigation from "./Navigation";
 import CreateMatch from "./CreateMatch";
+import Chessboard from './Chessboard'
 import Background from "../static/images/homeBackground.jpg";
 //import Container from "@material-ui/core/Container";
 import {
@@ -28,12 +29,14 @@ export default class HomeNavigation extends Component {
         this.toggleMatchPopup = this.toggleMatchPopup.bind(this);
         this.renderNavigation = this.renderNavigation.bind(this);
         this.renderMenu = this.renderMenu.bind(this);
+        this.toggleChessPopup = this.toggleChessPopup.bind(this);
 
         this.state = {
             placeName: " ",
             popupOpen: false,
             isOpen: false,
-            matchPopup: false
+            matchPopup: false,
+            chessboardPopup: false
         }
     }
 
@@ -55,6 +58,7 @@ export default class HomeNavigation extends Component {
                             {this.renderMenu(this.props.height)}
                             {this.renderPop()}
                             {this.renderMatchPopup()}
+                            {this.renderChessBoard()}
                         </Col>
                     </Row>
                 </Container>
@@ -114,7 +118,7 @@ export default class HomeNavigation extends Component {
                     <br/>
                     <Button color='primary' block onClick={this.toggleMatchPopup}>Create A Game</Button>
                     <br/>
-                    <Button color='secondary' block onClick={() => this.props.history.push('board')}> Continue A Game</Button>
+                    <Button color='secondary' block onClick={this.toggleChessPopup}> Continue A Game</Button>
                     <br/>
                     <Button color='secondary' block onClick={this.togglePopup}> Invitations</Button>
                     <br/>
@@ -137,6 +141,14 @@ export default class HomeNavigation extends Component {
 
     toggleMatchPopup() {
         this.setState({matchPopup: !this.state.matchPopup});
+    }
+
+    renderChessBoard() {
+        return <Chessboard popupOpen={this.state.chessboardPopup} togglePopup={this.toggleChessPopup}/>
+    }
+
+    toggleChessPopup() {
+        this.setState({chessboardPopup : !this.state.chessboardPopup});
     }
 
 }
