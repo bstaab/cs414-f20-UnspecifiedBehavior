@@ -23,6 +23,7 @@ public class Move extends RequestData {
     }
 
     private Boolean makePiece(char pieceChar, ChessBoard board, int row, int col){
+        row=7-row;
         ChessPiece piece;
         if(Character.isUpperCase(pieceChar)){
             switch(pieceChar){
@@ -97,6 +98,12 @@ public class Move extends RequestData {
                 }
                 else if(makePiece(c, board, row, column)){
                     column++;
+                }
+                else if(Character.isDigit(c)){
+                    int s=Character.getNumericValue(c);
+                    for(int j=0;j<s;j++){
+                        column++;
+                    }
                 }
                 else if(c.equals('/')){
                     row++;
