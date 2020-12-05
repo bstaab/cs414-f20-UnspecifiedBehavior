@@ -22,7 +22,7 @@ import {useHistory} from "react-router";
 import Link from "@material-ui/core/Link";
 import Match from "./Match";
 
-export default class HomeNavigation extends Component {
+export default class Home extends Component {
     constructor(props) {
         super(props);
 

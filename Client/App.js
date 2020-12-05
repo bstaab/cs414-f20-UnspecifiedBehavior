@@ -1,55 +1,84 @@
-import React, {useState} from "react";
+import React from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
-import "react-chessground/dist/styles/chessground.css";
 
-import Home from './pages/home'
-import Login from './pages/login'
-import Register from './pages/register'
+import Home from './pages/Home';
+import Login from './pages/Login';
+import Register from './pages/Register'
 import LoginLayout from "./pages/loginlayout";
 import Profile from './pages/profile'
 import ProfileLayout from "./pages/profilelayout";
 
 import useWindowSize from "./components/useWindowSize";
+
+import {createMuiTheme, ThemeProvider} from '@material-ui/core/styles';
+import CssBaseline from "@material-ui/core/CssBaseline";
+
+import {SnackbarProvider, useSnackbar} from 'notistack';
+
+import "react-chessground/dist/styles/chessground.css";
+import 'bootstrap/dist/css/bootstrap.min.css'
+
 import {sendPostRequest} from "./components/API";
+import { useHistory } from "react-router";
 
+const Router = props => {
 
-
-function App() {
     const {width, height} = useWindowSize();
-    const [adminDashboard, setAdminDashboard] = useState(false);
+    const history = useHistory();
 
-
-    //sendPostRequest("newUser", {"user":"test0", "password":"test1", "email":"test2"}).then(r=>console.log(r.data))
-    //sendPostRequest("move", {"from": "b2","to":"b4","match":"1"}).then(r=>console.log(r.data))
     return (
-        <BrowserRouter>
-            <div id='body' className="container mt-0" style={{ marginTop: 40}}>
-            <Switch>
-                <Route exact path="/">
-                    <LoginLayout width={width} height={height}>
-                        <Login setAdminDashboard={setAdminDashboard} />
-                    </LoginLayout>
-                </Route>
-                <Route  path="/Home">
-                    <Home width={width} height={height}/>
-                </Route>
-                <Route path="/Register">
-                    <LoginLayout width={width} height={height} >
-                        <Register />
-                    </LoginLayout>
-                </Route>
-                <Route path='/Profile'>
-                    <ProfileLayout>
-                        <Profile width={width} height={height}/>
-                    </ProfileLayout>
-                </Route>
-            </Switch>
-            </div>
-        </BrowserRouter>
+        <Switch>
+            <Route exact path="/">
+                <LoginLayout width={width} height={height}>
+                    <Login history={history} {...props}/>
+                </LoginLayout>
+            </Route>
+            <Route  path="/Home">
+                <Home width={width} height={height} history={history}/>
+            </Route>
+            <Route path="/Register">
+                <LoginLayout width={width} height={height}>
+                    <Register history={history} {...props}/>
+                </LoginLayout>
+            </Route>
+            <Route path='/Profile'>
+                <ProfileLayout>
+                    <Profile width={width} height={height} history={history} {...props}/>
+                </ProfileLayout>
+            </Route>
+        </Switch>
     )
 }
 
+const LoadApp = () =>
+{
+    const {enqueueSnackbar} = useSnackbar();
+    const produceSnackBar = (message, variant = "error") => enqueueSnackbar(message, {variant: variant});
 
+    return (
+        <BrowserRouter>
+            <Router produceSnackBar={produceSnackBar}/>
+        </BrowserRouter>
+    );
+};
 
+const App = () =>
+{
+    const theme = createMuiTheme({
+        palette: {
+            primary: {main: '#2BC903'},
+            secondary: {main: '#0B8AAD'}
+        }
+    });
+
+    return (
+        <ThemeProvider theme={theme}>
+            <CssBaseline/>
+            <SnackbarProvider maxSnack={3} preventDuplicate>
+                <LoadApp/>
+            </SnackbarProvider>
+        </ThemeProvider>
+    );
+};
 
 export default App;
