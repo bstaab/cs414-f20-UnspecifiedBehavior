@@ -1,0 +1,22 @@
+name: Run Tests
+
+on:
+  pull_request:
+    branches: [ master ]
+
+jobs:
+
+  build-and-deploy:
+
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - name: Checkout Repo
+        uses: actions/checkout@v2
+        with:
+          persist-credentials: false
+
+      - name: "Run Tests"
+        run: npm test --prefix Client
+

@@ -1,6 +1,27 @@
+# Node Files
+
 node_modules/
-.nyc_output/
-coverage/
-dist/
-.DS_Store
+package-lock.json
+
+# Build Files
+
+dist
+out
+build
+coverage
+lib
+
+# Server Files
+
 target
+dependency-reduced-pom.xml
+
+# Idea Files
+
+.idea/workspace.xml
+
+# Mac Files
+
+.DS_Store
+
+.nyc_output/
