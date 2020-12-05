@@ -1,15 +1,14 @@
 import React, {useEffect, useState} from 'react';
-import {Button} from "reactstrap";
 import '../static/css/login.scss';
-import {Grid, Typography, TextField, InputAdornment} from "@material-ui/core";
+import {Button, Grid, Typography, TextField, InputAdornment} from "@material-ui/core";
 
 import PersonIcon from "@material-ui/icons/Person";
 import LockIcon from "@material-ui/icons/Lock";
 import MailIcon from '@material-ui/icons/Mail';
+
 import {sendPostRequest} from "../components/API";
 
 function Register(props) {
-
 
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
@@ -78,7 +77,7 @@ function Register(props) {
                 isEmailUnique={isEmailUnique}
                 createAccount={createAccount} {...props}
             />
-            <Grid item container justify={"center"} alignItems={"center"} alignContent={"center"} style={{paddingTop: '0px'}}>
+            <Grid item container justify={"center"} alignItems={"center"} alignContent={"center"}>
                 <Grid item style={{width: "80%"}} align={"center"}>
                     <Button
                         color={"primary"} variant={"contained"} style={{width: "80%", height: "50px"}}

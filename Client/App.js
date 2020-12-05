@@ -25,12 +25,13 @@ const Router = props => {
 
     const {width, height} = useWindowSize();
     const history = useHistory();
+    const [userData, setUserData] = useState();
 
     return (
         <Switch>
             <Route exact path="/">
                 <LoginLayout width={width} height={height}>
-                    <Login history={history} {...props}/>
+                    <Login history={history} {...props} setUserData={setUserData}/>
                 </LoginLayout>
             </Route>
             <Route  path="/Home">
@@ -43,7 +44,7 @@ const Router = props => {
             </Route>
             <Route path='/Profile'>
                 <ProfileLayout>
-                    <Profile width={width} height={height} history={history} {...props}/>
+                    <Profile width={width} height={height} history={history} {...props} userData={userData}/>
                 </ProfileLayout>
             </Route>
         </Switch>
@@ -64,12 +65,7 @@ const LoadApp = () =>
 
 const App = () =>
 {
-    const theme = createMuiTheme({
-        palette: {
-            primary: {main: '#2BC903'},
-            secondary: {main: '#0B8AAD'}
-        }
-    });
+    const theme = createMuiTheme({ palette: { primary: { main: '#0B8AAD' }}});
 
     return (
         <ThemeProvider theme={theme}>
