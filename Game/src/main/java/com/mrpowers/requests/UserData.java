@@ -6,8 +6,9 @@ import com.mrpowers.exceptions.IllegalMoveException;
 public class UserData extends RequestData{
     private String username;
     private String email;
-    private int gamesWon;
-    private int gamesLost;
+    private Integer gamesWon;
+    private Integer gamesLost;
+    private Boolean valid;
 
     public UserData(String username, String email, int gamesWon, int gamesLost){
         this.username=username;
@@ -23,13 +24,14 @@ public class UserData extends RequestData{
         if(QueryBuilder.checkUsername(username)){
             String[] results=QueryBuilder.searchUser(username);
             int [] r = QueryBuilder.getMatches(username);
+            QueryBuilder.disconnectDb();
             gamesWon=r[0]-r[1];
             gamesLost=r[1];
-            email="";
-            QueryBuilder.disconnectDb();
+            email=results[1];
+            valid=true;
         }
         else{
-            throw new RequestException();
+            valid=false;
         }
     }
 }

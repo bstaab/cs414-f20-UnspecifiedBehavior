@@ -1,43 +1,45 @@
 import React from 'react';
-import {Avatar, Card, CardMedia, CardContent, Typography, Grid, Box} from "@material-ui/core";
-import {Row} from 'reactstrap';
-import PersonIcon from '@material-ui/icons/Person';
+import {Avatar, Card, CardMedia, CardContent, Typography, Grid, Box, Button} from "@material-ui/core";
+import SearchIcon from '@material-ui/icons/Search';
+import {sendPostRequest} from "../components/API";
 
 
-
-function Profile() {
+function Profile(props) {
     return (
-        <div className={'profile-image'}>
-            {displayCard}
-        </div>
+        displayStats()
     )
 }
 
-function displayCard() {
+function displayStats() {
     return (
-        <div>
+        <>
+            <Button onClick={getOtherUserStats}>
+                <SearchIcon/>
+            </Button>
             <Grid
                 container direction={"column"} justify={"center"} alignItems={"center"} alignContent={"center"}
                 spacing={8}
             >
-
+                <Grid item>
+                </Grid>
+                <Typography variant={"h6"} align={"center"}>Username: </Typography>
+                <Typography variant={"h6"} align={"center"}>Email: </Typography>
+                <Typography variant={"h6"} align={"center"}>Games Won: </Typography>
+                <Typography variant={"h6"} align={"center"}>Games Lost: </Typography>
             </Grid>
-        </div>
-    )
-}
-
-//TODO: display stats from database
-function displayStats() {
-    return (
-        <div>
-
-        </div>
+        </>
     )
 
 }
+
+function getStats() {
+
+}
+
+
 
 //TODO: get the user stats from the database
-function getUserStats() {
+function getOtherUserStats() {
 
 }
 

@@ -1,18 +1,19 @@
 package com.mrpowers.requests;
 
 import com.mrpowers.QueryBuilder;
-import com.mrpowers.chess.ChessBoard;
+import com.mrpowers.chess.*;
 import com.mrpowers.exceptions.IllegalMoveException;
+import java.lang.*;
 
 public class Move extends RequestData {
+    String whiteUser;
+    String blackUser;
     private String from;
     private String to;
-    private int match;
+    private Boolean valid;
 
-    public Move(String from, String to, int match){
-        this.from=from;
-        this.to=to;
-        this.match=match;
+    public Move(){
+
     }
     public String getFrom(){
         return from;
@@ -21,19 +22,106 @@ public class Move extends RequestData {
         return to;
     }
 
+    private Boolean makePiece(char pieceChar, ChessBoard board, int row, int col){
+        ChessPiece piece;
+        if(Character.isUpperCase(pieceChar)){
+            switch(pieceChar){
+                case 'P':
+                    piece=new Pawn(board, ChessPiece.Color.WHITE);
+                    board.placePiece(piece, board.rowColToPosition(row, col));
+                    return true;
+                case 'B':
+                    piece = new Bishop(board, ChessPiece.Color.WHITE);
+                    board.placePiece(piece, board.rowColToPosition(row, col));
+                    return true;
+                case 'R':
+                    piece = new Rook(board, ChessPiece.Color.WHITE);
+                    board.placePiece(piece, board.rowColToPosition(row, col));
+                    return true;
+                case 'K':
+                    piece = new King(board, ChessPiece.Color.WHITE);
+                    board.placePiece(piece, board.rowColToPosition(row, col));
+                    return true;
+                case 'Q':
+                    piece = new Queen(board, ChessPiece.Color.WHITE);
+                    board.placePiece(piece, board.rowColToPosition(row, col));
+                    return true;
+                case 'N':
+                    piece = new Knight(board, ChessPiece.Color.WHITE);
+                    board.placePiece(piece, board.rowColToPosition(row, col));
+                    return true;
+            }
+
+        }
+        else{
+            switch(pieceChar){
+                case 'p':
+                    piece=new Pawn(board, ChessPiece.Color.BLACK);
+                    board.placePiece(piece, board.rowColToPosition(row, col));
+                    return true;
+                case 'b':
+                    piece = new Bishop(board, ChessPiece.Color.BLACK);
+                    board.placePiece(piece, board.rowColToPosition(row, col));
+                    return true;
+                case 'r':
+                    piece = new Rook(board, ChessPiece.Color.BLACK);
+                    board.placePiece(piece, board.rowColToPosition(row, col));
+                    return true;
+                case 'k':
+                    piece = new King(board, ChessPiece.Color.BLACK);
+                    board.placePiece(piece, board.rowColToPosition(row, col));
+                    return true;
+                case 'q':
+                    piece = new Queen(board, ChessPiece.Color.BLACK);
+                    board.placePiece(piece, board.rowColToPosition(row, col));
+                    return true;
+                case 'n':
+                    piece = new Knight(board, ChessPiece.Color.BLACK);
+                    board.placePiece(piece, board.rowColToPosition(row, col));
+                    return true;
+            }
+        }
+        return false;
+    }
+
+    public ChessBoard makeBoard(String fen){
+        ChessBoard board = new ChessBoard();
+        int row=0;
+        int column=0;
+        Boolean complete=false;
+        for(int i=0;i<fen.length();i++){
+            Character c=fen.charAt(i);
+            if(!complete){
+                if(Character.isSpaceChar(c)){
+                    complete=true;
+                }
+                else if(makePiece(c, board, row, column)){
+                    column++;
+                }
+                else if(c.equals('/')){
+                    row++;
+                    column=0;
+                }
+            }
+        }
+        return board;
+    }
+
     @Override
     public void buildResponse() throws RequestException, IllegalMoveException {
-        ChessBoard board=new ChessBoard();
         QueryBuilder.connectDb();
         QueryBuilder.getDBTable();
         QueryBuilder.getStateTable();
-        QueryBuilder.disconnectDb();
+        String fen=QueryBuilder.getState(whiteUser, blackUser);
+        ChessBoard board=makeBoard(fen);
         try {
             board.move(from, to);
-            from="move worked";
+            valid=true;
+            QueryBuilder.updateState(whiteUser, blackUser, board.toFen());
+            QueryBuilder.disconnectDb();
         }catch(IllegalMoveException e){
-            from="did not work";
-            throw new RequestException();
+            valid=false;
+            QueryBuilder.disconnectDb();
         }
     }
 }
