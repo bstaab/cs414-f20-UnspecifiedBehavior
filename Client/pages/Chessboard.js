@@ -1,6 +1,6 @@
 import React, {Component } from 'react';
-import {Button, Modal, ModalBody, ModalFooter, ModalHeader, Input, Table} from "reactstrap";
-import TextField from "@material-ui/core/TextField";
+import {Button, ModalBody, ModalFooter, ModalHeader, Input, Table} from "reactstrap";
+import Modal from "@material-ui/core/Modal";
 import Chessground from "./chessground";
 
 export default class Chessboard extends Component {
@@ -13,11 +13,10 @@ export default class Chessboard extends Component {
 
     render() {
         return (
-            <Modal isOpen={this.props.popupOpen} centered={true} toggle={this.togglePopup}>
-                <ModalHeader>Invite an opponent</ModalHeader>
-                <ModalBody>
-                    <Chessground/>
-                </ModalBody>
+            <Modal open={this.props.popupOpen} onClose={this.togglePopup}>
+            <div>
+                <Chessground />
+            </div>
             </Modal>
         )
     }

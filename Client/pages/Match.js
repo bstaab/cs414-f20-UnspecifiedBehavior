@@ -62,7 +62,7 @@ export default class Match extends Component {
         )
     }
     //Use to render table once we have info to populate
-    renderInvitations() {
+    rendeGames() {
         return (
             <tr>
                 <td>Opponent</td>
