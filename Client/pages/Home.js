@@ -21,7 +21,7 @@ import {
 import {useHistory} from "react-router";
 import Link from "@material-ui/core/Link";
 
-export default class HomeNavigation extends Component {
+export default class Home extends Component {
     constructor(props) {
         super(props);
 
@@ -144,7 +144,7 @@ export default class HomeNavigation extends Component {
     }
 
     renderChessBoard() {
-        return <Chessboard popupOpen={this.state.chessboardPopup} togglePopup={this.toggleChessPopup}/>
+        return <Chessboard popupOpen={this.state.chessboardPopup} togglePopup={this.toggleChessPopup} fen={'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR'}/>
     }
 
     toggleChessPopup() {
