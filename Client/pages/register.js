@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {Button} from "reactstrap";
-import '../static/css/login.scss';
+import '../static/css/login.css';
 import {Grid, Typography, TextField, InputAdornment} from "@material-ui/core";
 import {useHistory} from "react-router";
 
