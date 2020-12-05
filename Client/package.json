@@ -6,7 +6,7 @@
     "startClient": "webpack-dev-server -d",
     "buildClient": "webpack -p",
     "buildServer": "mvn package -f ../Game/pom.xml",
-    "test": "mvn test",
+    "test": "mvn test -f ../Game/pom.xml",
     "build": "concurrently \"npm run buildClient\" \"npm run buildServer\"",
     "start": "concurrently \"npm run startClient\" \"npm run runServer\""
   },
