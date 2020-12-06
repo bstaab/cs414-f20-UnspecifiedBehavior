@@ -43,20 +43,22 @@ public class MatchRequest extends RequestData {
             QueryBuilder.disconnectDb();
             return valid;
         }
-        try{String s = QueryBuilder.getMessage(to, from);
-            if(s.equals(message)){
-                System.out.println(s);
-                valid=true;
-            }
-            else{
-                err="failed to add message";
-                valid=false;
-            }
+        String s="";
+        try{
+            s = QueryBuilder.getMessage(to, from);
         }
         catch(Exception e){
             err="DB error 2";
             QueryBuilder.disconnectDb();
             return valid;
+        }
+        if(s.equals(message)){
+            System.out.println(s);
+            valid=true;
+        }
+        else{
+            err="failed to add message";
+            valid=false;
         }
         QueryBuilder.disconnectDb();
         return valid;
