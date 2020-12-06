@@ -1,49 +1,32 @@
-import React, {Component } from 'react';
+import React, {useEffect, useState} from 'react';
 import {Button, Modal, ModalBody, ModalFooter, Table} from "reactstrap";
 import Col from "reactstrap/es/Col";
 import Chessground from "react-chessground";
+import {sendPostRequest} from "../components/API";
 
-export default class Match extends Component {
-    constructor(props){
-        super(props);
 
-        this.defineName = this.defineName.bind(this);
-        this.togglePopup = this.togglePopup.bind(this);
+function Match(props) {
+    const [chessBoardPopup, setChessBoardPopup] = useState(false);
+    const [popup, setPopup] = useState(false);
+    const [currentGame, setCurrentGame] = useState();
 
-        this.state = {
-            placeName: " ",
-            chessBoardPopup: false
-        }
-    }
 
-    render() {
-        return (
-            <div>
-                <Modal isOpen={this.props.popupOpen} centered={true} toggle={this.togglePopup}>
-                    <ModalBody>
-                        {this.defineName()}
-                    </ModalBody>
-                    <ModalFooter>
-                        <Button color="secondary" onClick={this.togglePopup}>Close</Button>
-                    </ModalFooter>
-                </Modal>
-            </div>
-        )
-    }
-
-    defineRow(username) {
+    function defineRow(username) {
         return (
             <tr>
                 <td>{username}</td>
                 <td>
-                    <Button onClick={this.toggleChessPopup} color="primary">Play Game</Button>
+                    <Button onClick={() => {
+                        toggleChessPopup(setChessBoardPopup, chessBoardPopup);
+                        setCurrentGame(username);
+                    }} color="primary">Play Game</Button>
                 </td>
             </tr>
         )
 
     }
 
-    defineName() {
+    function defineName() {
         return (
             <Table striped responsive>
                 <thead>
@@ -54,45 +37,67 @@ export default class Match extends Component {
                 </tr>
                 </thead>
                 <tbody>
-                    {this.defineRow('mmihevc')}
+                {
+                    props.gameListW.concat(props.gameListB).map(username => {console.log(username); defineRow(username)})
+                }
                 </tbody>
             </Table>
         )
     }
-    //Use to render table once we have info to populate
-    renderGames() {
-        return (
-            <tr>
-                <td>Opponent</td>
-                <td>
-                    <Button onClick={() => {this.toggleChessPopup();this.togglePopup();}} style={{backgroundColor: 'green'}}>✓</Button>
-                    <Button onClick={this.toggleChessPopup} style={{backgroundColor: 'red'}}>X</Button>
-                </td>
-            </tr>
-        )
-    }
 
-    togglePopup() {
-        this.props.togglePopup();
-    }
-
-    renderChessBoard() {
-        return (
-                <Col xs={9}>
-                    {this.state.chessboardPopup ?
-                        <Chessground
-                            width="38vw"
-                            height="38vw"
-                            fen={'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR'}
-                        /> : null }
-                </Col>
-            )
-
-       // <Chessboard popupOpen={this.state.chessBoardPopup} togglePopup={this.toggleChessPopup}/>
-    }
-
-    toggleChessPopup() {
-        this.setState({chessBoardPopup : !this.state.chessBoardPopup});
-    }
-
+    return (
+        <div>
+            {
+                chessBoardPopup ? <ChessBoard currentGame={currentGame} {...props}/> : null
+            }
+            <Modal isOpen={props.popupOpen} centered={true} toggle={() => props.togglePopup(!props.popupOpen)}>
+                <ModalBody>
+                    {defineName(setChessBoardPopup, chessBoardPopup)}
+                </ModalBody>
+                <ModalFooter>
+                    <Button color="secondary" onClick={() => props.togglePopup(!props.popupOpen)}>Close</Button>
+                </ModalFooter>
+            </Modal>
+        </div>
+    )
 }
+
+function ChessBoard(props) {
+    let isWhite = props.gameListW.includes(props.currentGame);
+    const [fen, setFen] = useState('rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR');
+
+    useEffect(() => {
+        sendPostRequest('fetchGame', {'whiteUser': isWhite ? props.currentGame : props.userData, "blackUser": isWhite ? props.userData : props.currentGame})
+            .then(
+                r => {
+                    setFen(r.data.fen)
+                }
+            )
+    }, [])
+
+    function onMove(from, to) {
+        //console.log(from, to);
+        sendPostRequest('move', {'from' : from, 'to' : to, 'match' : 1})
+            .then(
+
+            )
+    }
+
+    return (
+        <Col xs={9}>
+            <Chessground
+                width="38vw"
+                height="38vw"
+                fen={fen}
+                onMove={() => onMove()}
+            />
+        </Col>
+    )
+}
+
+
+function toggleChessPopup(setChessBoardPopup, chessBoardPopup) {
+    setChessBoardPopup(!chessBoardPopup)
+}
+
+export default Match;

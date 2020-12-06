@@ -1,51 +1,44 @@
-import React, {Component } from 'react';
+import React, {Component, useState} from 'react';
 import {Button, Modal, ModalBody, ModalFooter, ModalHeader, Input, Table} from "reactstrap";
 import TextField from "@material-ui/core/TextField";
+import {sendPostRequest} from "../components/API";
 
-export default class CreateMatch extends Component {
-    constructor(props){
-        super(props);
 
-        this.defineName = this.defineName.bind(this);
-        this.togglePopup = this.togglePopup.bind(this);
-        this.updateOpponentName = this.updateOpponentName.bind(this);
+    function CreateMatch(props) {
+        const [opponentName, setOpponentName] = useState('');
+        const [validOpponent, setValidOpponent] = useState(true);
 
-        this.state = {
-            opponentName: " "
+        function sendInvite() {
+            sendPostRequest('userData', {'username': opponentName}).then(
+                r => {
+                    console.log(opponentName);
+                    console.log(r.data);
+                    if (r.data.valid) {
+                        sendPostRequest('matchRequest', {'from': props.userData, 'to': opponentName})
+                            .then(
+                                r => {
+                                    props.produceSnackBar('Invite sent', 'info');
+                                })
+                    }
+                    else {
+                        setValidOpponent(false);
+                    }
+            })
         }
-    }
 
-    render() {
         return (
-            <Modal isOpen={this.props.popupOpen} centered={true} toggle={this.togglePopup}>
+            <Modal isOpen={props.popupOpen} centered={true} toggle={() => props.togglePopup()}>
                 <ModalHeader>Invite an opponent</ModalHeader>
                 <ModalBody>
-                    <Input onChange={(e) => this.updateOpponentName(e.target.value)} placeholder="Enter username"></Input>
+                    <TextField value={opponentName} onChange={(e) => setOpponentName(e.target.value)} error={!validOpponent} placeholder="Enter username"/>
                 </ModalBody>
                 <ModalFooter>
-                    <Button color="secondary" onClick={this.togglePopup}>Close</Button>
-                    <Button color="primary" onClick={this.sendInvite}>Invite</Button>
+                    <Button color="secondary" onClick={() => props.togglePopup()}>Close</Button>
+                    <Button color="primary" onClick={() => sendInvite()}>Invite</Button>
                 </ModalFooter>
             </Modal>
         )
     }
 
-    defineName() {
-        return (
-            <TextField />
-        )
-    }
 
-    sendInvite() {
-
-    }
-
-    updateOpponentName(name) {
-        this.setState({opponentName: name});
-    }
-
-    togglePopup() {
-        this.props.togglePopup();
-    }
-
-}
+export default CreateMatch;
