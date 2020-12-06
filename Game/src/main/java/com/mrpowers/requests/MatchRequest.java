@@ -28,21 +28,34 @@ public class MatchRequest extends RequestData {
         QueryBuilder.getMessagesTable();
         if(!QueryBuilder.checkUsername(to)){
             message=("invalid user to");
+            QueryBuilder.disconnectDb();
             return valid;
         }
         if(!QueryBuilder.checkUsername(from)){
             message=("invalid user from");
+            QueryBuilder.disconnectDb();
             return valid;
         }
-        QueryBuilder.addMessage(to, from, message);
-        String s = QueryBuilder.getMessage(to, from);
-        if(s.equals(message)){
-            System.out.println(s);
-            valid=true;
+        try{QueryBuilder.addMessage(to, from, message);}
+        catch(Exception e){
+            message="DB error";
+            QueryBuilder.disconnectDb();
+            return valid;
         }
-        else{
-            message="failed to add message";
-            valid=false;
+        try{String s = QueryBuilder.getMessage(to, from);
+            if(s.equals(message)){
+                System.out.println(s);
+                valid=true;
+            }
+            else{
+                message="failed to add message";
+                valid=false;
+            }
+        }
+        catch(Exception e){
+            message="DB error 2";
+            QueryBuilder.disconnectDb();
+            return valid;
         }
         QueryBuilder.disconnectDb();
         return valid;
