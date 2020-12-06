@@ -124,7 +124,8 @@ public class Move extends RequestData {
         ChessBoard board=makeBoard(fen);
         try {
             board.move(from, to);
-            valid=true;
+            check=board.isCheck();
+            checkmate=board.isCheckmate();
             String newFen=board.toFen();
             if(QueryBuilder.getTurn(whiteUser, blackUser).equals("White")){
                 QueryBuilder.updateState(whiteUser, blackUser, newFen, "Black");
