@@ -47,5 +47,6 @@ public class GetAllMessages extends RequestData{
     @Override
     public void buildResponse() throws RequestException, IllegalMoveException {
         this.Do();
+        System.out.println("err");
     }
 }

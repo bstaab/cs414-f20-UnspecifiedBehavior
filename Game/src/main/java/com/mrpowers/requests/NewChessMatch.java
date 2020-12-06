@@ -34,6 +34,7 @@ public class NewChessMatch extends RequestData{
         QueryBuilder.connectDb();
         QueryBuilder.getDBTable();
         QueryBuilder.getStateTable();
+        QueryBuilder.getMessagesTable();
         System.out.println(user1+" "+user2);
         fen=board.toFen();
         System.out.println(fen);
@@ -41,12 +42,14 @@ public class NewChessMatch extends RequestData{
             QueryBuilder.addGame(user1, user2, fen);
             whiteUser=user1;
             blackUser=user2;
+            QueryBuilder.removeMessage(user1, user2, "INVITATION");
             valid=true;
         }
         else{
             QueryBuilder.addGame(user2, user1, fen);
             whiteUser=user2;
             blackUser=user1;
+            QueryBuilder.removeMessage(user1, user2, "INVITATION");
             valid=true;
         }
         QueryBuilder.disconnectDb();
