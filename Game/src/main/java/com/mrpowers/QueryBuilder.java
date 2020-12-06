@@ -230,13 +230,14 @@ public class QueryBuilder {
         }
     }
 
-    public static boolean addGame(String white, String black){
+    public static boolean addGame(String white, String black,String state){
         try {
-            String insertQuery = "INSERT INTO game_state (WhiteUser,BlackUser,Turn) VALUES (?,?,?)";
+            String insertQuery = "INSERT INTO game_state (State,WhiteUser,BlackUser,Turn) VALUES (?,?,?,?)";
             prepObj = connObj.prepareStatement(insertQuery);
-            prepObj.setString(1,white);
-            prepObj.setString(2,black);
-            prepObj.setString(3,"White");
+            prepObj.setString(1,state);
+            prepObj.setString(2,white);
+            prepObj.setString(3,black);
+            prepObj.setString(4,"White");
             prepObj.executeUpdate();
             return true;
         } catch(Exception sqlException) {
@@ -257,13 +258,13 @@ public class QueryBuilder {
         }
     }
 
-    public static String getState(String user1, String user2){
-        String updateQuery = "SELECT State From game_state WHERE Player_1 = ? AND Player_2 = ?";
+    public static String getState(String white, String black){
+        String updateQuery = "SELECT State From game_state WHERE WhiteUser = ? AND BlackUser = ?";
         String state = "";
         try{
             prepObj = connObj.prepareStatement(updateQuery);
-            prepObj.setString(1,user1);
-            prepObj.setString(2,user2);
+            prepObj.setString(1,white);
+            prepObj.setString(2,black);
             ResultSet rs = prepObj.executeQuery();
             while(rs.next()){
                 state = rs.getString("State");
@@ -274,10 +275,27 @@ public class QueryBuilder {
         return state;
     }
 
+    public static String getTurn(String white, String black){
+        String updateQuery = "SELECT Turn From game_state WHERE WhiteUser = ? AND BlackUser = ?";
+        String turn = "";
+        try{
+            prepObj = connObj.prepareStatement(updateQuery);
+            prepObj.setString(1,white);
+            prepObj.setString(2,black);
+            ResultSet rs = prepObj.executeQuery();
+            while(rs.next()){
+                turn = rs.getString("Turn");
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return turn;
+    }
+
     private static int getGameCount(String username){
         int c = 0;
         try{
-            String countQuery = "SELECT COUNT(Player_2) FROM game_state WHERE Player_1 = ?";
+            String countQuery = "SELECT COUNT(BlackUser) FROM game_state WHERE WhiteUser = ?";
             prepObj = connObj.prepareStatement(countQuery);
             prepObj.setString(1,username);
             ResultSet rs = prepObj.executeQuery();
@@ -294,14 +312,14 @@ public class QueryBuilder {
         int size;
         size = getGameCount(user);
         games = new String[size];
-        String selectQuery = "SELECT Player_2 FROM game_state WHERE Player_1 = ?";
+        String selectQuery = "SELECT BlackUser FROM game_state WHERE WhiteUser = ?";
         try{
             prepObj = connObj.prepareStatement(selectQuery);
             prepObj.setString(1,user);
             ResultSet rs = prepObj.executeQuery();
             int i = 0;
             while(rs.next()){
-                String player = rs.getString("Player_2");
+                String player = rs.getString("BlackUser");
                 games[i] = player;
                 i++;
             }
