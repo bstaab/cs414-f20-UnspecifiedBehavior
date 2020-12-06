@@ -147,6 +147,15 @@ public class Move extends RequestData {
                 QueryBuilder.updateState(whiteUser, blackUser, fen, "White");
             }
             turn=QueryBuilder.getTurn(whiteUser, blackUser);
+            if(turn.equals("White")){
+                turn=whiteUser;
+            }
+            else if(turn.equals("Black")){
+                turn=blackUser;
+            }
+            else{
+                turn="corrupted";
+            }
             if(checkmate.equals("White")){
                 QueryBuilder.updateMatches(blackUser, true);
                 QueryBuilder.updateMatches(whiteUser, false);
