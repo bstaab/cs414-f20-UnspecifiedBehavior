@@ -9,15 +9,19 @@ import com.mrpowers.requests.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class RequestTests {
+
 /*
     @BeforeAll
+
     public void Before() {
         Boolean CI = System.getenv("CI").equals("true");
         if (CI) {
             System.out.println(CI);
         }
-    }
-*/
+
+    }*/
+
+
     @Test
     public void NewUserTest(){
         NewUser aUser=new NewUser("user", "password", "user@mail.com");
