@@ -143,6 +143,16 @@ public class Move extends RequestData {
             if(QueryBuilder.getTurn(whiteUser, blackUser).equals("Black")){
                 QueryBuilder.updateState(whiteUser, blackUser, fen, "White");
             }
+            if(checkmate.equals("White")){
+                QueryBuilder.updateMatches(blackUser, true);
+                QueryBuilder.updateMatches(whiteUser, false);
+                QueryBuilder.removeGame(whiteUser, blackUser);
+            }
+            else if(checkmate.equals(("Black"))){
+                QueryBuilder.updateMatches(blackUser, false);
+                QueryBuilder.updateMatches(whiteUser, true);
+                QueryBuilder.removeGame(whiteUser, blackUser);
+            }
             QueryBuilder.disconnectDb();
             valid=true;
         }catch(IllegalMoveException e){
