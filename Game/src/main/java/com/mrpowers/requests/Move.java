@@ -11,6 +11,8 @@ public class Move extends RequestData {
     private String from;
     private String to;
     private Boolean valid;
+    private String check;
+    private String checkmate;
 
     public Move(){
 
@@ -114,8 +116,7 @@ public class Move extends RequestData {
         return board;
     }
 
-    @Override
-    public void buildResponse() throws RequestException, IllegalMoveException {
+    public Boolean Do(){
         QueryBuilder.connectDb();
         QueryBuilder.getDBTable();
         QueryBuilder.getStateTable();
@@ -124,11 +125,23 @@ public class Move extends RequestData {
         try {
             board.move(from, to);
             valid=true;
-            QueryBuilder.updateState(whiteUser, blackUser, board.toFen());
+            String newFen=board.toFen();
+            if(QueryBuilder.getTurn(whiteUser, blackUser).equals("White")){
+                QueryBuilder.updateState(whiteUser, blackUser, newFen, "Black");
+            }
+            if(QueryBuilder.getTurn(whiteUser, blackUser).equals("Black")){
+                QueryBuilder.updateState(whiteUser, blackUser, newFen, "White");
+            }
             QueryBuilder.disconnectDb();
         }catch(IllegalMoveException e){
             valid=false;
             QueryBuilder.disconnectDb();
         }
+        return valid;
+    }
+
+    @Override
+    public void buildResponse() throws RequestException, IllegalMoveException {
+        this.Do();
     }
 }

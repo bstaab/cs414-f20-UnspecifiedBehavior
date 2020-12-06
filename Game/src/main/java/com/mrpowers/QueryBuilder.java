@@ -318,13 +318,13 @@ public class QueryBuilder {
         String selectQuery = "SELECT BlackUser FROM game_state WHERE WhiteUser = ?";
         String[] wGames = new String[size[0]+1];
         String[] bGames = new String[size[1]+1];
-        wGames[0] ="WHITE";
-        bGames[0] = "BLACK";
+        //wGames[0] ="WHITE";
+        //bGames[0] = "BLACK";
         try{
             prepObj = connObj.prepareStatement(selectQuery);
             prepObj.setString(1,user);
             ResultSet rs = prepObj.executeQuery();
-            int i = 1;
+            int i = 0;
             while(rs.next()){
                 String player = rs.getString("BlackUser");
                 wGames[i] = player;
@@ -334,7 +334,7 @@ public class QueryBuilder {
             prepObj = connObj.prepareStatement(selectQuery);
             prepObj.setString(1,user);
             rs = prepObj.executeQuery();
-            i = 1;
+            i = 0;
             while(rs.next()){
                 String player = rs.getString("WhiteUser");
                 bGames[i] = player;

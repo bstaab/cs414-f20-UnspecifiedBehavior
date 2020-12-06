@@ -43,6 +43,7 @@ public class RestfulAPI {
             post("/matchRequest", (req, res) -> processHttpRequest(req, res, MatchRequest.class));
             post("/checkMessages", (req, res) -> processHttpRequest(req, res, CheckMessages.class));
             post("/newChessMatch", (req, res) -> processHttpRequest(req, res, NewChessMatch.class));
+            post("/fetchGame", (req, res) -> processHttpRequest(req, res, FetchGame.class));
         });
     }
 

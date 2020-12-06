@@ -23,15 +23,25 @@ public class NewUser extends RequestData {
     public String getEmail(){
         return email;
     }
-    @Override
-    public void buildResponse() throws RequestException, IllegalMoveException {
+
+    public Boolean Do(){
+        valid=false;
         QueryBuilder.connectDb();
         QueryBuilder.getDBTable();
+        if(QueryBuilder.checkUsername(user)){
+            user="taken";
+            return valid;
+        }
         QueryBuilder.createUser(user, email, password);
         if(QueryBuilder.checkUsername(user)){
             valid=true;
         }
-        else{valid=false;}
         QueryBuilder.disconnectDb();
+        return valid;
+    }
+
+    @Override
+    public void buildResponse() throws RequestException, IllegalMoveException {
+        this.Do();
     }
 }

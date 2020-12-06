@@ -5,6 +5,7 @@ import com.mrpowers.exceptions.IllegalPositionException;
 import java.util.ArrayList;
 
 public abstract class ChessPiece {
+
 	public enum Color {WHITE, BLACK}
 	protected ChessBoard board; // The board it belongs to, default null.
 	protected int row;          // The index of the horizontal rows in the range 0..7.
@@ -16,6 +17,8 @@ public abstract class ChessPiece {
 		this.board = board;
 		this.color = color;
 	}
+
+	public abstract boolean willBeAttacked(String z9, String position);
 	
 	public Color getColor() {
 		return this.color;

@@ -21,7 +21,7 @@ public class CheckMessages extends RequestData {
         int i=QueryBuilder.getListSize(username);
         System.out.println(i);
         if(i!=0){
-            messagesFrom=QueryBuilder.getUsernamesFrom(username);
+            messagesFrom=QueryBuilder.getUsernamesFromMessages(username);
             hasMessages=true;
         }
         else {

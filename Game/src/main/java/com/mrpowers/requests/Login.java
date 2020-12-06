@@ -20,8 +20,6 @@ public class Login extends RequestData{
         if(QueryBuilder.checkUsername(username)){
             String[] results=QueryBuilder.searchUser(username);
             QueryBuilder.disconnectDb();
-            System.out.println(results[2]);
-            System.out.println(password);
             if(password.equals(results[2])){
                 valid=true;
                 return;
