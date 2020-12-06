@@ -292,40 +292,58 @@ public class QueryBuilder {
         return turn;
     }
 
-    private static int getGameCount(String username){
-        int c = 0;
+    private static int[] getGameCount(String username){
+        int[] c = {0,0};
         try{
             String countQuery = "SELECT COUNT(BlackUser) FROM game_state WHERE WhiteUser = ?";
             prepObj = connObj.prepareStatement(countQuery);
             prepObj.setString(1,username);
             ResultSet rs = prepObj.executeQuery();
             rs.next();
-            c = rs.getInt(1);
+            c[0] = rs.getInt(1);
+            countQuery = "SELECT COUNT(WhiteUser) FROM game_state WHERE BlackUser = ?";
+            prepObj = connObj.prepareStatement(countQuery);
+            prepObj.setString(1,username);
+             rs = prepObj.executeQuery();
+            rs.next();
+            c[1] = rs.getInt(1);
         }catch (SQLException throwables) {
             throwables.printStackTrace();
         }
         return c;
     }
 
-    public static String[] getGameUsers(String user){
-        String [] games;
-        int size;
-        size = getGameCount(user);
-        games = new String[size];
+    public static String[][] getGameUsers(String user){
+        int[] size = getGameCount(user);
         String selectQuery = "SELECT BlackUser FROM game_state WHERE WhiteUser = ?";
+        String[] wGames = new String[size[0]+1];
+        String[] bGames = new String[size[1]+1];
+        wGames[0] ="WHITE";
+        bGames[0] = "BLACK";
         try{
             prepObj = connObj.prepareStatement(selectQuery);
             prepObj.setString(1,user);
             ResultSet rs = prepObj.executeQuery();
-            int i = 0;
+            int i = 1;
             while(rs.next()){
                 String player = rs.getString("BlackUser");
-                games[i] = player;
+                wGames[i] = player;
+                i++;
+            }
+            selectQuery = "SELECT WhiteUser FROM game_state WHERE BlackUser = ?";
+            prepObj = connObj.prepareStatement(selectQuery);
+            prepObj.setString(1,user);
+            rs = prepObj.executeQuery();
+            i = 1;
+            while(rs.next()){
+                String player = rs.getString("WhiteUser");
+                bGames[i] = player;
                 i++;
             }
         }catch (Exception sqlException){
             sqlException.printStackTrace();
         }
+        String [][] games = {wGames,bGames};
         return games;
     }
 
