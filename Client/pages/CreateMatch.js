@@ -1,4 +1,4 @@
-import React, {Component, useState} from 'react';
+import React, {useState} from 'react';
 import {Button, Modal, ModalBody, ModalFooter, ModalHeader, Input, Table} from "reactstrap";
 import TextField from "@material-ui/core/TextField";
 import {sendPostRequest} from "../components/API";
@@ -11,16 +11,17 @@ import {sendPostRequest} from "../components/API";
         function sendInvite() {
             sendPostRequest('userData', {'username': opponentName}).then(
                 r => {
-                    console.log(opponentName);
-                    console.log(r.data);
                     if (r.data.valid) {
-                        sendPostRequest('matchRequest', {'from': props.userData, 'to': opponentName})
+                        sendPostRequest('matchRequest', {'to': opponentName, 'from': props.userData})
                             .then(
                                 r => {
-                                    props.produceSnackBar('Invite sent', 'info');
+                                    console.log(r.data)
+                                    if (r.data.valid) props.produceSnackBar('Invite sent', 'info');
+                                    else props.produceSnackBar('Invite failed', 'error');
                                 })
                     }
                     else {
+                        props.produceSnackBar('Invalid User', 'error');
                         setValidOpponent(false);
                     }
             })

@@ -48,7 +48,7 @@ function Match(props) {
     return (
         <div>
             {
-                chessBoardPopup ? <ChessBoard currentGame={currentGame} {...props}/> : null
+                chessBoardPopup ? <ChessBoard fen={props.fen} currentGame={currentGame} {...props}/> : null
             }
             <Modal isOpen={props.popupOpen} centered={true} toggle={() => props.togglePopup(!props.popupOpen)}>
                 <ModalBody>
@@ -64,19 +64,18 @@ function Match(props) {
 
 function ChessBoard(props) {
     let isWhite = props.gameListW.includes(props.currentGame);
-    const [fen, setFen] = useState('rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR');
+    //const [fen, setFen] = useState('rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR');
 
     useEffect(() => {
         sendPostRequest('fetchGame', {'whiteUser': isWhite ? props.currentGame : props.userData, "blackUser": isWhite ? props.userData : props.currentGame})
             .then(
                 r => {
-                    setFen(r.data.fen)
+                    props.setFen(r.data.fen)
                 }
             )
     }, [])
 
     function onMove(from, to) {
-        //console.log(from, to);
         sendPostRequest('move', {'from' : from, 'to' : to, 'match' : 1})
             .then(
 
@@ -88,7 +87,7 @@ function ChessBoard(props) {
             <Chessground
                 width="38vw"
                 height="38vw"
-                fen={fen}
+                fen={props.fen}
                 onMove={() => onMove()}
             />
         </Col>

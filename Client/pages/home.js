@@ -32,7 +32,7 @@ function Home(props) {
             <Row>
                 <Col xs={3}>
                     {renderMenu(setMatchPopup, matchPopup, setGameListPopup, gameListPopup, setPopupOpen, popupOpen)}
-                    <Invite {...props} openInviteModal={popupOpen} setOpenInviteModal={setPopupOpen}/>
+                    <Invite {...props}  openInviteModal={popupOpen} setOpenInviteModal={setPopupOpen}/>
                     <CreateMatch {...props} popupOpen={matchPopup} togglePopup={() => toggleMatchPopup(setMatchPopup, matchPopup)} />
                     <Match {...props} popupOpen={gameListPopup} gameListW={gameListW} gameListB={gameListB} togglePopup={() => toggleGameList(setGameListPopup, gameListPopup)}/>
                 </Col>
