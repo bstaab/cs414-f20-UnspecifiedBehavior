@@ -90,14 +90,14 @@ public class QueryBuilder {
     }
 
     public static boolean createUser(String username, String email, String password){
-        System.out.println("db");
-        System.out.println(username);
         try {
-            String insertQuery = "INSERT INTO registry (Username,Email,PASSWORD) VALUES (?,?,?)";
+            String insertQuery = "INSERT INTO registry (Username,Email,PASSWORD,Matches_Won,Matches) VALUES (?,?,?,?,?)";
             prepObj = connObj.prepareStatement(insertQuery);
             prepObj.setString(1,username);
             prepObj.setString(2,email);
             prepObj.setString(3,password);
+            prepObj.setInt(4,0);
+            prepObj.setInt(5,0);
             prepObj.executeUpdate();
             return true;
         } catch(Exception sqlException) {
