@@ -26,7 +26,6 @@ public class GetAllMessages extends RequestData{
             from=QueryBuilder.getUsernamesFromMessages(username);
             messages=new String[from.length];
             for(int i=0;i<from.length;i++){
-                System.out.println(from[i]);
                 messages[i]=QueryBuilder.getMessage(username, from[i]);
             }
             valid=true;
