@@ -43,23 +43,6 @@ public class MatchRequest extends RequestData {
             QueryBuilder.disconnectDb();
             return valid;
         }
-        String s="";
-        try{
-            s = QueryBuilder.getMessage(to, from);
-        }
-        catch(Exception e){
-            err="DB error 2";
-            QueryBuilder.disconnectDb();
-            return valid;
-        }
-        if(s.equals(message)){
-            System.out.println(s);
-            valid=true;
-        }
-        else{
-            err="failed to add message";
-            valid=false;
-        }
         QueryBuilder.disconnectDb();
         return valid;
     }
@@ -67,5 +50,6 @@ public class MatchRequest extends RequestData {
     @Override
     public void buildResponse() throws RequestException, IllegalMoveException {
         this.Do();
+
     }
 }
