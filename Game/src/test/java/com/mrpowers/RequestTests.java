@@ -20,7 +20,7 @@ public class RequestTests {
         }
 
     }*/
-
+/*
 
     @Test
     public void NewUserTest(){
@@ -157,4 +157,5 @@ public class RequestTests {
         Concede c=new Concede("to2");
         assertTrue(c.RemoveAllGames());
     }
+  */
 }
