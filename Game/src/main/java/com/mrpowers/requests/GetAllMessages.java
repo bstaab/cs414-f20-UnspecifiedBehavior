@@ -8,6 +8,7 @@ public class GetAllMessages extends RequestData{
     private String[] messages;
     private String[] from;
     private String username;
+    private String err;
 
     public GetAllMessages(String username){
         this.username=username;
@@ -30,6 +31,9 @@ public class GetAllMessages extends RequestData{
             }
             valid=true;
         }catch(Exception e){
+            QueryBuilder.disconnectDb();
+            err="1";
+            return valid;
         }
         QueryBuilder.disconnectDb();
         return valid;
