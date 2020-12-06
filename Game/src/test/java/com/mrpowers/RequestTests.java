@@ -70,6 +70,14 @@ public class RequestTests {
         }catch(RequestException | IllegalMoveException e){
             System.out.println("error");
         }
+        try{
+            DeleteMessage del=new DeleteMessage("to");
+            assertTrue(del.DeleteAll());
+        }catch (Exception e){
+            fail();
+        }
+        DeleteMessage d=new DeleteMessage("to");
+        d.DeleteAll();
         MatchRequest invite=new MatchRequest("to", "from");
         invite.Do();
         CheckMessages cm=new CheckMessages("to");
@@ -78,9 +86,36 @@ public class RequestTests {
         GetMessage m = new GetMessage("from", "to");
         try{
             String message=m.Get();
+            if(!message.equals("INVITATION")){
+                fail();
+            }
         }
         catch(RequestException e){
             fail();
         }
+    }
+    @Test
+    public void MessageTest2() throws IllegalMoveException, RequestException {
+        NewUser aUser=new NewUser("to2", "password", "to@mail.com");
+        NewUser bUser=new NewUser("from0", "password", "to@mail.com");
+        NewUser cUser=new NewUser("from1", "password", "to@mail.com");
+        try {
+            aUser.buildResponse();
+            bUser.buildResponse();
+            cUser.buildResponse();
+        }catch(RequestException | IllegalMoveException e){
+            System.out.println("error");
+        }
+        DeleteMessage d=new DeleteMessage("to2");
+        d.DeleteAll();
+        MatchRequest m=new MatchRequest("to2", "from0");
+        m.buildResponse();
+        m=new MatchRequest("to2", "from1");
+        m.buildResponse();
+        GetAllMessages gal=new GetAllMessages("to2");
+        gal.buildResponse();
+        String[][] mur=gal.GetData();
+        assertTrue(mur[1][0].equals("INVITATION"));
+        assertTrue(mur[0][0].equals("from1")||mur[0][1].equals("from1"));
     }
 }
