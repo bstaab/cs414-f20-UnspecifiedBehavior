@@ -7,7 +7,7 @@ public class MatchRequest extends RequestData {
     private String from;
     private String to;
     private Boolean valid;
-    private final String message="INVITATION";
+    private String message="INVITATION";
 
     public MatchRequest(String to, String from){
         this.to=to;
@@ -15,18 +15,33 @@ public class MatchRequest extends RequestData {
     }
 
     public boolean Do() throws RequestException {
+        System.out.println(to);
+        System.out.println(from);
+        valid=false;
+        if(from.equals(to)){
+            message="Can't invite yourself";
+            System.out.println("message");
+            return valid;
+        }
         QueryBuilder.connectDb();
         QueryBuilder.getDBTable();
         QueryBuilder.getMessagesTable();
-        if(!QueryBuilder.checkUsername(from)||!QueryBuilder.checkUsername(to)){
-            throw new RequestException();
+        if(!QueryBuilder.checkUsername(to)){
+            message=("invalid user to");
+            return valid;
+        }
+        if(!QueryBuilder.checkUsername(from)){
+            message=("invalid user from");
+            return valid;
         }
         QueryBuilder.addMessage(to, from, message);
         String s = QueryBuilder.getMessage(to, from);
         if(s.equals(message)){
+            System.out.println(s);
             valid=true;
         }
         else{
+            message="failed to add message";
             valid=false;
         }
         QueryBuilder.disconnectDb();
