@@ -30,8 +30,6 @@ public class GetAllMessages extends RequestData{
             }
             valid=true;
         }catch(Exception e){
-            QueryBuilder.disconnectDb();
-            return valid;
         }
         QueryBuilder.disconnectDb();
         return valid;
