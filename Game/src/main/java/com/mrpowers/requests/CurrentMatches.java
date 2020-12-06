@@ -24,8 +24,8 @@ public class CurrentMatches extends RequestData{
                 return true;
             }catch(Exception e){
                 QueryBuilder.disconnectDb();
-                wGames=null;
-                bGames=null;
+                wGames= new String[]{};
+                bGames= new String[]{};
                 message="NO ACTIVE MATCHES";
                 return true;
             }
