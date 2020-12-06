@@ -10,11 +10,16 @@ public class UserData extends RequestData{
     private Integer gamesLost;
     private Boolean valid;
 
-    public UserData(String username, String email, int gamesWon, int gamesLost){
+    public UserData(String username){
         this.username=username;
-        this.email=email;
-        this.gamesWon=gamesWon;
-        this.gamesLost=gamesLost;
+
+    }
+
+    public Integer getGamesWon(){
+        return gamesWon;
+    }
+    public Integer getGamesLost(){
+        return gamesLost;
     }
 
     @Override
@@ -23,15 +28,21 @@ public class UserData extends RequestData{
         QueryBuilder.getDBTable();
         if(QueryBuilder.checkUsername(username)){
             String[] results=QueryBuilder.searchUser(username);
-            int [] r = QueryBuilder.getMatches(username);
-            QueryBuilder.disconnectDb();
-            gamesWon=r[0]-r[1];
-            gamesLost=r[1];
+            try{
+                int [] r = QueryBuilder.getMatches(username);
+                gamesWon=r[0]-r[1];
+                gamesLost=r[1];
+            }
+            catch(Exception e){
+                gamesWon=0;
+                gamesLost=0;
+            }
             email=results[1];
             valid=true;
         }
         else{
             valid=false;
         }
+        QueryBuilder.disconnectDb();
     }
 }
