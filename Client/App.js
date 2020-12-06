@@ -43,7 +43,7 @@ const Router = props => {
                 </LoginLayout>
             </Route>
             <Route path='/Profile'>
-                <ProfileLayout>
+                <ProfileLayout {...props} userData={userData}>
                     <Profile width={width} height={height} history={history} {...props} userData={userData}/>
                 </ProfileLayout>
             </Route>

@@ -9,13 +9,13 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class RequestTests {
 
-    @BeforeAll
+    /*@BeforeAll
     public void Before() {
         Boolean CI = System.getenv("CI").equals("true");
         if (CI) {
             System.out.println(CI);
         }
-    }
+    }*/
 
     @Test
     public void NewUserTest(){

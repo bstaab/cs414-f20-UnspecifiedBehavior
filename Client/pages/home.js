@@ -3,22 +3,10 @@ import Navigation from "./Navigation";
 import CreateMatch from "./CreateMatch";
 import Background from "../static/images/homeBackground.jpg";
 //import Container from "@material-ui/core/Container";
-import {
-    Button,
-    Col,
-    Collapse, DropdownItem, DropdownMenu,
-    DropdownToggle,
-    Nav,
-    Navbar,
-    NavbarBrand,
-    NavItem,
-    NavLink,
-    Row,
-    UncontrolledDropdown,
-    Container
+import {Button, Col, Collapse, DropdownItem, DropdownMenu, DropdownToggle, Nav, Navbar, NavbarBrand, NavItem, Row, UncontrolledDropdown, Container
 } from "reactstrap";
-import Link from "@material-ui/core/Link";
 import Chessground from "react-chessground";
+import Match from "./Match";
 
 export default class Home extends Component {
     constructor(props) {
@@ -37,7 +25,8 @@ export default class Home extends Component {
             isOpen: false,
             matchPopup: false,
             chessboardPopup: false,
-            fen: "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR"
+            fen: "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR",
+            gameListPopup: false
         }
     }
 
@@ -59,14 +48,7 @@ export default class Home extends Component {
                         {this.renderMenu(this.props.height)}
                         {this.renderPop()}
                         {this.renderMatchPopup()}
-                    </Col>
-                    <Col xs={9}>
-                        {this.state.chessboardPopup ?
-                        <Chessground
-                            width="38vw"
-                            height="38vw"
-                            fen={'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR'}
-                        /> : null }
+                        {this.renderGameList()}
                     </Col>
                 </Row>
             </div>
@@ -123,7 +105,7 @@ export default class Home extends Component {
                 <br/>
                 <Button color='primary' block onClick={this.toggleMatchPopup}>Create A Game</Button>
                 <br/>
-                <Button color='secondary' block onClick={this.toggleChessPopup}> Continue A Game</Button>
+                <Button color='secondary' block onClick={this.toggleGameList}> Continue A Game</Button>
                 <br/>
                 <Button color='secondary' block onClick={this.togglePopup}> Invitations</Button>
                 <br/>
@@ -161,6 +143,14 @@ export default class Home extends Component {
 
     toggleChessPopup() {
         this.setState({chessboardPopup : !this.state.chessboardPopup});
+    }
+
+    renderGameList() {
+        return <Match popupOpen={this.state.gameListPopup} togglePopup={this.toggleGameList}/>
+    }
+
+    toggleGameList() {
+        this.setState({gameListPopup: !this.state.gameListPopup});
     }
 
 }
