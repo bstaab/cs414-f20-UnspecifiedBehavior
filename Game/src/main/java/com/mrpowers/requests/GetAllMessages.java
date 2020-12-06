@@ -25,16 +25,21 @@ public class GetAllMessages extends RequestData{
         QueryBuilder.getMessagesTable();
         try{
             from=QueryBuilder.getUsernamesFromMessages(username);
-            messages=new String[from.length];
-            for(int i=0;i<from.length;i++){
-                messages[i]=QueryBuilder.getMessage(username, from[i]);
-            }
-            valid=true;
         }catch(Exception e){
             QueryBuilder.disconnectDb();
-            err="1";
+            err="0";
             return valid;
         }
+        messages=new String[from.length];
+        for(int i=0;i<from.length;i++){
+            try{messages[i]=QueryBuilder.getMessage(username, from[i]);}
+            catch(Exception e){
+                QueryBuilder.disconnectDb();
+                err=Integer.toString(i);
+                return valid;
+            }
+        }
+        valid=true;
         QueryBuilder.disconnectDb();
         return valid;
     }
