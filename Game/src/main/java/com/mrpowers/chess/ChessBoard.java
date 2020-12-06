@@ -291,7 +291,64 @@ public class ChessBoard {
 		return ret;
 	}
 
+	public ChessPiece getKing(ChessPiece.Color color){
+		String position = "";
+		ChessPiece piece = null;
+		
+		for(int row = 1; row < 9; ++row) {
+			for(char col = 'a'; col < 'i'; ++col ) {
+				position = "" + col + row;
+				try {
+					piece = getPiece(position);
+					if (piece instanceof King && piece.color == color) {
+						return piece;
+					}
+				} catch (IllegalPositionException e) {
+					// Do nothing
+				}
+			}
+		}
+		
+		return piece;
+	}
+	
+	// Function to check for a check mate
+	// For each king, check to see if the current position will be attacked, if yes
+	// check to see if all other moves will also be attacked.
+	// return true if check (no moves left for king), false otherwise.
 	public boolean isCheckmate() {
+		ChessPiece king = getKing(ChessPiece.Color.BLACK);
+		String position = king.getPosition();
+		if (king.willBeAttacked("z9", position) && king.legalMoves.size() == 0) {
+			return true;
+		}
+			
+		king = getKing(ChessPiece.Color.WHITE);
+		position = king.getPosition();
+		if (king.willBeAttacked("z9", position) && king.legalMoves.size() == 0) {
+			return true;
+		}
+		
+		return false;	
+	}
+	
+	// Function to check for a check (king being attacked)
+	// For each king, check to see if the current position will be attacked, if yes
+	// check to see if all other moves will also be attacked.
+	// return true if check (no moves left for king), false otherwise.
+	public boolean isCheck() {
+		ChessPiece king = getKing(ChessPiece.Color.BLACK);
+		String position = king.getPosition();
+		if (king.willBeAttacked("z9", position)) {
+			return true;
+		}
+			
+		king = getKing(ChessPiece.Color.WHITE);
+		position = king.getPosition();
+		if (king.willBeAttacked("z9", position)) {
+			return true;
+		}
+		
 		return false;	
 	}
 	
