@@ -126,6 +126,7 @@ public class Move extends RequestData {
     }
 
     public Boolean Do(){
+        System.out.println(to+" "+from);
         valid=false;
         QueryBuilder.connectDb();
         QueryBuilder.getDBTable();

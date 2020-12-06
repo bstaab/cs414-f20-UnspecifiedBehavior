@@ -21,7 +21,7 @@ public class RequestTests {
 
     }*/
 
-/*
+
     @Test
     public void NewUserTest(){
         NewUser aUser=new NewUser("user5", "password", "user@mail.com");
@@ -150,13 +150,16 @@ public class RequestTests {
         }catch(RequestException | IllegalMoveException e){
             System.out.println("error");
         }
+        MatchRequest mr=new MatchRequest("to2", "from0");
+        mr.buildResponse();
         NewChessMatch ncm=new NewChessMatch("to", "from0");
         ncm.buildResponse();
         assertTrue(ncm.getFen().equals("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w - - - 0"));
         Move aMove=new Move(ncm.getWhiteUser(), ncm.getBlackUser(), "c2", "c3");
         assertTrue(aMove.Do());
+
         Concede c=new Concede("to2");
         assertTrue(c.RemoveAllGames());
     }
-*/
+
 }
