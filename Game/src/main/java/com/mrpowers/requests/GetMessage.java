@@ -23,7 +23,6 @@ public class GetMessage extends RequestData{
         if(s>0) {
             String users[]=QueryBuilder.getUsernamesFromMessages(userTo);
             for(int i=0;i<s;i++){
-                System.out.println(users[i]);
                 if(users[i].equals(userFrom)){
                     message = QueryBuilder.getMessage(userTo, userFrom);
                     valid=true;

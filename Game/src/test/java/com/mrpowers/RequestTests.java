@@ -67,7 +67,6 @@ public class RequestTests {
         GetMessage m = new GetMessage("from", "to");
         try{
             String message=m.Get();
-            System.out.println(message);
         }
         catch(RequestException e){
             fail();
