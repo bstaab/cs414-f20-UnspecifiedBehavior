@@ -19,7 +19,6 @@ public class GetMessage extends RequestData{
         QueryBuilder.getDBTable();
         QueryBuilder.getMessagesTable();
         int s=QueryBuilder.getListSize(userTo);
-        System.out.println(s);
         if(s>0) {
             String users[]=QueryBuilder.getUsernamesFromMessages(userTo);
             for(int i=0;i<s;i++){

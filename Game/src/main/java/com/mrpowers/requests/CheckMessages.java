@@ -19,7 +19,6 @@ public class CheckMessages extends RequestData {
         QueryBuilder.getDBTable();
         QueryBuilder.getMessagesTable();
         int i=QueryBuilder.getListSize(username);
-        System.out.println(i);
         if(i!=0){
             messagesFrom=QueryBuilder.getUsernamesFromMessages(username);
             hasMessages=true;

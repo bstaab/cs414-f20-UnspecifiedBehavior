@@ -24,11 +24,22 @@ public class RequestTests {
 
     @Test
     public void NewUserTest(){
-        NewUser aUser=new NewUser("user", "password", "user@mail.com");
+        NewUser aUser=new NewUser("user5", "password", "user@mail.com");
         try {
             aUser.buildResponse();
         }catch(RequestException | IllegalMoveException e){
             System.out.println("error");
+        }
+        UserData d=new UserData("user");
+        try{
+            d.buildResponse();
+            if(d.getGamesLost()!=0){
+                fail();
+            }
+        } catch (IllegalMoveException e) {
+            e.printStackTrace();
+        } catch (RequestException e) {
+            e.printStackTrace();
         }
     }
     @Test
