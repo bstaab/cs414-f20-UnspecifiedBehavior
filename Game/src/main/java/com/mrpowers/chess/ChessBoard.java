@@ -319,15 +319,16 @@ public class ChessBoard {
 	public boolean isCheckmate() {
 		ChessPiece king = getKing(ChessPiece.Color.BLACK);
 		String position = king.getPosition();
-		if (king.willBeAttacked("z9", position) && king.legalMoves.size() == 0) {
+		
+		if ((boolean)((King) king).willBeAttacked("z9", position) && king.legalMoves().size() == 0) {
 			return true;
 		}
 			
 		king = getKing(ChessPiece.Color.WHITE);
 		position = king.getPosition();
-		if (king.willBeAttacked("z9", position) && king.legalMoves.size() == 0) {
+		if ((boolean)((King) king).willBeAttacked("z9", position) && king.legalMoves().size() == 0) {
 			return true;
-		}
+		}	
 		
 		return false;	
 	}
@@ -339,13 +340,13 @@ public class ChessBoard {
 	public boolean isCheck() {
 		ChessPiece king = getKing(ChessPiece.Color.BLACK);
 		String position = king.getPosition();
-		if (king.willBeAttacked("z9", position)) {
+		if ((boolean)((King) king).willBeAttacked("z9", position)) {
 			return true;
 		}
 			
 		king = getKing(ChessPiece.Color.WHITE);
 		position = king.getPosition();
-		if (king.willBeAttacked("z9", position)) {
+		if ((boolean)((King) king).willBeAttacked("z9", position)) {
 			return true;
 		}
 		
