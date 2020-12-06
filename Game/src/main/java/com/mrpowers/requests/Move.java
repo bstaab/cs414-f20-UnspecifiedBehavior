@@ -130,6 +130,7 @@ public class Move extends RequestData {
         QueryBuilder.connectDb();
         QueryBuilder.getDBTable();
         QueryBuilder.getStateTable();
+        QueryBuilder.getMessagesTable();
         fen=QueryBuilder.getState(whiteUser, blackUser);
         ChessBoard board=makeBoard(fen);
         try {
@@ -146,11 +147,15 @@ public class Move extends RequestData {
             if(checkmate.equals("White")){
                 QueryBuilder.updateMatches(blackUser, true);
                 QueryBuilder.updateMatches(whiteUser, false);
+                QueryBuilder.addMessage(whiteUser, blackUser, "LOST");
+                QueryBuilder.addMessage(blackUser, whiteUser, "WON");
                 QueryBuilder.removeGame(whiteUser, blackUser);
             }
             else if(checkmate.equals(("Black"))){
                 QueryBuilder.updateMatches(blackUser, false);
                 QueryBuilder.updateMatches(whiteUser, true);
+                QueryBuilder.addMessage(whiteUser, blackUser, "WON");
+                QueryBuilder.addMessage(blackUser, whiteUser, "LOST");
                 QueryBuilder.removeGame(whiteUser, blackUser);
             }
             QueryBuilder.disconnectDb();

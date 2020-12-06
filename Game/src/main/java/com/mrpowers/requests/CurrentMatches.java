@@ -7,8 +7,10 @@ public class CurrentMatches extends RequestData{
     private String username;
     private String[] wGames;
     private String[] bGames;
+    private String message;
 
     public boolean Get() throws RequestException {
+        message="INVALID";
         QueryBuilder.connectDb();
         QueryBuilder.getDBTable();
         QueryBuilder.getStateTable();
@@ -18,10 +20,14 @@ public class CurrentMatches extends RequestData{
                 wGames=opponents[0];
                 bGames=opponents[1];
                 QueryBuilder.disconnectDb();
+                message="ACTIVE MATCHES";
                 return true;
             }catch(Exception e){
                 QueryBuilder.disconnectDb();
-                return false;
+                wGames=null;
+                bGames=null;
+                message="NO ACTIVE MATCHES";
+                return true;
             }
         }
         else{

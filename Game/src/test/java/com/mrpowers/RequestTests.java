@@ -89,6 +89,7 @@ public class RequestTests {
             if(!message.equals("INVITATION")){
                 fail();
             }
+            else{System.out.println("test");}
         }
         catch(RequestException e){
             fail();
