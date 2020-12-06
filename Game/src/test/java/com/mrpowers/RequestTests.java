@@ -21,7 +21,7 @@ public class RequestTests {
 
     }*/
 
-
+/*
     @Test
     public void NewUserTest(){
         NewUser aUser=new NewUser("user5", "password", "user@mail.com");
@@ -161,5 +161,5 @@ public class RequestTests {
         Concede c=new Concede("to2");
         assertTrue(c.RemoveAllGames());
     }
-
+*/
 }
