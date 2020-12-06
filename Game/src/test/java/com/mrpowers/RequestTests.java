@@ -153,7 +153,6 @@ public class RequestTests {
         assertTrue(ncm.getFen().equals("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w - - - 0"));
         Move aMove=new Move(ncm.getWhiteUser(), ncm.getBlackUser(), "c2", "c3");
         assertTrue(aMove.Do());
-        System.out.println(aMove.getFen());
         Concede c=new Concede("to2");
         assertTrue(c.RemoveAllGames());
     }
