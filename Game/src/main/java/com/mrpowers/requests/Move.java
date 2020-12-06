@@ -6,22 +6,31 @@ import com.mrpowers.exceptions.IllegalMoveException;
 import java.lang.*;
 
 public class Move extends RequestData {
-    String whiteUser;
-    String blackUser;
+    private String whiteUser;
+    private String blackUser;
     private String from;
     private String to;
     private Boolean valid;
     private String check;
     private String checkmate;
+    private String fen;
 
-    public Move(){
-
+    public Move(String whiteUser, String blackUser, String from, String to){
+        this.whiteUser=whiteUser;
+        this.blackUser=blackUser;
+        this.from=from;
+        this.to=to;
     }
+    public Move(){}
+
     public String getFrom(){
         return from;
     }
     public String getTo(){
         return to;
+    }
+    public String getFen(){
+        return fen;
     }
 
     private Boolean makePiece(char pieceChar, ChessBoard board, int row, int col){
@@ -117,23 +126,25 @@ public class Move extends RequestData {
     }
 
     public Boolean Do(){
+        valid=false;
         QueryBuilder.connectDb();
         QueryBuilder.getDBTable();
         QueryBuilder.getStateTable();
-        String fen=QueryBuilder.getState(whiteUser, blackUser);
+        fen=QueryBuilder.getState(whiteUser, blackUser);
         ChessBoard board=makeBoard(fen);
         try {
             board.move(from, to);
             check=board.isCheck();
             checkmate=board.isCheckmate();
-            String newFen=board.toFen();
+            fen=board.toFen();
             if(QueryBuilder.getTurn(whiteUser, blackUser).equals("White")){
-                QueryBuilder.updateState(whiteUser, blackUser, newFen, "Black");
+                QueryBuilder.updateState(whiteUser, blackUser, fen, "Black");
             }
             if(QueryBuilder.getTurn(whiteUser, blackUser).equals("Black")){
-                QueryBuilder.updateState(whiteUser, blackUser, newFen, "White");
+                QueryBuilder.updateState(whiteUser, blackUser, fen, "White");
             }
             QueryBuilder.disconnectDb();
+            valid=true;
         }catch(IllegalMoveException e){
             valid=false;
             QueryBuilder.disconnectDb();

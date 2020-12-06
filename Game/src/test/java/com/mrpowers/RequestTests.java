@@ -118,4 +118,43 @@ public class RequestTests {
         assertTrue(mur[1][0].equals("INVITATION"));
         assertTrue(mur[0][0].equals("from1")||mur[0][1].equals("from1"));
     }
+    @Test
+    public void NewMatchTest() throws IllegalMoveException, RequestException {
+        NewUser aUser=new NewUser("to2", "password", "to@mail.com");
+        NewUser bUser=new NewUser("from0", "password", "to@mail.com");
+        try {
+            aUser.buildResponse();
+            bUser.buildResponse();
+        }catch(RequestException | IllegalMoveException e){
+            System.out.println("error");
+        }
+        NewChessMatch ncm=new NewChessMatch("to", "from0");
+        try{
+            ncm.buildResponse();
+            assertTrue(ncm.getFen().equals("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w - - - 0"));
+        }catch(Exception e){
+            fail();
+        }
+        Concede c=new Concede("to2");
+        assertTrue(c.RemoveAllGames());
+    }
+    @Test
+    public void MoveTest2() throws IllegalMoveException, RequestException {
+        NewUser aUser=new NewUser("to2", "password", "to@mail.com");
+        NewUser bUser=new NewUser("from0", "password", "to@mail.com");
+        try {
+            aUser.buildResponse();
+            bUser.buildResponse();
+        }catch(RequestException | IllegalMoveException e){
+            System.out.println("error");
+        }
+        NewChessMatch ncm=new NewChessMatch("to", "from0");
+        ncm.buildResponse();
+        assertTrue(ncm.getFen().equals("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w - - - 0"));
+        Move aMove=new Move(ncm.getWhiteUser(), ncm.getBlackUser(), "c2", "c3");
+        assertTrue(aMove.Do());
+        System.out.println(aMove.getFen());
+        Concede c=new Concede("to2");
+        assertTrue(c.RemoveAllGames());
+    }
 }

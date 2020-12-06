@@ -9,6 +9,36 @@ public class Concede extends RequestData{
     private String loser;
     private Boolean valid;
 
+    public Concede(String whiteUser, String blackUser, String loser){
+        this.whiteUser=whiteUser;
+        this.blackUser=blackUser;
+        this.loser=loser;
+    }
+    public Concede(String loser){
+        this.loser=loser;
+    }
+
+    public boolean RemoveAllGames(){
+        valid=false;
+        QueryBuilder.connectDb();
+        QueryBuilder.getDBTable();
+        QueryBuilder.getStateTable();
+        try{
+            String[][] p=QueryBuilder.getGameUsers(loser);
+            for(int i=0;i<p[0].length;i++){
+                QueryBuilder.removeGame(p[0][i], loser);
+            }
+            for(int i=0;i<p[1].length;i++){
+                QueryBuilder.removeGame(loser, p[1][i]);
+            }
+            valid=true;
+        }catch(Exception e){
+            valid=false;
+        }
+        QueryBuilder.disconnectDb();
+        return valid;
+    }
+
     public Boolean Do(){
         valid=false;
         QueryBuilder.connectDb();
