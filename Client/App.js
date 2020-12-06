@@ -35,7 +35,7 @@ const Router = props => {
                 </LoginLayout>
             </Route>
             <Route  path="/Home">
-                <Home width={width} height={height} history={history}/>
+                <Home width={width} height={height} history={history} {...props} setUserData={setUserData}/>
             </Route>
             <Route path="/Register">
                 <LoginLayout width={width} height={height}>

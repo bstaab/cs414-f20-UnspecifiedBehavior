@@ -1,8 +1,6 @@
 import React, {Component, useState} from 'react';
 import Navigation from "./Navigation";
 import CreateMatch from "./CreateMatch";
-import Background from "../static/images/homeBackground.jpg";
-//import Container from "@material-ui/core/Container";
 import {Button, Col, Collapse, DropdownItem, DropdownMenu, DropdownToggle, Nav, Navbar, NavbarBrand, NavItem, Row, UncontrolledDropdown, Container
 } from "reactstrap";
 import Chessground from "react-chessground";
@@ -74,19 +72,16 @@ export default class Home extends Component {
                                 </DropdownToggle>
                                 <DropdownMenu right>
                                     <DropdownItem>
-                                        Option 1
-                                    </DropdownItem>
-                                    <DropdownItem>
-                                        Option 2
+                                        Messages
                                     </DropdownItem>
                                     <DropdownItem divider/>
                                     <DropdownItem>
-                                        Reset
+                                        Unregister
                                     </DropdownItem>
                                 </DropdownMenu>
                             </UncontrolledDropdown>
                             <NavItem>
-                                <Button color="dark">Log Out</Button>
+                                <Button color="dark" onClick={() => this.props.history.push('/')}>Log Out</Button>
                             </NavItem>
                         </Nav>
                     </Collapse>
@@ -94,6 +89,8 @@ export default class Home extends Component {
             </div>
         )
     }
+
+
 
     renderMenu() {
         return (
