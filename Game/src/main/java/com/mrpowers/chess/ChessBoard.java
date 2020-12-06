@@ -316,41 +316,41 @@ public class ChessBoard {
 	// For each king, check to see if the current position will be attacked, if yes
 	// check to see if all other moves will also be attacked.
 	// return true if check (no moves left for king), false otherwise.
-	public boolean isCheckmate() {
+	public String isCheckmate() {
 		ChessPiece king = getKing(ChessPiece.Color.BLACK);
 		String position = king.getPosition();
 		
 		if ((boolean)((King) king).willBeAttacked("z9", position) && king.legalMoves().size() == 0) {
-			return true;
+			return "Black";
 		}
 			
 		king = getKing(ChessPiece.Color.WHITE);
 		position = king.getPosition();
 		if ((boolean)((King) king).willBeAttacked("z9", position) && king.legalMoves().size() == 0) {
-			return true;
+			return "White";
 		}	
 		
-		return false;	
+		return "";
 	}
 	
 	// Function to check for a check (king being attacked)
 	// For each king, check to see if the current position will be attacked, if yes
 	// check to see if all other moves will also be attacked.
 	// return true if check (no moves left for king), false otherwise.
-	public boolean isCheck() {
+	public String isCheck() {
 		ChessPiece king = getKing(ChessPiece.Color.BLACK);
 		String position = king.getPosition();
 		if ((boolean)((King) king).willBeAttacked("z9", position)) {
-			return true;
+			return "Black";
 		}
 			
 		king = getKing(ChessPiece.Color.WHITE);
 		position = king.getPosition();
 		if ((boolean)((King) king).willBeAttacked("z9", position)) {
-			return true;
+			return "White";
 		}
 		
-		return false;	
+		return "";
 	}
 	
 	public static void main(String[] args) throws IllegalPositionException {

@@ -13,11 +13,16 @@ public class CurrentMatches extends RequestData{
         QueryBuilder.getDBTable();
         QueryBuilder.getStateTable();
         if(QueryBuilder.checkUsername(username)){
-            String[][] opponents=QueryBuilder.getGameUsers(username);
-            QueryBuilder.disconnectDb();
-            wGames=opponents[0];
-            bGames=opponents[1];
-            return true;
+            try{
+                String[][] opponents=QueryBuilder.getGameUsers(username);
+                wGames=opponents[0];
+                bGames=opponents[1];
+                QueryBuilder.disconnectDb();
+                return true;
+            }catch(Exception e){
+                QueryBuilder.disconnectDb();
+                return false;
+            }
         }
         else{
             QueryBuilder.disconnectDb();
