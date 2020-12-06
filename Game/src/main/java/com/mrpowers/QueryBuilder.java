@@ -261,7 +261,6 @@ public class QueryBuilder {
     public static String getState(String white, String black){
         String updateQuery = "SELECT State From game_state WHERE WhiteUser = ? AND BlackUser = ?";
         String state = "";
-        String turn = "";
         try{
             prepObj = connObj.prepareStatement(updateQuery);
             prepObj.setString(1,white);
@@ -269,12 +268,28 @@ public class QueryBuilder {
             ResultSet rs = prepObj.executeQuery();
             while(rs.next()){
                 state = rs.getString("State");
-                turn = rs.getString("Turn");
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
         return state;
+    }
+
+    public static String getTurn(String white, String black){
+        String updateQuery = "SELECT Turn From game_state WHERE WhiteUser = ? AND BlackUser = ?";
+        String turn = "";
+        try{
+            prepObj = connObj.prepareStatement(updateQuery);
+            prepObj.setString(1,white);
+            prepObj.setString(2,black);
+            ResultSet rs = prepObj.executeQuery();
+            while(rs.next()){
+                turn = rs.getString("Turn");
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return turn;
     }
 
     private static int getGameCount(String username){
