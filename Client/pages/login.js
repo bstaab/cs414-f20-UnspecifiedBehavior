@@ -18,6 +18,7 @@ const Login = props => {
 
     function login(username, password) {
         props.setUserData(username);
+        props.setUserPassword(password);
         sendPostRequest("login", {"username" : username, "password": password})
             .then(r => {
                 let validLogin = r.data.valid;
