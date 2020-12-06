@@ -1442,7 +1442,7 @@ public class ChessBoardTest{
 		Piece = testBoard.getKing(ChessPiece.Color.BLACK);
 		assertEquals("e8", Piece.getPosition());
 	}
-/*
+
 	@ Test
 	public void testIsCheck1() {
 		ChessBoard testBoard = new ChessBoard();
@@ -1453,9 +1453,9 @@ public class ChessBoardTest{
 		assertEquals("e1", wKing.getPosition());
 		assertEquals(true, testBoard.placePiece(wKing, "e4"));
 				
-		assertEquals(false, testBoard.isCheck());		
+		assertEquals("", testBoard.isCheck());		
 	}
-	
+		
 	@ Test
 	public void testIsCheck2() {
 		ChessBoard testBoard = new ChessBoard();
@@ -1466,7 +1466,7 @@ public class ChessBoardTest{
 		assertEquals("e8", bKing.getPosition());
 		assertEquals(true, testBoard.placePiece(bKing, "e5"));
 				
-		assertEquals(false, testBoard.isCheck());		
+		assertEquals("", testBoard.isCheck());		
 	}
 	
 	@ Test
@@ -1483,7 +1483,7 @@ public class ChessBoardTest{
 		assertEquals("e8", bKing.getPosition());
 		assertEquals(true, testBoard.placePiece(bKing, "e5"));
 		
-		assertEquals(true, testBoard.isCheck());		
+		assertEquals("Black", testBoard.isCheck());		
 	}
 	
 	@ Test
@@ -1499,10 +1499,10 @@ public class ChessBoardTest{
 		ChessPiece blackBishop = new Bishop(testBoard, ChessPiece.Color.BLACK);
 		testBoard.placePiece(blackBishop,"c6");
 				
-		assertEquals(true, testBoard.isCheck());		
-	}*/
+		assertEquals("White", testBoard.isCheck());		
+	}
 	
-/*	@ Test
+	@ Test
 	public void testIsCheck5() {
 		ChessBoard testBoard = new ChessBoard();
 		  
@@ -1515,10 +1515,10 @@ public class ChessBoardTest{
 		ChessPiece blackBishop = new Bishop(testBoard, ChessPiece.Color.BLACK);
 		testBoard.placePiece(blackBishop,"d6");
 				
-		assertEquals(false, testBoard.isCheck());		
-	}*/
+		assertEquals("", testBoard.isCheck());		
+	}
 	
-/*	@ Test
+    @ Test
 	public void testIsCheck6() {
 		ChessBoard testBoard = new ChessBoard();
 		  
@@ -1531,10 +1531,10 @@ public class ChessBoardTest{
 		ChessPiece whiteBishop = new Bishop(testBoard, ChessPiece.Color.WHITE);
 		testBoard.placePiece(whiteBishop,"g3");
 				
-		assertEquals(true, testBoard.isCheck());		
-	}*/
-
-/*	@ Test
+		assertEquals("Black", testBoard.isCheck());		
+	}
+   
+	@Test
 	public void testIsCheck7() {
 		ChessBoard testBoard = new ChessBoard();
 		  
@@ -1547,20 +1547,135 @@ public class ChessBoardTest{
 		ChessPiece whiteBishop = new Bishop(testBoard, ChessPiece.Color.WHITE);
 		testBoard.placePiece(whiteBishop,"g4");
 				
-		assertEquals(false, testBoard.isCheck());		
-	}*/
+		assertEquals("", testBoard.isCheck());		
+	}
 	
-/*	@ Test
+	@ Test
 	public void testIsCheckmate1() {
 		ChessBoard testBoard = new ChessBoard();
 		  
 		testBoard.initialize();
 		  
-		assertEquals(false, testBoard.isCheckmate());		
-	}*/
+		assertEquals("", testBoard.isCheckmate());		
+	}
 	
-/*	@ Test
+	@ Test
 	public void testIsCheckmate2() {
+		ChessBoard testBoard = new ChessBoard();
+		  
+		testBoard.initialize();
+		  
+		ChessPiece wKing = testBoard.getKing(ChessPiece.Color.WHITE);
+		assertEquals("e1", wKing.getPosition());
+		assertEquals(true, testBoard.placePiece(wKing, "e5"));
+		
+		ChessPiece Queen = new Queen(testBoard, ChessPiece.Color.BLACK);
+		ChessPiece Rook1 = new Rook(testBoard, ChessPiece.Color.BLACK);
+		ChessPiece Rook2 = new Rook(testBoard, ChessPiece.Color.BLACK);
+		
+		testBoard.placePiece(Queen,"d3");
+		testBoard.placePiece(Rook1,"e3");
+		testBoard.placePiece(Rook2,"f3");
+				
+		assertEquals("White", testBoard.isCheckmate());		
+	}
+	
+	@ Test
+	public void testIsCheckmate3() {
+		ChessBoard testBoard = new ChessBoard();
+		  
+		testBoard.initialize();
+		  
+		ChessPiece wKing = testBoard.getKing(ChessPiece.Color.WHITE);
+		assertEquals("e1", wKing.getPosition());
+		assertEquals(true, testBoard.placePiece(wKing, "e5"));
+		
+		ChessPiece Queen = new Queen(testBoard, ChessPiece.Color.BLACK);
+		ChessPiece Rook1 = new Rook(testBoard, ChessPiece.Color.BLACK);
+		ChessPiece Rook2 = new Rook(testBoard, ChessPiece.Color.BLACK);
+		
+		testBoard.placePiece(Queen,"c4");
+		testBoard.placePiece(Rook1,"c5");
+		testBoard.placePiece(Rook2,"c6");
+				
+		assertEquals("White", testBoard.isCheckmate());		
+	}
+	
+	@ Test
+	public void testIsCheckmate4() {
+		ChessBoard testBoard = new ChessBoard();
+		  
+		testBoard.initialize();
+		  
+		ChessPiece wKing = testBoard.getKing(ChessPiece.Color.WHITE);
+		assertEquals("e1", wKing.getPosition());
+		assertEquals(true, testBoard.placePiece(wKing, "e5"));
+		
+		ChessPiece Queen = new Queen(testBoard, ChessPiece.Color.BLACK);
+		ChessPiece Rook1 = new Rook(testBoard, ChessPiece.Color.BLACK);
+		ChessPiece Rook2 = new Rook(testBoard, ChessPiece.Color.BLACK);
+		
+		testBoard.placePiece(Queen,"g4");
+		testBoard.placePiece(Rook1,"g5");
+		testBoard.placePiece(Rook2,"g6");
+				
+		assertEquals("White", testBoard.isCheckmate());		
+	}
+	
+	@ Test
+	public void testIsCheckmate5() {
+		ChessBoard testBoard = new ChessBoard();
+		  
+		testBoard.initialize();
+		  
+		ChessPiece wKing = testBoard.getKing(ChessPiece.Color.WHITE);
+		assertEquals("e1", wKing.getPosition());
+		assertEquals(true, testBoard.placePiece(wKing, "e5"));
+		
+		ChessPiece whiteQueen = new Queen(testBoard, ChessPiece.Color.BLACK);
+		ChessPiece whiteRook1 = new Rook(testBoard, ChessPiece.Color.BLACK);
+		ChessPiece whiteRook2 = new Rook(testBoard, ChessPiece.Color.BLACK);
+		
+		testBoard.placePiece(whiteQueen,"g4");
+		testBoard.placePiece(whiteRook1,"c5");
+		testBoard.placePiece(whiteRook2,"g6");
+				
+		assertEquals("White", testBoard.isCheckmate());		
+	}
+	
+	@ Test
+	public void testIsCheckmate6() {
+		ChessBoard testBoard = new ChessBoard();
+		  
+		testBoard.initialize();
+		  
+		ChessPiece wKing = testBoard.getKing(ChessPiece.Color.WHITE);
+		assertEquals("e1", wKing.getPosition());
+		assertEquals(true, testBoard.placePiece(wKing, "e5"));
+		
+		ChessPiece Queen = new Queen(testBoard, ChessPiece.Color.BLACK);
+		ChessPiece Rook1 = new Rook(testBoard, ChessPiece.Color.BLACK);
+		ChessPiece Rook2 = new Rook(testBoard, ChessPiece.Color.BLACK);
+		
+		testBoard.placePiece(Queen,"c4");
+		testBoard.placePiece(Rook1,"g5");
+		testBoard.placePiece(Rook2,"c6");
+				
+		assertEquals("White", testBoard.isCheckmate());		
+	}
+	
+	
+	@ Test
+	public void testIsCheckmate7() {
+		ChessBoard testBoard = new ChessBoard();
+		  
+		testBoard.initialize();
+		  
+		assertEquals("", testBoard.isCheckmate());		
+	}
+	
+	@ Test
+	public void testIsCheckmate8() {
 		ChessBoard testBoard = new ChessBoard();
 		  
 		testBoard.initialize();
@@ -1577,7 +1692,193 @@ public class ChessBoardTest{
 		testBoard.placePiece(whiteRook1,"e3");
 		testBoard.placePiece(whiteRook2,"f3");
 				
-		assertEquals(true, testBoard.isCheckmate());		
-	}*/
+		assertEquals("Black", testBoard.isCheckmate());		
+	}
+	
+	@ Test
+	public void testIsCheckmate9() {
+		ChessBoard testBoard = new ChessBoard();
+		  
+		testBoard.initialize();
+		  
+		ChessPiece bKing = testBoard.getKing(ChessPiece.Color.BLACK);
+		assertEquals("e8", bKing.getPosition());
+		assertEquals(true, testBoard.placePiece(bKing, "e5"));
+		
+		ChessPiece whiteQueen = new Queen(testBoard, ChessPiece.Color.WHITE);
+		ChessPiece whiteRook1 = new Rook(testBoard, ChessPiece.Color.WHITE);
+		ChessPiece whiteRook2 = new Rook(testBoard, ChessPiece.Color.WHITE);
+		
+		testBoard.placePiece(whiteQueen,"c4");
+		testBoard.placePiece(whiteRook1,"c5");
+		testBoard.placePiece(whiteRook2,"c6");
+				
+		assertEquals("Black", testBoard.isCheckmate());		
+	}
+	
+	@ Test
+	public void testIsCheckmate10() {
+		ChessBoard testBoard = new ChessBoard();
+		  
+		testBoard.initialize();
+		  
+		ChessPiece bKing = testBoard.getKing(ChessPiece.Color.BLACK);
+		assertEquals("e8", bKing.getPosition());
+		assertEquals(true, testBoard.placePiece(bKing, "e5"));
+		
+		ChessPiece whiteQueen = new Queen(testBoard, ChessPiece.Color.WHITE);
+		ChessPiece whiteRook1 = new Rook(testBoard, ChessPiece.Color.WHITE);
+		ChessPiece whiteRook2 = new Rook(testBoard, ChessPiece.Color.WHITE);
+		
+		testBoard.placePiece(whiteQueen,"g4");
+		testBoard.placePiece(whiteRook1,"g5");
+		testBoard.placePiece(whiteRook2,"g6");
+				
+		assertEquals("Black", testBoard.isCheckmate());		
+	}
+	
+	@ Test
+	public void testIsCheckmate11() {
+		ChessBoard testBoard = new ChessBoard();
+		  
+		testBoard.initialize();
+		  
+		ChessPiece bKing = testBoard.getKing(ChessPiece.Color.BLACK);
+		assertEquals("e8", bKing.getPosition());
+		assertEquals(true, testBoard.placePiece(bKing, "e5"));
+		
+		ChessPiece whiteQueen = new Queen(testBoard, ChessPiece.Color.WHITE);
+		ChessPiece whiteRook1 = new Rook(testBoard, ChessPiece.Color.WHITE);
+		ChessPiece whiteRook2 = new Rook(testBoard, ChessPiece.Color.WHITE);
+		
+		testBoard.placePiece(whiteQueen,"g4");
+		testBoard.placePiece(whiteRook1,"c5");
+		testBoard.placePiece(whiteRook2,"g6");
+				
+		assertEquals("Black", testBoard.isCheckmate());		
+	}
+	
+	@ Test
+	public void testIsCheckmate12() {
+		ChessBoard testBoard = new ChessBoard();
+		  
+		testBoard.initialize();
+		  
+		ChessPiece bKing = testBoard.getKing(ChessPiece.Color.BLACK);
+		assertEquals("e8", bKing.getPosition());
+		assertEquals(true, testBoard.placePiece(bKing, "e5"));
+		
+		ChessPiece whiteQueen = new Queen(testBoard, ChessPiece.Color.WHITE);
+		ChessPiece whiteRook1 = new Rook(testBoard, ChessPiece.Color.WHITE);
+		ChessPiece whiteRook2 = new Rook(testBoard, ChessPiece.Color.WHITE);
+		
+		testBoard.placePiece(whiteQueen,"c4");
+		testBoard.placePiece(whiteRook1,"g5");
+		testBoard.placePiece(whiteRook2,"c6");
+				
+		assertEquals("Black", testBoard.isCheckmate());		
+	}
+	
+	@ Test
+	public void testChecCheckmate1() {
+		ChessBoard testBoard = new ChessBoard();
+		  
+		testBoard.initialize();
+		  
+		ChessPiece King = testBoard.getKing(ChessPiece.Color.BLACK);
+		assertEquals("e8", King.getPosition());
+		assertEquals(true, testBoard.placePiece(King, "e5"));
+		
+		ChessPiece Queen = new Queen(testBoard, ChessPiece.Color.WHITE);
+		testBoard.placePiece(Queen,"c3");
+				
+		assertEquals("Black", testBoard.isCheck());
+		assertEquals("", testBoard.isCheckmate());		
+	}
+	
+	@ Test
+	public void testChecCheckmate2() {
+		ChessBoard testBoard = new ChessBoard();
+		  
+		testBoard.initialize();
+		  
+		ChessPiece King = testBoard.getKing(ChessPiece.Color.BLACK);
+		assertEquals("e8", King.getPosition());
+		assertEquals(true, testBoard.placePiece(King, "e5"));
+		
+		ChessPiece Knight = new Knight(testBoard, ChessPiece.Color.WHITE);
+		testBoard.placePiece(Knight,"f3");
+				
+		assertEquals("Black", testBoard.isCheck());
+		assertEquals("", testBoard.isCheckmate());		
+	}
+	
+	@ Test
+	public void testChecCheckmate3() {
+		ChessBoard testBoard = new ChessBoard();
+		  
+		testBoard.initialize();
+		  
+		ChessPiece King = testBoard.getKing(ChessPiece.Color.BLACK);
+		assertEquals("e8", King.getPosition());
+		assertEquals(true, testBoard.placePiece(King, "e5"));
+		
+		ChessPiece Pawn = new Pawn(testBoard, ChessPiece.Color.WHITE);
+		testBoard.placePiece(Pawn,"e4");
+				
+		assertEquals("Black", testBoard.isCheck());
+		assertEquals("", testBoard.isCheckmate());		
+	}
+	
+	@ Test
+	public void testChecCheckmate4() {
+		ChessBoard testBoard = new ChessBoard();
+		  
+		testBoard.initialize();
+		  
+		ChessPiece King = testBoard.getKing(ChessPiece.Color.WHITE);
+		assertEquals("e1", King.getPosition());
+		assertEquals(true, testBoard.placePiece(King, "e5"));
+		
+		ChessPiece Queen = new Queen(testBoard, ChessPiece.Color.BLACK);
+		testBoard.placePiece(Queen,"c3");
+				
+		assertEquals("White", testBoard.isCheck());
+		assertEquals("", testBoard.isCheckmate());		
+	}
+	
+	@ Test
+	public void testChecCheckmate5() {
+		ChessBoard testBoard = new ChessBoard();
+		  
+		testBoard.initialize();
+		  
+		ChessPiece King = testBoard.getKing(ChessPiece.Color.WHITE);
+		assertEquals("e1", King.getPosition());
+		assertEquals(true, testBoard.placePiece(King, "e5"));
+		
+		ChessPiece Knight = new Knight(testBoard, ChessPiece.Color.BLACK);
+		testBoard.placePiece(Knight,"f3");
+				
+		assertEquals("White", testBoard.isCheck());
+		assertEquals("", testBoard.isCheckmate());		
+	}
+	
+	@ Test
+	public void testChecCheckmate6() {
+		ChessBoard testBoard = new ChessBoard();
+		  
+		testBoard.initialize();
+		  
+		ChessPiece King = testBoard.getKing(ChessPiece.Color.WHITE);
+		assertEquals("e1", King.getPosition());
+		assertEquals(true, testBoard.placePiece(King, "e5"));
+		
+		ChessPiece Pawn = new Pawn(testBoard, ChessPiece.Color.BLACK);
+		testBoard.placePiece(Pawn,"e4");
+				
+		assertEquals("White", testBoard.isCheck());
+		assertEquals("", testBoard.isCheckmate());		
+	}
 }
 
