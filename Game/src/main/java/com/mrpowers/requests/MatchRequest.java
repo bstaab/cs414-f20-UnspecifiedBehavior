@@ -50,6 +50,16 @@ public class MatchRequest extends RequestData {
     @Override
     public void buildResponse() throws RequestException, IllegalMoveException {
         this.Do();
-
+        /*QueryBuilder.connectDb();
+        QueryBuilder.getDBTable();
+        QueryBuilder.getMessagesTable();
+        String s=QueryBuilder.getMessage(to, from);
+        if(s.equals("INVITATION")){
+            return;
+        }
+        else{
+            err="3";
+        }
+        QueryBuilder.disconnectDb();*/
     }
 }
