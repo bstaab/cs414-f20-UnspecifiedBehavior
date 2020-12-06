@@ -43,6 +43,7 @@ public class NewChessMatch extends RequestData{
             whiteUser=user1;
             blackUser=user2;
             QueryBuilder.removeMessage(user1, user2, "INVITATION");
+            QueryBuilder.addMessage(user2, user1, "ACCEPTED");
             valid=true;
         }
         else{
@@ -50,6 +51,7 @@ public class NewChessMatch extends RequestData{
             whiteUser=user2;
             blackUser=user1;
             QueryBuilder.removeMessage(user1, user2, "INVITATION");
+            QueryBuilder.addMessage(user2, user1, "ACCEPTED");
             valid=true;
         }
         QueryBuilder.disconnectDb();
