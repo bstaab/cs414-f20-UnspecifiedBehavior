@@ -14,10 +14,13 @@ public class MatchRequest extends RequestData {
         this.from=from;
     }
 
-    public boolean Do(){
+    public boolean Do() throws RequestException {
         QueryBuilder.connectDb();
         QueryBuilder.getDBTable();
         QueryBuilder.getMessagesTable();
+        if(!QueryBuilder.checkUsername(from)||!QueryBuilder.checkUsername(to)){
+            throw new RequestException();
+        }
         QueryBuilder.addMessage(to, from, message);
         String s = QueryBuilder.getMessage(to, from);
         if(s.equals(message)){

@@ -3,15 +3,13 @@ package com.mrpowers.requests;
 import com.mrpowers.QueryBuilder;
 import com.mrpowers.exceptions.IllegalMoveException;
 
-public class Unregister extends RequestData{
+public class ChangePassword extends RequestData{
     private String username;
     private String password;
+    private String newPassword;
     private Boolean valid;
 
-    public Unregister(String username){
-        this.username=username;
-    }
-    public Boolean Delete(){
+    public boolean Change(){
         valid=false;
         QueryBuilder.connectDb();
         QueryBuilder.getDBTable();
@@ -20,7 +18,7 @@ public class Unregister extends RequestData{
 
             if(password.equals(results[2])){
                 valid=true;
-                valid=QueryBuilder.deleteUser(username);
+                QueryBuilder.changePassword(username, newPassword);
             }
         }
         QueryBuilder.disconnectDb();
@@ -29,6 +27,6 @@ public class Unregister extends RequestData{
 
     @Override
     public void buildResponse() throws RequestException, IllegalMoveException {
-        this.Delete();
+        this.Change();
     }
 }

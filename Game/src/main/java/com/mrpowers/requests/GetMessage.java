@@ -21,7 +21,7 @@ public class GetMessage extends RequestData{
         int s=QueryBuilder.getListSize(userTo);
         System.out.println(s);
         if(s>0) {
-            String users[]=QueryBuilder.getUsernamesFrom(userTo);
+            String users[]=QueryBuilder.getUsernamesFromMessages(userTo);
             for(int i=0;i<s;i++){
                 System.out.println(users[i]);
                 if(users[i].equals(userFrom)){
