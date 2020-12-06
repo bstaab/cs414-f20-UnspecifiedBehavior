@@ -7,6 +7,7 @@ public class FetchGame extends RequestData{
     private String fen;
     private String whiteUser;
     private String blackUser;
+    private String turn;
 
     public String Get() throws RequestException {
         QueryBuilder.connectDb();
@@ -14,6 +15,7 @@ public class FetchGame extends RequestData{
         QueryBuilder.getStateTable();
         fen = "";
         fen = QueryBuilder.getState(whiteUser, blackUser);
+        turn=QueryBuilder.getTurn(whiteUser, blackUser);
         if(fen.length()==0){
             throw new RequestException();
         }
