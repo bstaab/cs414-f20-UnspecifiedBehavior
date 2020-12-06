@@ -11,6 +11,7 @@ public class NewChessMatch extends RequestData{
     private String fen;
     private String whiteUser;
     private String blackUser;
+    private Boolean valid;
 
     public NewChessMatch(String user1, String user2){
         this.user1=user1;
@@ -25,6 +26,7 @@ public class NewChessMatch extends RequestData{
     public String getBlackUser(){return this.blackUser;}
 
     public boolean Do() throws RequestException{
+        valid=false;
         ChessBoard board=new ChessBoard();
         Random rand=new Random();
         int r=rand.nextInt();
@@ -39,14 +41,16 @@ public class NewChessMatch extends RequestData{
             QueryBuilder.addGame(user1, user2, fen);
             whiteUser=user1;
             blackUser=user2;
+            valid=true;
         }
         else{
             QueryBuilder.addGame(user2, user1, fen);
             whiteUser=user2;
             blackUser=user1;
+            valid=true;
         }
         QueryBuilder.disconnectDb();
-        return true;
+        return valid;
     }
 
     @Override
