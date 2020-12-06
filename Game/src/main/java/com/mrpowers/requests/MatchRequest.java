@@ -8,6 +8,7 @@ public class MatchRequest extends RequestData {
     private String to;
     private Boolean valid;
     private String message="INVITATION";
+    private String err;
 
     public MatchRequest(String to, String from){
         this.to=to;
@@ -19,7 +20,7 @@ public class MatchRequest extends RequestData {
         System.out.println(from);
         valid=false;
         if(from.equals(to)){
-            message="Can't invite yourself";
+            err="Can't invite yourself";
             System.out.println("message");
             return valid;
         }
@@ -27,18 +28,18 @@ public class MatchRequest extends RequestData {
         QueryBuilder.getDBTable();
         QueryBuilder.getMessagesTable();
         if(!QueryBuilder.checkUsername(to)){
-            message=("invalid user to");
+            err=("invalid user to");
             QueryBuilder.disconnectDb();
             return valid;
         }
         if(!QueryBuilder.checkUsername(from)){
-            message=("invalid user from");
+            err=("invalid user from");
             QueryBuilder.disconnectDb();
             return valid;
         }
         try{QueryBuilder.addMessage(to, from, message);}
         catch(Exception e){
-            message="DB error";
+            err="DB error";
             QueryBuilder.disconnectDb();
             return valid;
         }
@@ -48,12 +49,12 @@ public class MatchRequest extends RequestData {
                 valid=true;
             }
             else{
-                message="failed to add message";
+                err="failed to add message";
                 valid=false;
             }
         }
         catch(Exception e){
-            message="DB error 2";
+            err="DB error 2";
             QueryBuilder.disconnectDb();
             return valid;
         }
