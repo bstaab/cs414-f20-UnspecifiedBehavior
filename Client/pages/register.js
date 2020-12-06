@@ -48,7 +48,8 @@ function Register(props) {
     function createAccount() {
         sendPostRequest("newUser", {"user" : username, "password": password, "email" : email})
             .then(r=> {
-                if (r.data.valid) props.history.push('home')
+                console.log(r.data)
+                if (r.data.valid) props.history.push('/')
                 else props.produceSnackBar("Account Creation Failed. Please Try Again Later.", "error")
             });
     }
@@ -82,7 +83,7 @@ function Register(props) {
                     <Button
                         color={"primary"} variant={"contained"} style={{width: "80%", height: "50px"}}
                         //disabled={disabledAccountCreation} onClick={() => createAccount()}
-                        onClick={() => {createAccount(); props.history.push('home')}}
+                        onClick={() => {createAccount()}}
                     >
                         Create Account
                     </Button>
