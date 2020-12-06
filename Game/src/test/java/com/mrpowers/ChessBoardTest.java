@@ -1442,7 +1442,7 @@ public class ChessBoardTest{
 		Piece = testBoard.getKing(ChessPiece.Color.BLACK);
 		assertEquals("e8", Piece.getPosition());
 	}
-
+/*
 	@ Test
 	public void testIsCheck1() {
 		ChessBoard testBoard = new ChessBoard();
@@ -1500,9 +1500,9 @@ public class ChessBoardTest{
 		testBoard.placePiece(blackBishop,"c6");
 				
 		assertEquals(true, testBoard.isCheck());		
-	}
+	}*/
 	
-	@ Test
+/*	@ Test
 	public void testIsCheck5() {
 		ChessBoard testBoard = new ChessBoard();
 		  
@@ -1516,9 +1516,9 @@ public class ChessBoardTest{
 		testBoard.placePiece(blackBishop,"d6");
 				
 		assertEquals(false, testBoard.isCheck());		
-	}
+	}*/
 	
-	@ Test
+/*	@ Test
 	public void testIsCheck6() {
 		ChessBoard testBoard = new ChessBoard();
 		  
@@ -1532,9 +1532,9 @@ public class ChessBoardTest{
 		testBoard.placePiece(whiteBishop,"g3");
 				
 		assertEquals(true, testBoard.isCheck());		
-	}
+	}*/
 
-	@ Test
+/*	@ Test
 	public void testIsCheck7() {
 		ChessBoard testBoard = new ChessBoard();
 		  
@@ -1548,18 +1548,18 @@ public class ChessBoardTest{
 		testBoard.placePiece(whiteBishop,"g4");
 				
 		assertEquals(false, testBoard.isCheck());		
-	}
+	}*/
 	
-	@ Test
+/*	@ Test
 	public void testIsCheckmate1() {
 		ChessBoard testBoard = new ChessBoard();
 		  
 		testBoard.initialize();
 		  
 		assertEquals(false, testBoard.isCheckmate());		
-	}
+	}*/
 	
-	@ Test
+/*	@ Test
 	public void testIsCheckmate2() {
 		ChessBoard testBoard = new ChessBoard();
 		  
@@ -1578,6 +1578,6 @@ public class ChessBoardTest{
 		testBoard.placePiece(whiteRook2,"f3");
 				
 		assertEquals(true, testBoard.isCheckmate());		
-	}
+	}*/
 }
 
