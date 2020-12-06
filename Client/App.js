@@ -18,8 +18,9 @@ import {SnackbarProvider, useSnackbar} from 'notistack';
 import "react-chessground/dist/styles/chessground.css";
 import 'bootstrap/dist/css/bootstrap.min.css'
 
-import {sendPostRequest} from "./components/API";
 import { useHistory } from "react-router";
+import Invite from "./pages/Invite";
+import Match from "./pages/Match"
 
 const Router = props => {
 
@@ -27,6 +28,7 @@ const Router = props => {
     const history = useHistory();
     const [userData, setUserData] = useState();
     const [password, setUserPassword] = useState();
+    const [fen, setFen] = useState();
 
     return (
         <Switch>
@@ -36,7 +38,7 @@ const Router = props => {
                 </LoginLayout>
             </Route>
             <Route  path="/Home">
-                <Home width={width} height={height} history={history} {...props} userData={userData} password={password}/>
+                <Home width={width} height={height} history={history} {...props} setFen={setFen} fen={fen} userData={userData} password={password}/>
             </Route>
             <Route path="/Register">
                 <LoginLayout width={width} height={height}>
