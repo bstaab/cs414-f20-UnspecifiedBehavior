@@ -3,6 +3,8 @@ package com.mrpowers.requests;
 import com.mrpowers.QueryBuilder;
 import com.mrpowers.chess.*;
 import com.mrpowers.exceptions.IllegalMoveException;
+import com.mrpowers.exceptions.IllegalPositionException;
+
 import java.lang.*;
 
 public class Move extends RequestData {
@@ -15,6 +17,7 @@ public class Move extends RequestData {
     private String check;
     private String checkmate;
     private String fen;
+    private String username;
 
     public Move(String whiteUser, String blackUser, String from, String to){
         this.whiteUser=whiteUser;
@@ -136,6 +139,13 @@ public class Move extends RequestData {
         fen=QueryBuilder.getState(whiteUser, blackUser);
         ChessBoard board=makeBoard(fen);
         try {
+            ChessPiece p = board.getPiece(from);
+            Boolean cpw=p.getColor().equals(ChessPiece.Color.WHITE) && username.equals(whiteUser);
+            Boolean cpb=p.getColor().equals(ChessPiece.Color.BLACK) && username.equals(blackUser);
+            if(!(cpw||cpb)){
+                QueryBuilder.disconnectDb();
+                return valid;
+            }
             board.move(from, to);
             check=board.isCheck();
             checkmate=board.isCheckmate();
@@ -172,7 +182,7 @@ public class Move extends RequestData {
             }
             QueryBuilder.disconnectDb();
             valid=true;
-        }catch(IllegalMoveException e){
+        }catch(IllegalMoveException | IllegalPositionException e){
             valid=false;
             QueryBuilder.disconnectDb();
         }
