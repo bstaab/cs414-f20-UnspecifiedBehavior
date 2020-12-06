@@ -28,12 +28,12 @@
 
 ## P3
 * [P3 WIKI](https://github.com/bstaab/cs414-f20-UnspecifiedBehavior/wiki/P3)
-* P3 Presentation - TODO
+* [P3 Presentation]([Presentation](https://github.com/bstaab/cs414-f20-UnspecifiedBehavior/blob/master/Documents/P3Presentation.pptx)
 * [CRC Cards](https://github.com/bstaab/cs414-f20-UnspecifiedBehavior/blob/master/Documents/CRC_P3.pdf)
-* Class Diagram - TODO
+* [Class Diagram](https://github.com/bstaab/cs414-f20-UnspecifiedBehavior/blob/master/Documents/GameClassDiagram.vsd)
 * User Stories and Tasks - TODO
 * [Output of Scrum Ceremonies](Documents/P3OutputOfScrumCeremonies.pdf)
-* Traceability Link Matrix - TODO
+* [Traceability Link Matrix](https://github.com/bstaab/cs414-f20-UnspecifiedBehavior/blob/master/Documents/TraceabilityLinkMatrix.xlsx)
 * [Development Manual](Documents/PortalChessDevelopmentManual.docx)
 * Acceptance Criteria - TODO
 * [Kanban Images](Documents/Kanban)
