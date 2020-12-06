@@ -14,7 +14,7 @@ public class MatchRequest extends RequestData {
         this.to=to;
         this.from=from;
     }
-
+    public String getErr(){return err;}
     public boolean Do() throws RequestException {
         System.out.println(to);
         System.out.println(from);

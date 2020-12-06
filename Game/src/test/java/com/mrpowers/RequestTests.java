@@ -20,7 +20,7 @@ public class RequestTests {
         }
 
     }*/
-/*
+
 
     @Test
     public void NewUserTest(){
@@ -79,6 +79,7 @@ public class RequestTests {
         DeleteMessage d=new DeleteMessage("to");
         d.DeleteAll();
         MatchRequest invite=new MatchRequest("to", "from");
+        System.out.println(invite.getErr());
         invite.Do();
         CheckMessages cm=new CheckMessages("to");
         Boolean check=cm.Check();
@@ -157,5 +158,5 @@ public class RequestTests {
         Concede c=new Concede("to2");
         assertTrue(c.RemoveAllGames());
     }
-  */
+
 }
