@@ -26,16 +26,17 @@ const Router = props => {
     const {width, height} = useWindowSize();
     const history = useHistory();
     const [userData, setUserData] = useState();
+    const [password, setUserPassword] = useState();
 
     return (
         <Switch>
             <Route exact path="/">
                 <LoginLayout width={width} height={height}>
-                    <Login history={history} {...props} setUserData={setUserData}/>
+                    <Login history={history} {...props} setUserData={setUserData} setUserPassword={setUserPassword}/>
                 </LoginLayout>
             </Route>
             <Route  path="/Home">
-                <Home width={width} height={height} history={history}/>
+                <Home width={width} height={height} history={history} {...props} userData={userData} password={password}/>
             </Route>
             <Route path="/Register">
                 <LoginLayout width={width} height={height}>
@@ -43,7 +44,7 @@ const Router = props => {
                 </LoginLayout>
             </Route>
             <Route path='/Profile'>
-                <ProfileLayout>
+                <ProfileLayout {...props} userData={userData}>
                     <Profile width={width} height={height} history={history} {...props} userData={userData}/>
                 </ProfileLayout>
             </Route>

@@ -1,90 +1,48 @@
-import React, {Component, useState} from 'react';
+import React, {useState} from 'react';
 import Navigation from "./Navigation";
 import CreateMatch from "./CreateMatch";
-import Background from "../static/images/homeBackground.jpg";
-//import Container from "@material-ui/core/Container";
-import {
-    Button,
-    Col,
-    Collapse, DropdownItem, DropdownMenu,
-    DropdownToggle,
-    Nav,
-    Navbar,
-    NavbarBrand,
-    NavItem,
-    NavLink,
-    Row,
-    UncontrolledDropdown,
-    Container
+import {Button, Col, Collapse, DropdownItem, DropdownMenu, DropdownToggle, Nav, Navbar, NavbarBrand, NavItem, Row, UncontrolledDropdown, Container
 } from "reactstrap";
-import Link from "@material-ui/core/Link";
 import Chessground from "react-chessground";
+import Match from "./Match";
+import {sendPostRequest} from "../components/API";
+import {useHistory} from "react-router";
 
-export default class Home extends Component {
-    constructor(props) {
-        super(props);
 
-        this.togglePopup = this.togglePopup.bind(this);
-        this.toggleMatchPopup = this.toggleMatchPopup.bind(this);
-        this.renderNavigation = this.renderNavigation.bind(this);
-        this.renderMenu = this.renderMenu.bind(this);
-        this.toggleChessPopup = this.toggleChessPopup.bind(this);
-        this.onMove = this.onMove.bind(this);
+    function Home(props) {
+        const [popupOpen, setPopupOpen] = useState(false);
+        const [isOpen, setIsOpen] = useState(false);
+        const [matchPopup, setMatchPopup] = useState(false);
+        const [fen, setFen] = useState("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR");
+        const [gameListPopup, setGameListPopup] = useState(false);
 
-        this.state = {
-            placeName: " ",
-            popupOpen: false,
-            isOpen: false,
-            matchPopup: false,
-            chessboardPopup: false,
-            fen: "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR"
-        }
-    }
-
-    render() {
-        return (
-            <div>
-                {this.renderHome()}
-            </div>
-        )
-    }
-
-    renderHome() {
         return (
             <div className="home-image">
-                {this.renderNavigation()}
-
+                <NavigationMenu isOpen={isOpen} {...props}/>
                 <Row>
                     <Col xs={3}>
-                        {this.renderMenu(this.props.height)}
-                        {this.renderPop()}
-                        {this.renderMatchPopup()}
-                    </Col>
-                    <Col xs={9}>
-                        {this.state.chessboardPopup ?
-                        <Chessground
-                            width="38vw"
-                            height="38vw"
-                            fen={'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR'}
-                        /> : null }
+                        {renderMenu(setMatchPopup, matchPopup, setGameListPopup, gameListPopup, setPopupOpen, popupOpen)}
+                        {renderPop(popupOpen, setPopupOpen)}
+                        {renderMatchPopup(matchPopup, setMatchPopup)}
+                        {renderGameList(gameListPopup, setGameListPopup)}
                     </Col>
                 </Row>
             </div>
         )
     }
 
-    renderNavigation() {
+    function NavigationMenu(props) {
         return (
             <div>
                 <Navbar color="dark" dark expand="md">
                     <NavbarBrand>Portal Chess</NavbarBrand>
-                    <Collapse isOpen={this.state.isOpen} navbar>
+                    <Collapse isOpen={props.isOpen} navbar>
                         <Nav className="mr-auto" navbar>
                             <NavItem>
-                                <Button color="dark" onClick={() => this.props.history.push('profile')}>Profile</Button>
+                                <Button color="dark" onClick={() => props.history.push('profile')}>Profile</Button>
                             </NavItem>
                             <NavItem>
-                                <Button color="dark" onClick={this.togglePopup}>Invitations</Button>
+                                <Button color="dark" onClick={() => togglePopup()}>Invitations</Button>
                             </NavItem>
                             <UncontrolledDropdown nav inNavbar>
                                 <DropdownToggle style={{color: 'white'}} nav caret>
@@ -92,19 +50,16 @@ export default class Home extends Component {
                                 </DropdownToggle>
                                 <DropdownMenu right>
                                     <DropdownItem>
-                                        Option 1
-                                    </DropdownItem>
-                                    <DropdownItem>
-                                        Option 2
+                                        Messages
                                     </DropdownItem>
                                     <DropdownItem divider/>
-                                    <DropdownItem>
-                                        Reset
+                                    <DropdownItem onClick={() => {unregisterUser(props); props.history.push('/')}}>
+                                        Unregister
                                     </DropdownItem>
                                 </DropdownMenu>
                             </UncontrolledDropdown>
                             <NavItem>
-                                <Button color="dark">Log Out</Button>
+                                <Button color="dark" onClick={() => props.history.push('/')}>Log Out</Button>
                             </NavItem>
                         </Nav>
                     </Collapse>
@@ -113,54 +68,73 @@ export default class Home extends Component {
         )
     }
 
-    renderMenu() {
+
+
+    function renderMenu(setMatchPopup, matchPopup, setGameListPopup, gameListPopup, setPopupOpen, popupOpen) {
         return (
             <Container style={{
                 backgroundColor: 'rgba(192,192,192, 0.3)',
-                height: this.props.height,
                 marginLeft: '0'
             }}>
                 <br/>
-                <Button color='primary' block onClick={this.toggleMatchPopup}>Create A Game</Button>
+                <Button color='primary' block onClick={() => toggleMatchPopup(setMatchPopup, matchPopup)}>Create A Game</Button>
                 <br/>
-                <Button color='secondary' block onClick={this.toggleChessPopup}> Continue A Game</Button>
+                <Button color='secondary' block onClick={() => toggleGameList(setGameListPopup, gameListPopup)}> Continue A Game</Button>
                 <br/>
-                <Button color='secondary' block onClick={this.togglePopup}> Invitations</Button>
+                <Button color='secondary' block onClick={() => togglePopup(setPopupOpen, popupOpen)}> Invitations</Button>
                 <br/>
             </Container>
         );
     }
 
-    renderPop() {
-        return <Navigation popupOpen={this.state.popupOpen} togglePopup={this.togglePopup}/>
+    function renderPop(popupOpen, setPopupOpen) {
+        return <Navigation popupOpen={popupOpen} togglePopup={() => togglePopup(setPopupOpen, popupOpen)}/>
     }
 
-    togglePopup() {
-        this.setState({popupOpen: !this.state.popupOpen});
+    function togglePopup(setPopupOpen, popupOpen) {
+        setPopupOpen(!popupOpen)
     }
 
-    renderMatchPopup() {
-        return <CreateMatch popupOpen={this.state.matchPopup} togglePopup={this.toggleMatchPopup} />
+    function renderMatchPopup(matchPopup, setMatchPopup) {
+        return <CreateMatch popupOpen={matchPopup} togglePopup={() => toggleMatchPopup(setMatchPopup, matchPopup)} />
     }
 
-    toggleMatchPopup() {
-        this.setState({matchPopup: !this.state.matchPopup});
+    function toggleMatchPopup(setMatchPopup, matchPopup) {
+        setMatchPopup(!matchPopup)
     }
 
-    renderChessBoard() {return(
+    function renderChessBoard() {return(
         <Chessground
             width="38vw"
             height="38vw"
             fen={'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR'}
-            onMove={this.onMove}
+            onMove={onMove}
         />    )}
 
-    onMove(from, to) {
+    function onMove(from, to) {
         console.log(from, to);
     }
 
-    toggleChessPopup() {
+    function toggleChessPopup() {
         this.setState({chessboardPopup : !this.state.chessboardPopup});
     }
 
-}
+    function renderGameList(gameListPopup, setGameListPopup) {
+        return <Match popupOpen={gameListPopup} togglePopup={() => toggleGameList(setGameListPopup, gameListPopup)}/>
+    }
+
+    function toggleGameList(setGameListPopup, gameListPopup) {
+        setGameListPopup(!gameListPopup)
+    }
+
+    function unregisterUser(props) {
+        sendPostRequest('unregister', {'username': props.userData, 'password' : props.password})
+            .then(r => {
+                let valid = r.data.valid;
+                if (!valid) props.produceSnackBar("Unable to Register", "info");
+            });
+
+
+    }
+
+    export default Home;

@@ -115,7 +115,7 @@ public class King extends ChessPiece {
 
 	// Function to see if the king will be attacked by an enemy piece
 	// at the new location
-	private boolean willBeAttacked(String currentPosition, String newPosition) {
+	public boolean willBeAttacked(String currentPosition, String newPosition) {
 		char col = newPosition.charAt(0);
 		int row = Integer.valueOf(newPosition.charAt(1) + "");
 		
