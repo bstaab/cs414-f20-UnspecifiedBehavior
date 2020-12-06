@@ -17,8 +17,6 @@ public abstract class ChessPiece {
 		this.board = board;
 		this.color = color;
 	}
-
-	public abstract boolean willBeAttacked(String z9, String position);
 	
 	public Color getColor() {
 		return this.color;
