@@ -48,6 +48,7 @@ public class RestfulAPI {
             post("/currentMatches", (req, res) -> processHttpRequest(req, res, CurrentMatches.class));
             post("/concede", (req, res) -> processHttpRequest(req, res, Concede.class));
             post("/changePassword", (req, res) -> processHttpRequest(req, res, ChangePassword.class));
+            post("/getAllMessages", (req, res) -> processHttpRequest(req, res, GetAllMessages.class));
         });
     }
 
