@@ -11,6 +11,7 @@ public class Move extends RequestData {
     private String from;
     private String to;
     private Boolean valid;
+    private String turn;
     private String check;
     private String checkmate;
     private String fen;
@@ -145,6 +146,7 @@ public class Move extends RequestData {
             if(QueryBuilder.getTurn(whiteUser, blackUser).equals("Black")){
                 QueryBuilder.updateState(whiteUser, blackUser, fen, "White");
             }
+            turn=QueryBuilder.getTurn(whiteUser, blackUser);
             if(checkmate.equals("White")){
                 QueryBuilder.updateMatches(blackUser, true);
                 QueryBuilder.updateMatches(whiteUser, false);
