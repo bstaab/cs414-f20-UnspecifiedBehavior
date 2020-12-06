@@ -291,6 +291,10 @@ public class ChessBoard {
 		return ret;
 	}
 
+	public boolean isCheckmate() {
+		return false;	
+	}
+	
 	public static void main(String[] args) throws IllegalPositionException {
 		ChessBoard board = new ChessBoard();
 		board.initialize();
