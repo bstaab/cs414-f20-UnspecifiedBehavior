@@ -93,11 +93,13 @@ public class QueryBuilder {
         System.out.println("db");
         System.out.println(username);
         try {
-            String insertQuery = "INSERT INTO registry (Username,Email,PASSWORD) VALUES (?,?,?)";
+            String insertQuery = "INSERT INTO registry (Username,Email,PASSWORD,Matches_Won,Matches) VALUES (?,?,?,?,?)";
             prepObj = connObj.prepareStatement(insertQuery);
             prepObj.setString(1,username);
             prepObj.setString(2,email);
             prepObj.setString(3,password);
+            prepObj.setInt(4,0);
+            prepObj.setInt(5,0);
             prepObj.executeUpdate();
             return true;
         } catch(Exception sqlException) {
@@ -214,26 +216,27 @@ public class QueryBuilder {
         }
     }
 
-    public static void updateState(String user1,String user2,String state){
-        String updateQuery = "UPDATE game_state SET State = ? WHERE Player_1 = ? AND Player_2 = ?";
+    public static void updateState(String white,String black,String state,String turn){
+        String updateQuery = "UPDATE game_state SET State = ?, Turn = ? WHERE WhiteUser = ? AND BlackUser = ?";
         try{
             prepObj = connObj.prepareStatement(updateQuery);
             prepObj.setString(1,state);
-            prepObj.setString(2,user1);
-            prepObj.setString(3,user2);
+            prepObj.setString(2,turn);
+            prepObj.setString(3,white);
+            prepObj.setString(4,black);
             prepObj.executeUpdate();
         }catch(SQLException throwables){
             throwables.printStackTrace();
         }
     }
 
-    public static boolean addGameState(String user1, String user2, String state){
+    public static boolean addGame(String white, String black){
         try {
-            String insertQuery = "INSERT INTO game_state (State,Player_1,Player_2) VALUES (?,?,?)";
+            String insertQuery = "INSERT INTO game_state (WhiteUser,BlackUser,Turn) VALUES (?,?,?)";
             prepObj = connObj.prepareStatement(insertQuery);
-            prepObj.setString(1,state);
-            prepObj.setString(2,user1);
-            prepObj.setString(3,user2);
+            prepObj.setString(1,white);
+            prepObj.setString(2,black);
+            prepObj.setString(3,"White");
             prepObj.executeUpdate();
             return true;
         } catch(Exception sqlException) {
@@ -242,13 +245,12 @@ public class QueryBuilder {
         return false;
     }
 
-    public static void removeGameState(String user1, String user2, String state){
-        String deleteQuery = "DELETE FROM game_state WHERE State = ? AND Player_1 = ? AND Player_2 = ?";
+    public static void removeGame(String white, String black){
+        String deleteQuery = "DELETE FROM game_state WHERE WhiteUser = ? AND BlackUser = ?";
         try {
             prepObj = connObj.prepareStatement(deleteQuery);
-            prepObj.setString(1,state);
-            prepObj.setString(2,user1);
-            prepObj.setString(3,user2);
+            prepObj.setString(1,white);
+            prepObj.setString(2,black);
             prepObj.execute();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -270,6 +272,43 @@ public class QueryBuilder {
             throwables.printStackTrace();
         }
         return state;
+    }
+
+    private static int getGameCount(String username){
+        int c = 0;
+        try{
+            String countQuery = "SELECT COUNT(Player_2) FROM game_state WHERE Player_1 = ?";
+            prepObj = connObj.prepareStatement(countQuery);
+            prepObj.setString(1,username);
+            ResultSet rs = prepObj.executeQuery();
+            rs.next();
+            c = rs.getInt(1);
+        }catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return c;
+    }
+
+    public static String[] getGameUsers(String user){
+        String [] games;
+        int size;
+        size = getGameCount(user);
+        games = new String[size];
+        String selectQuery = "SELECT Player_2 FROM game_state WHERE Player_1 = ?";
+        try{
+            prepObj = connObj.prepareStatement(selectQuery);
+            prepObj.setString(1,user);
+            ResultSet rs = prepObj.executeQuery();
+            int i = 0;
+            while(rs.next()){
+                String player = rs.getString("Player_2");
+                games[i] = player;
+                i++;
+            }
+        }catch (Exception sqlException){
+            sqlException.printStackTrace();
+        }
+        return games;
     }
 
     public static String getMessage(String to, String from){
@@ -303,6 +342,20 @@ public class QueryBuilder {
         }
         return false;
     }
+
+    public static void removeMessage(String to, String from, String msg){
+        String deleteQuery = "DELETE FROM messages WHERE message = ? AND toUser = ? AND fromUser = ?";
+        try {
+            prepObj = connObj.prepareStatement(deleteQuery);
+            prepObj.setString(1,msg);
+            prepObj.setString(2,to);
+            prepObj.setString(3,from);
+            prepObj.execute();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+
     public static int getListSize(String username){
         int c = 0;
         try{
@@ -318,7 +371,7 @@ public class QueryBuilder {
         return c;
     }
 
-    public static String[] getUsernamesFrom(String username){
+    public static String[] getUsernamesFromMessages(String username){
         String [] userList;
         int listSize;
         listSize = getListSize(username);
@@ -339,19 +392,4 @@ public class QueryBuilder {
         }
         return userList;
     }
-
-
-    public static void removeMessage(String to, String from, String msg){
-        String deleteQuery = "DELETE FROM messages WHERE message = ? AND toUser = ? AND fromUser = ?";
-        try {
-            prepObj = connObj.prepareStatement(deleteQuery);
-            prepObj.setString(1,msg);
-            prepObj.setString(2,to);
-            prepObj.setString(3,from);
-            prepObj.execute();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-    }
-
 }
