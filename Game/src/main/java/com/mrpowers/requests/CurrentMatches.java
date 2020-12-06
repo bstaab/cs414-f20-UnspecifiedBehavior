@@ -21,7 +21,9 @@ public class CurrentMatches extends RequestData{
                 return true;
             }catch(Exception e){
                 QueryBuilder.disconnectDb();
-                return false;
+                wGames=null;
+                bGames=null;
+                return true;
             }
         }
         else{
