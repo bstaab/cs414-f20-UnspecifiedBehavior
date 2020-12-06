@@ -29,7 +29,7 @@
 ## P3
 * [P3 WIKI](https://github.com/bstaab/cs414-f20-UnspecifiedBehavior/wiki/P3)
 * P3 Presentation - TODO
-* CRC Cards - TODO
+* [CRC Cards](https://github.com/bstaab/cs414-f20-UnspecifiedBehavior/blob/master/Documents/CRC_P3.pdf)
 * Class Diagram - TODO
 * User Stories and Tasks - TODO
 * [Output of Scrum Ceremonies](Documents/P3OutputOfScrumCeremonies.pdf)
