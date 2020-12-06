@@ -1,6 +1,7 @@
 package com.mrpowers;
 import com.mrpowers.exceptions.IllegalMoveException;
 import com.mrpowers.exceptions.IllegalPositionException;
+import org.junit.Assert;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import com.mrpowers.chess.*;
@@ -9,13 +10,17 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class RequestTests {
 
-    /*@BeforeAll
+/*
+    @BeforeAll
+
     public void Before() {
         Boolean CI = System.getenv("CI").equals("true");
         if (CI) {
             System.out.println(CI);
         }
+
     }*/
+
 
     @Test
     public void NewUserTest(){
@@ -37,6 +42,34 @@ public class RequestTests {
             fail();
         }
         if(board1.getPiece("e4").legalMoves().size()!=3){
+            fail();
+        }
+    }
+    @Test
+    public void MessagesTest() throws RequestException {
+        NewUser aUser=new NewUser("to", "password", "to@mail.com");
+        try {
+            aUser.buildResponse();
+        }catch(RequestException | IllegalMoveException e){
+            System.out.println("error");
+        }
+        aUser=new NewUser("from", "password", "from@mail.com");
+        try {
+            aUser.buildResponse();
+        }catch(RequestException | IllegalMoveException e){
+            System.out.println("error");
+        }
+        MatchRequest invite=new MatchRequest("to", "from");
+        invite.Do();
+        CheckMessages cm=new CheckMessages("to");
+        Boolean check=cm.Check();
+        if(!check){fail();}
+        GetMessage m = new GetMessage("from", "to");
+        try{
+            String message=m.Get();
+            System.out.println(message);
+        }
+        catch(RequestException e){
             fail();
         }
     }
