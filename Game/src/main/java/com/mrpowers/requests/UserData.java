@@ -8,6 +8,7 @@ public class UserData extends RequestData{
     private String email;
     private Integer gamesWon;
     private Integer gamesLost;
+    private String password;
     private Boolean valid;
 
     public UserData(String username){
@@ -38,6 +39,7 @@ public class UserData extends RequestData{
                 gamesLost=0;
             }
             email=results[1];
+            password=results[2];
             valid=true;
         }
         else{
