@@ -66,8 +66,10 @@ public class NewChessMatch extends RequestData{
                 blackUser=user1;
             }
         }
+        else{
+            err="game already exists";
+        }
         QueryBuilder.disconnectDb();
-        err="game already exists";
         return valid;
     }
 
