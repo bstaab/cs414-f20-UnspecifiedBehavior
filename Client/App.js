@@ -1,14 +1,14 @@
 import React, {useState} from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 
-import Home from './pages/Home';
-import Login from './pages/Login';
-import Register from './pages/Register'
-import LoginLayout from "./pages/loginlayout";
-import Profile from './pages/profile'
-import ProfileLayout from "./pages/profilelayout";
+import Home from './components/Home';
+import Login from './components/Login';
+import Register from './components/Register'
+import LoginLayout from "./components/LoginLayout";
+import Profile from './components/Profile'
+import ProfileLayout from "./components/profilelayout";
 
-import useWindowSize from "./components/useWindowSize";
+import useWindowSize from "./hooks/useWindowSize";
 
 import {createMuiTheme, ThemeProvider} from '@material-ui/core/styles';
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -19,35 +19,34 @@ import "react-chessground/dist/styles/chessground.css";
 import 'bootstrap/dist/css/bootstrap.min.css'
 
 import { useHistory } from "react-router";
-import Invite from "./pages/Invite";
-import Match from "./pages/Match"
+import ContinueGame from "./components/ContinueGame";
+import Invitations from "./components/Invitations"
 
 const Router = props => {
 
     const {width, height} = useWindowSize();
     const history = useHistory();
-    const [userData, setUserData] = useState();
-    const [password, setUserPassword] = useState();
 
+    const [userData, setUserData] = useState({});
 
     return (
         <Switch>
             <Route exact path="/">
                 <LoginLayout width={width} height={height}>
-                    <Login history={history} {...props} setUserData={setUserData} setUserPassword={setUserPassword}/>
+                    <Login history={history} setUserData={setUserData} {...props}/>
                 </LoginLayout>
             </Route>
-            <Route  path="/Home">
-                <Home width={width} height={height} history={history} {...props} userData={userData} password={password}/>
+            <Route path="/home">
+                <Home width={width} height={height} history={history} {...props} userData={userData} />
             </Route>
-            <Route path="/Register">
+            <Route path="/register">
                 <LoginLayout width={width} height={height}>
                     <Register history={history} {...props}/>
                 </LoginLayout>
             </Route>
-            <Route path='/Profile'>
-                <ProfileLayout {...props} userData={userData}>
-                    <Profile width={width} height={height} history={history} {...props} userData={userData}/>
+            <Route path='/profile'>
+                <ProfileLayout>
+                    <Profile width={width} height={height} history={history} userData={userData} {...props} />
                 </ProfileLayout>
             </Route>
         </Switch>

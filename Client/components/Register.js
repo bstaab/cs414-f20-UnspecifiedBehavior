@@ -6,7 +6,7 @@ import PersonIcon from "@material-ui/icons/Person";
 import LockIcon from "@material-ui/icons/Lock";
 import MailIcon from '@material-ui/icons/Mail';
 
-import {sendPostRequest} from "../components/API";
+import {sendPostRequest} from "../hooks/API";
 
 function Register(props) {
 

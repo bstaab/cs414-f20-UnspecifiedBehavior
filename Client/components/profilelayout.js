@@ -1,11 +1,8 @@
 import React, {useState} from "react";
 import {Box, Grid, InputAdornment, Paper, TextField} from "@material-ui/core";
 
-
-
 const ProfileLayout = props =>
 {
-
     return (
         <>
             <div className={"profile-image"} />
