@@ -7,7 +7,7 @@ import LockIcon from '@material-ui/icons/Lock';
 
 import '../static/css/login.scss';
 
-import {sendPostRequest} from "../components/API";
+import {sendPostRequest} from "../hooks/API";
 import Chessground from "react-chessground";
 
 
@@ -16,13 +16,17 @@ const Login = props => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
 
-    function login(username, password) {
-        props.setUserData(username);
-        props.setUserPassword(password);
-        sendPostRequest("login", {"username" : username, "password": password})
+    function login() {
+
+        sendPostRequest("login", {username : username, password: password})
             .then(r => {
                 let validLogin = r.data.valid;
-                if (validLogin) props.history.push('home');
+                if (validLogin) {
+                    sendPostRequest("userData", {username: username}).then(r => {
+                        props.setUserData(r.data)
+                        props.history.push('home');
+                    });
+                }
                 else props.produceSnackBar("Login Failed", "error");
             });
     }
@@ -44,7 +48,7 @@ const Login = props => {
                 <Grid item style={{width: "80%"}} align={"center"}>
                     <Button
                         color={"primary"} variant={"contained"} style={{width: "80%", height: "50px"}}
-                        onClick={() => {login(username, password)}}
+                        onClick={() => {login()}}
                     >
                         Login
                     </Button>
