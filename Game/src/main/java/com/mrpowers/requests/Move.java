@@ -143,7 +143,7 @@ public class Move extends RequestData {
         try{
             board=makeBoard(fen);
             p = board.getPiece(from);}
-        catch(Exception e){
+        catch(IllegalPositionException e){
             err="illegal position";
             QueryBuilder.disconnectDb();
             return valid;

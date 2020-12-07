@@ -1,5 +1,6 @@
 package com.mrpowers.requests;
 import com.mrpowers.exceptions.IllegalMoveException;
+import com.mrpowers.exceptions.IllegalPositionException;
 
 public abstract class RequestData {
 
@@ -17,5 +18,5 @@ public abstract class RequestData {
         }
 
         // Overrideable Methods
-        public abstract void buildResponse() throws RequestException, IllegalMoveException;
+        public abstract void buildResponse() throws RequestException, IllegalMoveException, IllegalPositionException;
 }

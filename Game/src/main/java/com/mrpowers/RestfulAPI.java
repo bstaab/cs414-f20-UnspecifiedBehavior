@@ -1,6 +1,7 @@
 package com.mrpowers;
 
 import com.mrpowers.exceptions.IllegalMoveException;
+import com.mrpowers.exceptions.IllegalPositionException;
 import com.mrpowers.requests.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -74,7 +75,7 @@ public class RestfulAPI {
         response.status(200);
     }
 
-    private String buildJSONResponse(RequestData request) throws RequestException, IllegalMoveException {
+    private String buildJSONResponse(RequestData request) throws RequestException, IllegalMoveException, IllegalPositionException {
         request.buildResponse();
         String responseBody = new Gson().toJson(request);
         log.trace("Response - {}", responseBody);
