@@ -25,7 +25,7 @@ public class RequestTests {
 
     }
 */
-
+/*
     @Test
     public void NewUserTest(){
         NewUser aUser=new NewUser("user5", "password", "user@mail.com");
@@ -193,6 +193,6 @@ public class RequestTests {
         QueryBuilder.getStateTable();
         QueryBuilder.removeGame("paul", "art");
         QueryBuilder.disconnectDb();
-    }
+    }*/
 
 }
