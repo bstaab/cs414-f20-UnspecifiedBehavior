@@ -8,18 +8,18 @@ public class FetchGame extends RequestData{
     private String whiteUser;
     private String blackUser;
     private String turn;
+    private Boolean valid;
 
     public String Get() throws RequestException {
+        valid=false;
         QueryBuilder.connectDb();
         QueryBuilder.getDBTable();
         QueryBuilder.getStateTable();
         fen = "";
         fen = QueryBuilder.getState(whiteUser, blackUser);
         turn=QueryBuilder.getTurn(whiteUser, blackUser);
-        if(fen.length()==0){
-            throw new RequestException();
-        }
         QueryBuilder.disconnectDb();
+        valid=true;
         return fen;
     }
 

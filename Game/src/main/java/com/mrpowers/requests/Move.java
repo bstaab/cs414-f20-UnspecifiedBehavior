@@ -140,26 +140,38 @@ public class Move extends RequestData {
         fen=QueryBuilder.getState(whiteUser, blackUser);
         ChessBoard board;
         ChessPiece p;
-        try{
+        turn=QueryBuilder.getTurn(whiteUser, blackUser);
+        /*try{
             board=makeBoard(fen);
-            p = board.getPiece(from);}
+            p = board.getPiece(from);
+            Boolean cpw=p.getColor().equals(ChessPiece.Color.WHITE) && username.equals(whiteUser);
+            Boolean cpb=p.getColor().equals(ChessPiece.Color.BLACK) && username.equals(blackUser);
+            if(!(cpw||cpb)){
+                QueryBuilder.disconnectDb();
+                return valid;
+            }
+        }
         catch(IllegalPositionException e){
             err="illegal position";
             QueryBuilder.disconnectDb();
             return valid;
-        }
-        Boolean cpw=p.getColor().equals(ChessPiece.Color.WHITE) && username.equals(whiteUser);
-        Boolean cpb=p.getColor().equals(ChessPiece.Color.BLACK) && username.equals(blackUser);
-        if(!(cpw||cpb)){
-            QueryBuilder.disconnectDb();
-            return valid;
-        }
+        }*/
         try {
+            board = makeBoard(fen);
+            p = board.getPiece(from);
+            if(!(board.getPiece(from).getColor().equals(ChessPiece.Color.WHITE)&&whiteUser==username)){
+                QueryBuilder.disconnectDb();
+                return valid;
+            }
+            else if(!(board.getPiece(from).getColor().equals(ChessPiece.Color.BLACK)&&blackUser==username)){
+                QueryBuilder.disconnectDb();
+                return valid;
+            }
             board.move(from, to);
-            check=board.isCheck();
-            checkmate=board.isCheckmate();
-            fen=board.toFen();
-            turn=QueryBuilder.getTurn(whiteUser, blackUser);
+            check = board.isCheck();
+            checkmate = board.isCheckmate();
+            fen = board.toFen();
+            /*turn=QueryBuilder.getTurn(whiteUser, blackUser);
             if(QueryBuilder.getTurn(whiteUser, blackUser).equals("White")&&turn.equals(username)){
                 QueryBuilder.updateState(whiteUser, blackUser, fen, "Black");
             }
@@ -175,6 +187,30 @@ public class Move extends RequestData {
             }
             else{
                 turn="corrupted";
+            }*/
+        }catch(Exception e) {
+            err="board/move/position";
+            QueryBuilder.disconnectDb();
+            return valid;
+        }
+        QueryBuilder.getTurn(whiteUser, blackUser);
+        if(turn.equals("White")){
+            turn=whiteUser;
+        }
+        else if(turn.equals("Black")){
+            turn=blackUser;
+        }
+        else{
+            turn="corrupted";
+            QueryBuilder.disconnectDb();
+            return valid;
+        }
+        try{
+            if(QueryBuilder.getTurn(whiteUser, blackUser).equals("White")&&turn.equals(username)){
+                QueryBuilder.updateState(whiteUser, blackUser, fen, "Black");
+            }
+            if(QueryBuilder.getTurn(whiteUser, blackUser).equals("Black")&&turn.equals(username)){
+                QueryBuilder.updateState(whiteUser, blackUser, fen, "White");
             }
             if(checkmate.equals("White")){
                 QueryBuilder.updateMatches(blackUser, true);
@@ -192,10 +228,12 @@ public class Move extends RequestData {
             }
             QueryBuilder.disconnectDb();
             valid=true;
-        }catch(IllegalMoveException e){
+        }catch(Exception e){
             valid=false;
             QueryBuilder.disconnectDb();
+            return valid;
         }
+        QueryBuilder.disconnectDb();
         return valid;
     }
 
