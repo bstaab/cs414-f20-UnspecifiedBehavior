@@ -127,7 +127,7 @@ public class RequestTests {
         assertTrue(mur[0][0].equals("from1")||mur[0][1].equals("from1"));
     }
     @Test
-    public void NewMatchTest() throws IllegalMoveException, RequestException {
+    public void NewMatchTest() throws IllegalMoveException, RequestException, IllegalPositionException {
         NewUser aUser=new NewUser("to2", "password", "to@mail.com");
         NewUser bUser=new NewUser("from0", "password", "to@mail.com");
         try {
@@ -145,6 +145,10 @@ public class RequestTests {
         }catch(Exception e){
             fail();
         }
+        Move amove=new Move(ncm.getWhiteUser(), ncm.getBlackUser(), "c2", "c4", ncm.getWhiteUser());
+        amove.Do();
+        System.out.println(amove.getFen());
+        assertTrue(amove.getFen().equals("rnbqkbnr/pppppppp/8/8/2P5/8/PP1PPPPP/RNBQKBNR b - - - 1b"));
         c=new Concede("to2");
         assertTrue(c.RemoveAllGames());
     }
@@ -155,7 +159,7 @@ public class RequestTests {
         assertTrue(QueryBuilder.createUser("user9", "user9@mail", "password"));
         assertTrue(QueryBuilder.createUser("user8", "user9@mail", "password"));
         assertTrue(QueryBuilder.addGame("user9", "user8", "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w - - - 0"));
-        System.out.println(QueryBuilder.getState("user9", "user8"));
+        //System.out.println(QueryBuilder.getState("user9", "user8"));
         assertTrue(QueryBuilder.getState("user9", "user8").equals("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w - - - 0"));
         QueryBuilder.removeGame("user9", "user8");
         assertFalse(QueryBuilder.getState("user9", "user8").equals("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w - - - 0"));
@@ -173,7 +177,7 @@ public class RequestTests {
         board.initialize();
         QueryBuilder.addGame("h1", "h2", board.toFen());
         String f=QueryBuilder.getTurn("h1", "h2");
-        System.out.println(f.length());
+        //System.out.println(f.length());
         QueryBuilder.disconnectDb();
     }
 
@@ -187,7 +191,7 @@ public class RequestTests {
         QueryBuilder.disconnectDb();
         Move a=new Move("paul", "art", "c2", "c4", "paul");
         a.Do();
-        System.out.println(a.getFen());
+        //System.out.println(a.getFen());
         QueryBuilder.connectDb();
         QueryBuilder.getDBTable();
         QueryBuilder.getStateTable();

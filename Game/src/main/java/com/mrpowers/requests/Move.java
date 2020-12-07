@@ -138,8 +138,13 @@ public class Move extends RequestData {
         QueryBuilder.getDBTable();
         QueryBuilder.getStateTable();
         fen=QueryBuilder.getState(whiteUser, blackUser);
+        try{
+            turn=fen.substring(fen.length()-1);
+        }catch(NullPointerException e){
+            QueryBuilder.disconnectDb();
+            return valid;
+        }
         ChessBoard board=makeBoard(fen);
-        turn=fen.substring(fen.length()-1);
         if(((turn.equals("w")&&whiteUser==username)||(turn.equals("b")&&blackUser==username))){
             if((board.getPiece(from).getColor().equals(ChessPiece.Color.WHITE)&&username==whiteUser)||(board.getPiece(from).getColor().equals(ChessPiece.Color.BLACK)&&username==blackUser)){
                 try{
