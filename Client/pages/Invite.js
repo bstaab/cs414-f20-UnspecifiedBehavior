@@ -5,11 +5,12 @@ import {Table, Modal} from 'reactstrap';
 import CheckIcon from '@material-ui/icons/Check';
 import CloseIcon from '@material-ui/icons/Close';
 import Match from './Match'
+import Col from "reactstrap/es/Col";
+import Chessground from "react-chessground";
 
 function Invite(props) {
     const [fromUserData, setFromUserData] = useState([]);
     const [messagesData, setMessagesData] = useState([]);
-    const [chessPopup, setChessPopup] = useState(false)
 
     useEffect(() => {
         sendPostRequest('getAllMessages', {'username': props.userData}).then(
@@ -29,15 +30,17 @@ function Invite(props) {
     }, [])
 
     function createNewGame(opponentName) {
-        sendPostRequest('newChessMatch', {'to': opponentName, 'from': props.userData})
+        sendPostRequest('newChessMatch', {'user1': props.userData, 'user2': opponentName})
             .then(
                 r => {
-                    console.log(r.data);
-                    console.log(opponentName);
                     if (r.data.valid) {
                         props.setFen(r.data.fen);
+                        props.setWhiteUser(r.data.whiteUser)
+                        props.setBlackUser(r.data.blackUser)
+                        props.setCurrentGame(opponentName)
                         props.produceSnackBar('Game Successfully Accepted', 'success');
-                        setChessPopup(!chessPopup);
+                        props.setChessBoardPopup(!props.chessBoardPopup);
+                        props.setOpenInviteModal(false);
                     }
                     else {
                         props.produceSnackBar('Game acceptance failed', 'error');
@@ -49,9 +52,6 @@ function Invite(props) {
 
       return (
           <div>
-              {
-                  chessPopup ? <Match/> : null
-              }
               <Modal
                   isOpen={props.openInviteModal}
                   centered={true}
@@ -83,6 +83,8 @@ function Invite(props) {
           </div>
       )
 }
+
+
 
 
 

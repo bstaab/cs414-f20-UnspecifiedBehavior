@@ -28,7 +28,7 @@ const Router = props => {
     const history = useHistory();
     const [userData, setUserData] = useState();
     const [password, setUserPassword] = useState();
-    const [fen, setFen] = useState();
+
 
     return (
         <Switch>
@@ -38,7 +38,7 @@ const Router = props => {
                 </LoginLayout>
             </Route>
             <Route  path="/Home">
-                <Home width={width} height={height} history={history} {...props} setFen={setFen} fen={fen} userData={userData} password={password}/>
+                <Home width={width} height={height} history={history} {...props} userData={userData} password={password}/>
             </Route>
             <Route path="/Register">
                 <LoginLayout width={width} height={height}>
