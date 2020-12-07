@@ -403,6 +403,15 @@ public class QueryBuilder {
         }
     }
 
+    public static boolean doesMessageExist(String white, String black,String msg){
+        boolean unique = false;
+        String u = getMessage(white,black);
+        if(!u.isEmpty()){
+            unique = true;
+        }
+        return unique;
+    }
+
     public static int getListSize(String username){
         int c = 0;
         try{
