@@ -162,9 +162,12 @@ public class Move extends RequestData {
                     err="move is illegal";
                 }
             }
+            else{
+                err="its not your piece";
+            }
         }
         else{
-            err="you cannot move";
+            err="its not your turn";
         }
         QueryBuilder.disconnectDb();
         System.out.println(fen+"test");
