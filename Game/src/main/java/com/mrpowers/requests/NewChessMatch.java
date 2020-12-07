@@ -37,6 +37,7 @@ public class NewChessMatch extends RequestData{
         QueryBuilder.getMessagesTable();
         System.out.println(user1+" "+user2);
         fen=board.toFen();
+        fen+="w";
         System.out.println(fen);
         if(r%2==0){
             QueryBuilder.addGame(user1, user2, fen);
