@@ -338,7 +338,7 @@ public class QueryBuilder {
             int i = 0;
             while(rs.next()){
                 String player = rs.getString("BlackUser");
-                wGames[i] = player;
+                bGames[i] = player;
                 i++;
             }
             selectQuery = "SELECT WhiteUser FROM game_state WHERE BlackUser = ?";
@@ -348,7 +348,7 @@ public class QueryBuilder {
             i = 0;
             while(rs.next()){
                 String player = rs.getString("WhiteUser");
-                bGames[i] = player;
+                wGames[i] = player;
                 i++;
             }
         }catch (Exception sqlException){
