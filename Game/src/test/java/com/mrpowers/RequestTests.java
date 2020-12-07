@@ -6,6 +6,9 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import com.mrpowers.chess.*;
 import com.mrpowers.requests.*;
+
+import java.util.Optional;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class RequestTests {
@@ -152,7 +155,7 @@ public class RequestTests {
         }
         MatchRequest mr=new MatchRequest("to2", "from0");
         mr.buildResponse();
-        NewChessMatch ncm=new NewChessMatch("to", "from0");
+        NewChessMatch ncm=new NewChessMatch("to2", "from0");
         ncm.buildResponse();
         assertTrue(ncm.getFen().equals("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w - - - 0"));
         Move aMove=new Move(ncm.getWhiteUser(), ncm.getBlackUser(), "c2", "c3");
@@ -162,4 +165,16 @@ public class RequestTests {
         assertTrue(c.RemoveAllGames());
     }
 */
+    @Test
+    public void dbTest2() throws IllegalMoveException, RequestException {
+        QueryBuilder.connectDb();
+        QueryBuilder.getDBTable();
+        QueryBuilder.getStateTable();
+        ChessBoard board=new ChessBoard();
+        board.initialize();
+        QueryBuilder.addGame("h1", "h2", board.toFen());
+        String f=QueryBuilder.getTurn("h1", "h2");
+        System.out.println(f.length());
+        QueryBuilder.disconnectDb();
+    }
 }

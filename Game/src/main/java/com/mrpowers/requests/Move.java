@@ -174,8 +174,11 @@ public class Move extends RequestData {
             return valid;
         }
         try{
-            if(turn.equals(username)){
+            if(turn.equals(username)&&turn.equals(blackUser)){
                 QueryBuilder.updateState(whiteUser, blackUser, fen, "White");
+            }
+            if(turn.equals(username)&&turn.equals(whiteUser)){
+                QueryBuilder.updateState(whiteUser, blackUser, fen, "Black");
             }
             if(checkmate.equals("White")){
                 QueryBuilder.updateMatches(blackUser, true);
