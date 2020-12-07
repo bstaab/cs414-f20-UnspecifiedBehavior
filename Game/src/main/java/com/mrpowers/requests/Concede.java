@@ -23,19 +23,16 @@ public class Concede extends RequestData{
         QueryBuilder.connectDb();
         QueryBuilder.getDBTable();
         QueryBuilder.getStateTable();
-        try{
-            String[][] p=QueryBuilder.getGameUsers(loser);
-            for(int i=0;i<p[0].length;i++){
-                QueryBuilder.removeGame(p[0][i], loser);
-            }
-            for(int i=0;i<p[1].length;i++){
-                QueryBuilder.removeGame(loser, p[1][i]);
-            }
-            valid=true;
-        }catch(Exception e){
-            valid=false;
+        String[][] p;
+        p=QueryBuilder.getGameUsers(loser);
+        for(int i=0;i<p[0].length;i++){
+            QueryBuilder.removeGame(p[0][i], loser);
+        }
+        for(int i=0;i<p[1].length;i++){
+            QueryBuilder.removeGame(loser, p[1][i]);
         }
         QueryBuilder.disconnectDb();
+        valid=true;
         return valid;
     }
 

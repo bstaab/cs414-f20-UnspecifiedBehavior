@@ -136,11 +136,11 @@ public class RequestTests {
         }catch(RequestException | IllegalMoveException e){
             System.out.println("error");
         }
-        Concede c = new Concede("to");
-        c.RemoveAllGames();
-        NewChessMatch ncm=new NewChessMatch("to", "from0");
+        Concede c = new Concede("to2");
+        assertTrue(c.RemoveAllGames());
+        NewChessMatch ncm=new NewChessMatch("to2", "from0");
         try{
-            ncm.TestDo();
+            assertTrue(ncm.TestDo());
             assertTrue(ncm.getFen().equals("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w - - - 0w"));
         }catch(Exception e){
             fail();
@@ -187,6 +187,7 @@ public class RequestTests {
         QueryBuilder.disconnectDb();
         Move a=new Move("paul", "art", "c2", "c4", "paul");
         a.Do();
+        System.out.println(a.getFen());
         QueryBuilder.connectDb();
         QueryBuilder.getDBTable();
         QueryBuilder.getStateTable();
