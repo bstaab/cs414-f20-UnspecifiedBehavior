@@ -18,6 +18,7 @@ public class Move extends RequestData {
     private String checkmate;
     private String fen;
     private String username;
+    private String err;
 
     public Move(String whiteUser, String blackUser, String from, String to){
         this.whiteUser=whiteUser;
@@ -129,7 +130,7 @@ public class Move extends RequestData {
         return board;
     }
 
-    public Boolean Do(){
+    public Boolean Do() throws IllegalPositionException, IllegalMoveException {
         System.out.println(to+" "+from);
         valid=false;
         QueryBuilder.connectDb();
@@ -137,26 +138,35 @@ public class Move extends RequestData {
         QueryBuilder.getStateTable();
         QueryBuilder.getMessagesTable();
         fen=QueryBuilder.getState(whiteUser, blackUser);
-        ChessBoard board=makeBoard(fen);
+        ChessBoard board;
+        ChessPiece p;
+        try{
+            board=makeBoard(fen);
+            p = board.getPiece(from);}
+        catch(Exception e){
+            err="illegal position";
+            QueryBuilder.disconnectDb();
+            return valid;
+        }
+        Boolean cpw=p.getColor().equals(ChessPiece.Color.WHITE) && username.equals(whiteUser);
+        Boolean cpb=p.getColor().equals(ChessPiece.Color.BLACK) && username.equals(blackUser);
+        if(!(cpw||cpb)){
+            QueryBuilder.disconnectDb();
+            return valid;
+        }
         try {
-            ChessPiece p = board.getPiece(from);
-            Boolean cpw=p.getColor().equals(ChessPiece.Color.WHITE) && username.equals(whiteUser);
-            Boolean cpb=p.getColor().equals(ChessPiece.Color.BLACK) && username.equals(blackUser);
-            if(!(cpw||cpb)){
-                QueryBuilder.disconnectDb();
-                return valid;
-            }
             board.move(from, to);
             check=board.isCheck();
             checkmate=board.isCheckmate();
             fen=board.toFen();
-            if(QueryBuilder.getTurn(whiteUser, blackUser).equals("White")){
+            turn=QueryBuilder.getTurn(whiteUser, blackUser);
+            if(QueryBuilder.getTurn(whiteUser, blackUser).equals("White")&&turn.equals(username)){
                 QueryBuilder.updateState(whiteUser, blackUser, fen, "Black");
             }
-            if(QueryBuilder.getTurn(whiteUser, blackUser).equals("Black")){
+            if(QueryBuilder.getTurn(whiteUser, blackUser).equals("Black")&&turn.equals(username)){
                 QueryBuilder.updateState(whiteUser, blackUser, fen, "White");
             }
-            turn=QueryBuilder.getTurn(whiteUser, blackUser);
+
             if(turn.equals("White")){
                 turn=whiteUser;
             }
@@ -182,7 +192,7 @@ public class Move extends RequestData {
             }
             QueryBuilder.disconnectDb();
             valid=true;
-        }catch(IllegalMoveException | IllegalPositionException e){
+        }catch(IllegalMoveException e){
             valid=false;
             QueryBuilder.disconnectDb();
         }
@@ -190,7 +200,7 @@ public class Move extends RequestData {
     }
 
     @Override
-    public void buildResponse() throws RequestException, IllegalMoveException {
+    public void buildResponse() throws RequestException, IllegalMoveException, IllegalPositionException {
         this.Do();
     }
 }
