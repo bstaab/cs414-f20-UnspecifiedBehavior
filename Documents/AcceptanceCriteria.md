@@ -71,3 +71,69 @@
   * A rejected invitation is deleted from the table: PASS 
 
   * An accepted invitation creates the game and then deletes the invitation from the table: PASS 
+  
+### I want to play multiple games at a given time
+
+* Acceptance Criteria
+  
+    * A registered user can open a table showing all current matches: PASS 
+    
+    * A registered user can select a specific game to play and have that game state loaded: PASS
+    
+### I want to quit a game at any time
+
+* Acceptance Criteria
+
+   * A registered user has option to quit a game: PASS
+   
+   * A quit game is deleted from list of current matches: PASS
+
+### I want my game data stored 
+
+* Acceptance Criteria
+   
+   * All game data associated with a user is automatically stored in the database: PASS
+   
+   * A user can view their game data and match history: PASS
+
+###  I want to be able to search other registered users
+
+* Acceptance Criteria
+   
+   * A registered user can search for other registered users: PASS
+   
+   * A registered user can search for unregistered users: FAIL
+   
+   * Another registered users game data is displayed when searched for: PASS
+
+###  I want to be able to unregister
+
+* Acceptance Criteria
+  
+   * A registered user can choose to unregister their account at any time: PASS
+   
+   * Once unregistered all game data will be deleted along with the account: PASS
+
+### I want to be notified when the game is over
+
+* Acceptance Criteria
+
+   * Once a game ends both opponents are notified that the game is over: PASS
+   
+### I want to view my results once the game is over
+
+* Acceptance Criteria
+
+    * After a game is over, a registered user can view their results: PASS
+
+### I can log out of the system
+
+* Acceptance Criteria
+  
+  * A registered user can logout of the system at any time and be redirected to the login page: PASS
+
+### As a user I would like to receive notifications about the response to an invitation
+
+* Acceptance Criteria
+
+    * A registered user can access notification about whether their invitation was accepted or not: PASS
