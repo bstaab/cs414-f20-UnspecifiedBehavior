@@ -229,6 +229,10 @@ public class QueryBuilder {
     }
 
     public static boolean addGame(String white, String black,String state){
+        if(doesItExist(white,black)){
+            System.out.println("Game already Exists!");
+            return false;
+        }
         try {
             String insertQuery = "INSERT INTO game_state (State,WhiteUser,BlackUser,Turn) VALUES (?,?,?,?)";
             prepObj = connObj.prepareStatement(insertQuery);
@@ -271,6 +275,15 @@ public class QueryBuilder {
             throwables.printStackTrace();
         }
         return state;
+    }
+
+    public static boolean doesItExist(String white, String black){
+        boolean unique = false;
+        String u = getState(white,black);
+        if(!u.isEmpty()){
+            unique = true;
+        }
+        return unique;
     }
 
     public static String getTurn(String white, String black){
