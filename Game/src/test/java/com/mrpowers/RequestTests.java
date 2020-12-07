@@ -25,7 +25,7 @@ public class RequestTests {
 
     }
 */
-/*
+
     @Test
     public void NewUserTest(){
         NewUser aUser=new NewUser("user5", "password", "user@mail.com");
@@ -140,8 +140,8 @@ public class RequestTests {
         c.RemoveAllGames();
         NewChessMatch ncm=new NewChessMatch("to", "from0");
         try{
-            ncm.buildResponse();
-            assertTrue(ncm.getFen().equals("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w - - - 0"));
+            ncm.TestDo();
+            assertTrue(ncm.getFen().equals("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w - - - 0w"));
         }catch(Exception e){
             fail();
         }
@@ -175,6 +175,23 @@ public class RequestTests {
         String f=QueryBuilder.getTurn("h1", "h2");
         System.out.println(f.length());
         QueryBuilder.disconnectDb();
-    }*/
+    }
+
+    @Test
+    public void moveTest() throws IllegalPositionException, IllegalMoveException {
+        QueryBuilder.connectDb();
+        QueryBuilder.getDBTable();
+        QueryBuilder.getStateTable();
+        QueryBuilder.removeGame("paul", "art");
+        QueryBuilder.addGame("paul", "art", "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w - - - 0w");
+        QueryBuilder.disconnectDb();
+        Move a=new Move("paul", "art", "c2", "c4", "paul");
+        a.Do();
+        QueryBuilder.connectDb();
+        QueryBuilder.getDBTable();
+        QueryBuilder.getStateTable();
+        QueryBuilder.removeGame("paul", "art");
+        QueryBuilder.disconnectDb();
+    }
 
 }

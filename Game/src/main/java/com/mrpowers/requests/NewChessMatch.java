@@ -34,10 +34,13 @@ public class NewChessMatch extends RequestData{
         QueryBuilder.getDBTable();
         QueryBuilder.getStateTable();
         QueryBuilder.getMessagesTable();
-        System.out.println(user1+" "+user2);
         fen=board.toFen();
         fen+="w";
-        if(!QueryBuilder.addGame(user1, user2, fen)){
+        if(QueryBuilder.doesItExist(user1, user2)||QueryBuilder.doesItExist(user2, user1)){
+            QueryBuilder.disconnectDb();
+            return valid;
+        }
+        else if(!QueryBuilder.addGame(user1, user2, fen)){
                 QueryBuilder.disconnectDb();
                 return valid;
         }
@@ -57,7 +60,10 @@ public class NewChessMatch extends RequestData{
         QueryBuilder.getDBTable();
         QueryBuilder.getStateTable();
         QueryBuilder.getMessagesTable();
-        System.out.println(user1+" "+user2);
+        if(QueryBuilder.doesItExist(user1, user2)||QueryBuilder.doesItExist(user2, user1)){
+            QueryBuilder.disconnectDb();
+            return valid;
+        }
         fen=board.toFen();
         fen+="w";
         if(r%2==0){

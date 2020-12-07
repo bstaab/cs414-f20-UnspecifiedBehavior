@@ -20,13 +20,15 @@ public class Move extends RequestData {
     private String username;
     private String err;
 
-    public Move(String whiteUser, String blackUser, String from, String to){
+    public Move(String whiteUser, String blackUser, String from, String to, String username){
         this.whiteUser=whiteUser;
         this.blackUser=blackUser;
         this.from=from;
         this.to=to;
+        this.username=username;
     }
-    public Move(){}
+    public Move(){};
+
 
     public String getFrom(){
         return from;
@@ -135,67 +137,32 @@ public class Move extends RequestData {
         QueryBuilder.connectDb();
         QueryBuilder.getDBTable();
         QueryBuilder.getStateTable();
-        QueryBuilder.getMessagesTable();
         fen=QueryBuilder.getState(whiteUser, blackUser);
-        ChessBoard board;
-        ChessPiece p;
-        System.out.println(fen+"test");
-        turn=Character.toString(fen.charAt(fen.length()-1));
-        if(turn.equals("w")){
-            turn=whiteUser;
+        ChessBoard board=makeBoard(fen);
+        turn=fen.substring(fen.length()-1);
+        if(((turn.equals("w")&&whiteUser==username)||(turn.equals("b")&&blackUser==username))){
+            if((board.getPiece(from).getColor().equals(ChessPiece.Color.WHITE)&&username==whiteUser)||(board.getPiece(from).getColor().equals(ChessPiece.Color.BLACK)&&username==blackUser)){
+                try{
+                    board.move(from, to);
+                    fen=board.toFen();
+                    if(turn.equals("w")){
+                        fen+="b";
+                    }
+                    else if(turn.equals("b")){
+                        fen+="w";
+                    }
+                    QueryBuilder.updateState(whiteUser, blackUser, fen, turn);
+                    valid=true;
+                }catch(IllegalMoveException e){
+                    err="move is illegal";
+                }
+            }
         }
         else{
-            turn=blackUser;
-        }
-        try {
-            board = makeBoard(fen);
-            p = board.getPiece(from);
-            if(!(board.getPiece(from).getColor().equals(ChessPiece.Color.WHITE)&&whiteUser==username)){
-                QueryBuilder.disconnectDb();
-                return valid;
-            }
-            else if(!(board.getPiece(from).getColor().equals(ChessPiece.Color.BLACK)&&blackUser==username)){
-                QueryBuilder.disconnectDb();
-                return valid;
-            }
-            board.move(from, to);
-            check = board.isCheck();
-            checkmate = board.isCheckmate();
-            fen = board.toFen();
-        }catch(Exception e) {
-            err="board/move/position";
-            QueryBuilder.disconnectDb();
-            return valid;
-        }
-        try{
-            if(turn.equals(username)&&turn.equals(blackUser)){
-                QueryBuilder.updateState(whiteUser, blackUser, fen+="w", "White");
-            }
-            if(turn.equals(username)&&turn.equals(whiteUser)){
-                QueryBuilder.updateState(whiteUser, blackUser, fen+="b", "Black");
-            }
-            if(checkmate.equals("White")){
-                QueryBuilder.updateMatches(blackUser, true);
-                QueryBuilder.updateMatches(whiteUser, false);
-                QueryBuilder.addMessage(whiteUser, blackUser, "LOST");
-                QueryBuilder.addMessage(blackUser, whiteUser, "WON");
-                QueryBuilder.removeGame(whiteUser, blackUser);
-            }
-            else if(checkmate.equals(("Black"))){
-                QueryBuilder.updateMatches(blackUser, false);
-                QueryBuilder.updateMatches(whiteUser, true);
-                QueryBuilder.addMessage(whiteUser, blackUser, "WON");
-                QueryBuilder.addMessage(blackUser, whiteUser, "LOST");
-                QueryBuilder.removeGame(whiteUser, blackUser);
-            }
-            QueryBuilder.disconnectDb();
-            valid=true;
-        }catch(Exception e){
-            valid=false;
-            QueryBuilder.disconnectDb();
-            return valid;
+            err="you cannot move";
         }
         QueryBuilder.disconnectDb();
+        System.out.println(fen+"test");
         return valid;
     }
 
