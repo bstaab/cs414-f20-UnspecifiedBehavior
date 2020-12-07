@@ -141,21 +141,6 @@ public class Move extends RequestData {
         ChessBoard board;
         ChessPiece p;
         turn=QueryBuilder.getTurn(whiteUser, blackUser);
-        /*try{
-            board=makeBoard(fen);
-            p = board.getPiece(from);
-            Boolean cpw=p.getColor().equals(ChessPiece.Color.WHITE) && username.equals(whiteUser);
-            Boolean cpb=p.getColor().equals(ChessPiece.Color.BLACK) && username.equals(blackUser);
-            if(!(cpw||cpb)){
-                QueryBuilder.disconnectDb();
-                return valid;
-            }
-        }
-        catch(IllegalPositionException e){
-            err="illegal position";
-            QueryBuilder.disconnectDb();
-            return valid;
-        }*/
         try {
             board = makeBoard(fen);
             p = board.getPiece(from);
@@ -171,29 +156,12 @@ public class Move extends RequestData {
             check = board.isCheck();
             checkmate = board.isCheckmate();
             fen = board.toFen();
-            /*turn=QueryBuilder.getTurn(whiteUser, blackUser);
-            if(QueryBuilder.getTurn(whiteUser, blackUser).equals("White")&&turn.equals(username)){
-                QueryBuilder.updateState(whiteUser, blackUser, fen, "Black");
-            }
-            if(QueryBuilder.getTurn(whiteUser, blackUser).equals("Black")&&turn.equals(username)){
-                QueryBuilder.updateState(whiteUser, blackUser, fen, "White");
-            }
-
-            if(turn.equals("White")){
-                turn=whiteUser;
-            }
-            else if(turn.equals("Black")){
-                turn=blackUser;
-            }
-            else{
-                turn="corrupted";
-            }*/
         }catch(Exception e) {
             err="board/move/position";
             QueryBuilder.disconnectDb();
             return valid;
         }
-        QueryBuilder.getTurn(whiteUser, blackUser);
+        turn=QueryBuilder.getTurn(whiteUser, blackUser);
         if(turn.equals("White")){
             turn=whiteUser;
         }
@@ -206,10 +174,7 @@ public class Move extends RequestData {
             return valid;
         }
         try{
-            if(QueryBuilder.getTurn(whiteUser, blackUser).equals("White")&&turn.equals(username)){
-                QueryBuilder.updateState(whiteUser, blackUser, fen, "Black");
-            }
-            if(QueryBuilder.getTurn(whiteUser, blackUser).equals("Black")&&turn.equals(username)){
+            if(turn.equals(username)){
                 QueryBuilder.updateState(whiteUser, blackUser, fen, "White");
             }
             if(checkmate.equals("White")){

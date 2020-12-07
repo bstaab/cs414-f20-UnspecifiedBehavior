@@ -15,7 +15,6 @@ public class FetchGame extends RequestData{
         QueryBuilder.connectDb();
         QueryBuilder.getDBTable();
         QueryBuilder.getStateTable();
-        fen = "";
         fen = QueryBuilder.getState(whiteUser, blackUser);
         turn=QueryBuilder.getTurn(whiteUser, blackUser);
         QueryBuilder.disconnectDb();
