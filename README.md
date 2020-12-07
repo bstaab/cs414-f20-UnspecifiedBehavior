@@ -31,11 +31,11 @@
 * [P3 Presentation](Documents/P3Presentation.pptx)
 * [CRC Cards](Documents/CRC_P3.pdf)
 * [Class Diagram](Documents/GameClassDiagram.vsd)
-* User Stories and Tasks - TODO
+* [User Stories and Tasks](Documents/UserStories&Tasks.pdf)
 * [Output of Scrum Ceremonies](Documents/P3OutputOfScrumCeremonies.pdf)
 * [Traceability Link Matrix](Documents/TraceabilityLinkMatrix.xlsx)
 * [Development Manual](Documents/PortalChessDevelopmentManual.docx)
-* Acceptance Criteria - TODO
+* [Acceptance Criteria](Documents/AcceptanceCriteria.md)
 * [Kanban Images](Documents/Kanban)
 
 
