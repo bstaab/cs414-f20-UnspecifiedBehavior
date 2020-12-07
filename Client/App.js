@@ -19,8 +19,8 @@ import "react-chessground/dist/styles/chessground.css";
 import 'bootstrap/dist/css/bootstrap.min.css'
 
 import { useHistory } from "react-router";
-import ContinueGame from "./components/ContinueGame";
-import Invitations from "./components/Invitations"
+import Invitations from "./components/Invitations";
+import ContinueGame from "./components/ContinueGame"
 
 const Router = props => {
 

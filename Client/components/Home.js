@@ -1,17 +1,17 @@
 import React, {useState, useEffect} from 'react';
 import CreateMatch from "./CreateMatch";
-import ContinueGame from './ContinueGame'
+import Invitations from './Invitations'
 import {Button, Col, Collapse, DropdownItem, DropdownMenu, DropdownToggle, Nav, Navbar, NavbarBrand, NavItem, Row, UncontrolledDropdown, Container
 } from "reactstrap";
 import Chessground from "react-chessground";
-import Invitations from "./Invitations";
+import ContinueGame from "./ContinueGame";
 import {sendPostRequest} from "../hooks/API";
 
 function Home(props) {
 
     const [createGamePopupOpen, setCreateGamePopupOpen] = useState(false);
-    const [continueGamePopupOpen, setContinueGamePopupOpen] = useState(false);
     const [invitationsPopupOpen, setInvitationsPopupOpen] = useState(false);
+    const [continueGamePopupOpen, setContinueGamePopupOpen] = useState(false);
     const [chessBoardPopupOpen, setChessBoardPopupOpen] = useState(false);
 
     const [fen, setFen] = useState("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR");
@@ -32,22 +32,22 @@ function Home(props) {
                         <br/>
                         <Button color='primary' block onClick={() => setCreateGamePopupOpen(!createGamePopupOpen)}>Create A Game</Button>
                         <br/>
-                        <Button color='secondary' block onClick={() => setContinueGamePopupOpen(!continueGamePopupOpen)}> Continue A Game</Button>
-                        <br/>
                         <Button color='secondary' block onClick={() => setInvitationsPopupOpen(!invitationsPopupOpen)}>Invitations</Button>
                         <br/>
+                        <Button color='secondary' block onClick={() => setContinueGamePopupOpen(!continueGamePopupOpen)}>Continue A Game</Button>
+                        <br/>
                     </Container>
-                    <CreateMatch
+                    {createGamePopupOpen ? <CreateMatch
                         {...props} createGamePopupOpen={createGamePopupOpen} setCreateGamePopupOpen={setCreateGamePopupOpen}
-                    />
-                    <ContinueGame
-                        {...props} continueGamePopupOpen={continueGamePopupOpen} setContinueGamePopupOpen={setContinueGamePopupOpen}
-                        setOpponentUserData={setOpponentUserData} chessBoardPopupOpen={chessBoardPopupOpen} setChessBoardPopupOpen={setChessBoardPopupOpen} setFen={setFen} setIsWhiteUserInCurrentGame={setIsWhiteUserInCurrentGame}
-                    />
-                    <Invitations
+                    /> : null }
+                    {invitationsPopupOpen ? <Invitations
                         {...props} invitationsPopupOpen={invitationsPopupOpen} setInvitationsPopupOpen={setInvitationsPopupOpen}
+                        setOpponentUserData={setOpponentUserData} chessBoardPopupOpen={chessBoardPopupOpen} setChessBoardPopupOpen={setChessBoardPopupOpen} setFen={setFen} setIsWhiteUserInCurrentGame={setIsWhiteUserInCurrentGame}
+                    /> : null }
+                    {continueGamePopupOpen ? <ContinueGame
+                        {...props} continueGamePopupOpen={continueGamePopupOpen} setContinueGamePopupOpen={setContinueGamePopupOpen}
                         setOpponentUserData={setOpponentUserData} chessBoardPopupOpen={chessBoardPopupOpen} setChessBoardPopupOpen={setChessBoardPopupOpen} setFen={setFen}
-                    />
+                    /> : null}
                     {chessBoardPopupOpen ? <ChessBoard fen={fen} setFen={setFen} opponentUserData={opponentUserData} isWhiteUserInOpenGame={isWhiteUserInOpenGame} {...props}/> : null}
                 </Col>
             </Row>

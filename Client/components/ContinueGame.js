@@ -1,72 +1,66 @@
-import React, {useEffect, useState} from 'react'
-import {IconButton} from "@material-ui/core";
-import {sendPostRequest} from "../hooks/API";
-import {Table, Modal} from 'reactstrap';
+import React, {useEffect, useState} from 'react';
+import {Button, Modal, ModalBody, ModalFooter, Table} from "reactstrap";
 
-import CheckIcon from '@material-ui/icons/Check';
-import CloseIcon from '@material-ui/icons/Close';
+import {sendPostRequest} from "../hooks/API";
 
 function ContinueGame(props) {
-    const [matchListData, setMatchListData] = useState([]);
+
+    const [gameListW, setGameListW] = useState([]);
+    const [gameListB, setGameListB] = useState([]);
 
     useEffect(() => {
-        sendPostRequest('getAllMessages', {'username': props.userData.username}).then(
-            r => {
-                if (r.data.valid) setMatchListData(r.data.from);
-                else props.produceSnackBar('No Matches', 'info');
-            }
-        )
-    }, [])
-
-    function createNewGame(opponentName) {
-        sendPostRequest('newChessMatch', {'user1': props.userData.username, 'user2': opponentName})
-            .then(
-                r => {
-                    if (r.data.valid) {
-                        sendPostRequest('userData', {username: opponentName}).then(
-                            r => props.setOpponentUserData(r.data)
-                        )
-                        props.setFen(r.data.fen);
-                        props.setIsWhiteUserInCurrentGame(r.data.whiteUser === props.userData.username)
-                        props.produceSnackBar('Game Successfully Accepted', 'success');
-                        props.setChessBoardPopupOpen(!props.chessBoardPopupOpen);
-                        props.setContinueGamePopupOpen(!props.continueGamePopupOpen);
-                    }
-                    else {
-                        props.produceSnackBar('Game Acceptance Failed', 'error');
-                    }
+        sendPostRequest('currentMatches', {'username': props.userData.username})
+            .then(r => {
+                    setGameListW(r.data.wGames)
+                    setGameListB(r.data.bGames)
                 }
             )
+    }, []);
 
-    }
+    return (
+        <div>
+            <Modal isOpen={props.continueGamePopupOpen} centered={true} toggle={() => props.setContinueGamePopupOpen(!props.continueGamePopupOpen)}>
+                <ModalBody>
+                    <Table striped responsive>
+                        <thead>
+                        <tr>
+                            <th>Opponent</th>
+                            <th>Game</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {
+                            gameListW.concat(gameListB).map((username, index) =>
+                                <tr key={index}>
+                                    <td>{username}</td>
+                                    <td>
+                                        <Button onClick={() => {
+                                            props.setChessBoardPopupOpen(!props.chessBoardPopupOpen);
+                                            sendPostRequest('userData', {username: username}).then(
+                                                r => {
+                                                    props.setOpponentUserData(r.data)
+                                                    let whiteUser = props.isWhiteUserInOpenGame ? props.userData.username : r.data.username;
+                                                    let blackUser = props.isWhiteUserInOpenGame ? r.data.username : props.userData.username;
 
-      return (
-          <div>
-              <Modal isOpen={props.continueGamePopupOpen} centered={true} toggle={() => props.setContinueGamePopupOpen(!props.continueGamePopupOpen)}>
-                  <Table striped responsive>
-                      <thead>
-                      <tr>
-                          <th>Opponent</th>
-                          <th>Option</th>
-                      </tr>
-                      </thead>
-                      <tbody>
-                      {matchListData.map(opponentName =>
-                          <tr>
-                              <td>{opponentName}</td>
-                              <td>
-                                  <IconButton onClick={() => createNewGame(opponentName)}><CheckIcon/></IconButton>
-                                  <IconButton><CloseIcon/></IconButton>
-                              </td>
-                          </tr>
-
-                      )}
-                      </tbody>
-                  </Table>
-
-              </Modal>
-          </div>
-      )
+                                                    sendPostRequest('fetchGame', {'whiteUser': whiteUser, 'blackUser': blackUser})
+                                                    .then(r => props.setFen(r.data.fen))
+                                                }
+                                            )
+                                        }} color="primary">Play Game</Button>
+                                    </td>
+                                </tr>
+                            )
+                        }
+                        </tbody>
+                    </Table>
+                </ModalBody>
+                <ModalFooter>
+                    <Button color="secondary" onClick={() => props.setContinueGamePopupOpen(!props.continueGamePopupOpen)}>Close</Button>
+                </ModalFooter>
+            </Modal>
+        </div>
+    )
 }
+
 
 export default ContinueGame;
