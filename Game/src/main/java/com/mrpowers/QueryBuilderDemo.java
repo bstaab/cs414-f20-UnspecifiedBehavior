@@ -3,8 +3,8 @@ package com.mrpowers;
 public class QueryBuilderDemo {
     public static void main(String[] args){
 //      QueryBuilder.connectDb();
-//      QueryBuilder.getStateTable();
-//      QueryBuilder.addGame("yeet","yoot");
+//        System.out.println(QueryBuilder.doesItExist("naruto","yoot"));
+//        QueryBuilder.addGame("naruto","kakashi","RASENGAN");
 //      QueryBuilder.updateState("yeet","yoot","YEEEEEEEEEEEEEEEEEE","White");
      /* QueryBuilder.createUser("tuser","test@ruser","123test");
         QueryBuilder.getStateTable();
@@ -23,6 +23,6 @@ public class QueryBuilderDemo {
         QueryBuilder.createUser("tuser","test@ruser","123test");
         String [] s = QueryBuilder.searchUser("testuser");
         QueryBuilder.changePassword("testuser","wuuuuuuuuuu");*/
-//        QueryBuilder.disconnectDb();
+        QueryBuilder.disconnectDb();
     }
 }
