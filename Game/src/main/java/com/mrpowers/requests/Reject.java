@@ -22,6 +22,9 @@ public class Reject extends RequestData{
 
     @Override
     public void buildResponse() throws RequestException, IllegalMoveException, IllegalPositionException {
-        this.Do();
+        try{this.Do();}
+        catch (Exception e){
+
+        }
     }
 }
