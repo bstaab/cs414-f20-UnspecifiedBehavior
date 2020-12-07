@@ -11,6 +11,10 @@ public class Unregister extends RequestData{
     public Unregister(String username){
         this.username=username;
     }
+    public Unregister(String username, String password){
+        this.username=username;
+        this.password=password;
+    }
     public Boolean Delete(){
         valid=false;
         QueryBuilder.connectDb();

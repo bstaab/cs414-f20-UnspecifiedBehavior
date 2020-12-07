@@ -19,7 +19,7 @@ public class NewChessMatch extends RequestData{
     }
 
     public String getFen(){
-        return this.fen;
+        return fen;
     }
 
     public String getWhiteUser(){return this.whiteUser;}
@@ -38,9 +38,11 @@ public class NewChessMatch extends RequestData{
         System.out.println(user1+" "+user2);
         fen=board.toFen();
         fen+="w";
-        System.out.println(fen);
         if(r%2==0){
-            QueryBuilder.addGame(user1, user2, fen);
+            if(!QueryBuilder.addGame(user1, user2, fen)){
+                QueryBuilder.disconnectDb();
+                return valid;
+            }
             whiteUser=user1;
             blackUser=user2;
             QueryBuilder.removeMessage(user1, user2, "INVITATION");
@@ -48,7 +50,10 @@ public class NewChessMatch extends RequestData{
             valid=true;
         }
         else{
-            QueryBuilder.addGame(user2, user1, fen);
+            if(!QueryBuilder.addGame(user2, user1, fen)){
+                QueryBuilder.disconnectDb();
+                return valid;
+            }
             whiteUser=user2;
             blackUser=user1;
             QueryBuilder.removeMessage(user1, user2, "INVITATION");
