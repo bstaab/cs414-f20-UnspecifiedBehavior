@@ -8,6 +8,8 @@ function ContinueGame(props) {
     const [gameListW, setGameListW] = useState([]);
     const [gameListB, setGameListB] = useState([]);
 
+    console.log((gameListW))
+
     useEffect(() => {
         sendPostRequest('currentMatches', {'username': props.userData.username})
             .then(r => {
@@ -35,15 +37,22 @@ function ContinueGame(props) {
                                     <td>{username}</td>
                                     <td>
                                         <Button onClick={() => {
-                                            props.setChessBoardPopupOpen(!props.chessBoardPopupOpen);
                                             sendPostRequest('userData', {username: username}).then(
                                                 r => {
-                                                    props.setOpponentUserData(r.data)
-                                                    let whiteUser = props.isWhiteUserInOpenGame ? props.userData.username : r.data.username;
-                                                    let blackUser = props.isWhiteUserInOpenGame ? r.data.username : props.userData.username;
-
+                                                    props.setOpponentUserData(r.data);
+                                                    let whiteUser = gameListB.includes(username) ? username : props.userData.username;
+                                                    let blackUser = gameListW.includes(username) ? username : props.userData.username;
+                                                    props.setIsWhiteUserInOpenGame(whiteUser === props.userData.username)
                                                     sendPostRequest('fetchGame', {'whiteUser': whiteUser, 'blackUser': blackUser})
-                                                    .then(r => props.setFen(r.data.fen))
+                                                        .then(r => {
+                                                                props.setFen(r.data.fen);
+                                                                props.setContinueGamePopupOpen(!props.continueGamePopupOpen);
+                                                                props.setChessBoardPopupOpen(!props.chessBoardPopupOpen);
+                                                            }
+                                                        )
+
+
+
                                                 }
                                             )
                                         }} color="primary">Play Game</Button>

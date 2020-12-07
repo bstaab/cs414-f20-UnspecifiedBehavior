@@ -17,11 +17,7 @@ function Home(props) {
     const [fen, setFen] = useState("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR");
 
     const [opponentUserData, setOpponentUserData] = useState();
-    const [isWhiteUserInOpenGame, setIsWhiteUserInCurrentGame] = useState();
-
-    useEffect(() => {
-        setIsWhiteUserInCurrentGame(false);
-    }, [opponentUserData])
+    const [isWhiteUserInOpenGame, setIsWhiteUserInOpenGame] = useState();
 
     return (
         <div className="home-image">
@@ -42,11 +38,14 @@ function Home(props) {
                     /> : null }
                     {invitationsPopupOpen ? <Invitations
                         {...props} invitationsPopupOpen={invitationsPopupOpen} setInvitationsPopupOpen={setInvitationsPopupOpen}
-                        setOpponentUserData={setOpponentUserData} chessBoardPopupOpen={chessBoardPopupOpen} setChessBoardPopupOpen={setChessBoardPopupOpen} setFen={setFen} setIsWhiteUserInCurrentGame={setIsWhiteUserInCurrentGame}
+                        setOpponentUserData={setOpponentUserData} chessBoardPopupOpen={chessBoardPopupOpen} setChessBoardPopupOpen={setChessBoardPopupOpen}
+                        setFen={setFen} setIsWhiteUserInOpenGame={setIsWhiteUserInOpenGame}
+                        isWhiteUserInOpenGame={isWhiteUserInOpenGame} opponentuserData={opponentUserData}
                     /> : null }
                     {continueGamePopupOpen ? <ContinueGame
                         {...props} continueGamePopupOpen={continueGamePopupOpen} setContinueGamePopupOpen={setContinueGamePopupOpen}
-                        setOpponentUserData={setOpponentUserData} chessBoardPopupOpen={chessBoardPopupOpen} setChessBoardPopupOpen={setChessBoardPopupOpen} setFen={setFen}
+                        setOpponentUserData={setOpponentUserData} chessBoardPopupOpen={chessBoardPopupOpen}
+                        setChessBoardPopupOpen={setChessBoardPopupOpen} setFen={setFen} setIsWhiteUserInOpenGame={setIsWhiteUserInOpenGame}
                     /> : null}
                     {chessBoardPopupOpen ? <ChessBoard fen={fen} setFen={setFen} opponentUserData={opponentUserData} isWhiteUserInOpenGame={isWhiteUserInOpenGame} {...props}/> : null}
                 </Col>
@@ -57,6 +56,7 @@ function Home(props) {
 }
 
 function ChessBoard(props) {
+
     let whiteUser = props.isWhiteUserInOpenGame ? props.userData.username : props.opponentUserData.username;
     let blackUser = props.isWhiteUserInOpenGame ? props.opponentUserData.username : props.userData.username;
 
@@ -64,11 +64,12 @@ function ChessBoard(props) {
         sendPostRequest('move', {'whiteUser': whiteUser, 'blackUser': blackUser,'from' : from, 'to' : to, 'username': props.userData.username})
             .then(
                 r => {
+                    console.log(r.data);
                     if (!r.data.valid) {
                         props.setFen('rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR')
                         props.produceSnackBar('Invalid Move', 'error');
                     }
-                    props.setFen((' ' + r.data.fen).slice(1));
+                    props.setFen(r.data.fen);
                 }
             )
 

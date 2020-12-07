@@ -23,14 +23,15 @@ function Invitations(props) {
             .then(
                 r => {
                     if (r.data.valid) {
+                        props.setIsWhiteUserInOpenGame(r.data.whiteUser === props.userData.username)
                         sendPostRequest('userData', {username: opponentName}).then(
-                            r => props.setOpponentUserData(r.data)
-                        )
-                        props.setFen(r.data.fen);
-                        props.setIsWhiteUserInCurrentGame(r.data.whiteUser === props.userData.username)
-                        props.produceSnackBar('Game Successfully Accepted', 'success');
-                        props.setChessBoardPopupOpen(!props.chessBoardPopupOpen);
-                        props.setContinueGamePopupOpen(!props.continueGamePopupOpen);
+                            r => {
+                                props.setOpponentUserData(r.data)
+                                props.setFen(r.data.fen);
+                                props.produceSnackBar('Game Successfully Accepted', 'success');
+                                props.setChessBoardPopupOpen(!props.chessBoardPopupOpen);
+                                props.setInvitationsPopupOpen(!props.invitationsPopupOpen);
+                            })
                     }
                     else {
                         props.produceSnackBar('Game Acceptance Failed', 'error');
@@ -40,33 +41,48 @@ function Invitations(props) {
 
     }
 
-      return (
-          <div>
-              <Modal isOpen={props.invitationsPopupOpen} centered={true} toggle={() => props.setInvitationsPopupOpen(!props.invitationsPopupOpen)}>
-                  <Table striped responsive>
-                      <thead>
-                      <tr>
-                          <th>Opponent</th>
-                          <th>Option</th>
-                      </tr>
-                      </thead>
-                      <tbody>
-                      {invitationList.map(opponentName =>
-                          <tr>
-                              <td>{opponentName}</td>
-                              <td>
-                                  <IconButton onClick={() => createNewGame(opponentName)}><CheckIcon/></IconButton>
-                                  <IconButton><CloseIcon/></IconButton>
-                              </td>
-                          </tr>
+    function quitGame(opponentName) {
 
-                      )}
-                      </tbody>
-                  </Table>
+        sendPostRequest('reject', {'to': props.userData.username, 'from' : opponentName})
+            .then(
+                r => {
+                    if (r.data.valid) {
+                        props.produceSnackBar('Rejected Invitation', 'info');
+                    }
+                    else {
+                        props.produceSnackBar('Unable to reject invitation', 'error');
+                    }
+                }
+            )
+    }
 
-              </Modal>
-          </div>
-      )
+    return (
+        <div>
+            <Modal isOpen={props.invitationsPopupOpen} centered={true} toggle={() => props.setInvitationsPopupOpen(!props.invitationsPopupOpen)}>
+                <Table striped responsive>
+                    <thead>
+                    <tr>
+                        <th>Opponent</th>
+                        <th>Option</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {invitationList.map(opponentName =>
+                        <tr>
+                            <td>{opponentName}</td>
+                            <td>
+                                <IconButton onClick={() => createNewGame(opponentName)}><CheckIcon/></IconButton>
+                                <IconButton onClick={() => quitGame(opponentName)}><CloseIcon/></IconButton>
+                            </td>
+                        </tr>
+
+                    )}
+                    </tbody>
+                </Table>
+
+            </Modal>
+        </div>
+    )
 }
 
 export default Invitations;
