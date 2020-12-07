@@ -50,6 +50,7 @@ public class RestfulAPI {
             post("/concede", (req, res) -> processHttpRequest(req, res, Concede.class));
             post("/changePassword", (req, res) -> processHttpRequest(req, res, ChangePassword.class));
             post("/getAllMessages", (req, res) -> processHttpRequest(req, res, GetAllMessages.class));
+            post("/reject", (req, res) -> processHttpRequest(req, res, Reject.class));
         });
     }
 

@@ -25,7 +25,7 @@ public class RequestTests {
 
     }
 */
-/*
+
     @Test
     public void NewUserTest(){
         NewUser aUser=new NewUser("user5", "password", "user@mail.com");
@@ -149,27 +149,19 @@ public class RequestTests {
         assertTrue(c.RemoveAllGames());
     }
     @Test
-    public void MoveTest2() throws IllegalMoveException, RequestException, IllegalPositionException {
-        NewUser aUser=new NewUser("to2", "password", "to@mail.com");
-        NewUser bUser=new NewUser("from0", "password", "to@mail.com");
-        try {
-            aUser.buildResponse();
-            bUser.buildResponse();
-        }catch(RequestException | IllegalMoveException e){
-            System.out.println("error");
-        }
-        Concede c=new Concede("to2");
-        assertTrue(c.RemoveAllGames());
-        MatchRequest mr=new MatchRequest("to2", "from0");
-        mr.buildResponse();
-        NewChessMatch ncm=new NewChessMatch("to2", "from0");
-        ncm.buildResponse();
-        System.out.println(ncm.getFen()+" test");
-        assertTrue(ncm.getFen().equals("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w - - - 0w"));
-        Move aMove=new Move(ncm.getWhiteUser(), ncm.getBlackUser(), "c2", "c3");
-        assertTrue(aMove.Do());
-        assertTrue(c.RemoveAllGames());
-
+    public void dbtest(){
+        QueryBuilder.connectDb();
+        QueryBuilder.getDBTable();
+        assertTrue(QueryBuilder.createUser("user9", "user9@mail", "password"));
+        assertTrue(QueryBuilder.createUser("user8", "user9@mail", "password"));
+        assertTrue(QueryBuilder.addGame("user9", "user8", "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w - - - 0"));
+        System.out.println(QueryBuilder.getState("user9", "user8"));
+        assertTrue(QueryBuilder.getState("user9", "user8").equals("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w - - - 0"));
+        QueryBuilder.removeGame("user9", "user8");
+        assertFalse(QueryBuilder.getState("user9", "user8").equals("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w - - - 0"));
+        assertTrue(QueryBuilder.deleteUser("user9"));
+        assertTrue(QueryBuilder.deleteUser("user8"));
+        QueryBuilder.disconnectDb();
     }
 
     @Test
@@ -183,6 +175,6 @@ public class RequestTests {
         String f=QueryBuilder.getTurn("h1", "h2");
         System.out.println(f.length());
         QueryBuilder.disconnectDb();
-    }*/
+    }
 
 }

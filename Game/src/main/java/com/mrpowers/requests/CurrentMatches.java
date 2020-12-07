@@ -20,9 +20,11 @@ public class CurrentMatches extends RequestData{
                 wGames=opponents[0];
                 bGames=opponents[1];
                 QueryBuilder.disconnectDb();
-                if(opponents.length==0){
-                    wGames= new String[]{};
+                if(bGames.length==0){
                     bGames= new String[]{};
+                }
+                if(wGames.length==0){
+                    wGames= new String[]{};
                 }
                 message="ACTIVE MATCHES";
                 return true;

@@ -139,6 +139,7 @@ public class Move extends RequestData {
         fen=QueryBuilder.getState(whiteUser, blackUser);
         ChessBoard board;
         ChessPiece p;
+        System.out.println(fen+"test");
         turn=Character.toString(fen.charAt(fen.length()-1));
         if(turn.equals("w")){
             turn=whiteUser;

@@ -24,7 +24,29 @@ public class NewChessMatch extends RequestData{
 
     public String getWhiteUser(){return this.whiteUser;}
     public String getBlackUser(){return this.blackUser;}
-
+    public boolean TestDo() throws RequestException{
+        valid=false;
+        ChessBoard board=new ChessBoard();
+        Random rand=new Random();
+        int r=rand.nextInt();
+        board.initialize();
+        QueryBuilder.connectDb();
+        QueryBuilder.getDBTable();
+        QueryBuilder.getStateTable();
+        QueryBuilder.getMessagesTable();
+        System.out.println(user1+" "+user2);
+        fen=board.toFen();
+        fen+="w";
+        if(!QueryBuilder.addGame(user1, user2, fen)){
+                QueryBuilder.disconnectDb();
+                return valid;
+        }
+        whiteUser=user1;
+        blackUser=user2;
+        valid=true;
+        QueryBuilder.disconnectDb();
+        return valid;
+    }
     public boolean Do() throws RequestException{
         valid=false;
         ChessBoard board=new ChessBoard();
