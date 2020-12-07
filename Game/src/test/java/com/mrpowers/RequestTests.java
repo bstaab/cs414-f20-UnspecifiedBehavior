@@ -22,9 +22,8 @@ public class RequestTests {
             System.out.println(CI);
         }
 
-    }*/
+    }
 
-/*
     @Test
     public void NewUserTest(){
         NewUser aUser=new NewUser("user5", "password", "user@mail.com");
@@ -164,7 +163,7 @@ public class RequestTests {
         Concede c=new Concede("to2");
         assertTrue(c.RemoveAllGames());
     }
-*/
+
     @Test
     public void dbTest2() throws IllegalMoveException, RequestException {
         QueryBuilder.connectDb();
@@ -177,4 +176,6 @@ public class RequestTests {
         System.out.println(f.length());
         QueryBuilder.disconnectDb();
     }
+
+ */
 }

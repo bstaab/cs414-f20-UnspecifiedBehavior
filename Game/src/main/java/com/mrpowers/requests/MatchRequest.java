@@ -37,7 +37,10 @@ public class MatchRequest extends RequestData {
             QueryBuilder.disconnectDb();
             return valid;
         }
-        try{QueryBuilder.addMessage(to, from, message);}
+        try{
+            QueryBuilder.addMessage(to, from, message);
+            valid=true;
+        }
         catch(Exception e){
             err="DB error";
             QueryBuilder.disconnectDb();
