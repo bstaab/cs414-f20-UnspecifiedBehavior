@@ -113,6 +113,13 @@ public class Move extends RequestData {
             if(!complete){
                 if(Character.isSpaceChar(c)){
                     complete=true;
+                    c=fen.charAt(i+1);
+                    if(c.equals('w')){
+                        turn=whiteUser;
+                    }
+                    else if(c.equals('b')){
+                        turn=blackUser;
+                    }
                 }
                 else if(makePiece(c, board, row, column)){
                     column++;
@@ -138,22 +145,16 @@ public class Move extends RequestData {
         QueryBuilder.getDBTable();
         QueryBuilder.getStateTable();
         fen=QueryBuilder.getState(whiteUser, blackUser);
-        try{
-            turn=fen.substring(fen.length()-1);
-        }catch(NullPointerException e){
-            QueryBuilder.disconnectDb();
-            return valid;
-        }
         ChessBoard board=makeBoard(fen);
-        if(((turn.equals("w")&&whiteUser==username)||(turn.equals("b")&&blackUser==username))){
-            if((board.getPiece(from).getColor().equals(ChessPiece.Color.WHITE)&&username==whiteUser)||(board.getPiece(from).getColor().equals(ChessPiece.Color.BLACK)&&username==blackUser)){
+        if(((turn.equals(whiteUser)&&whiteUser.equals(username))||(turn.equals(blackUser)&&blackUser.equals(username)))){
+            if((board.getPiece(from).getColor().equals(ChessPiece.Color.WHITE)&&username.equals(whiteUser))||(board.getPiece(from).getColor().equals(ChessPiece.Color.BLACK)&&username.equals(blackUser))){
                 try{
                     board.move(from, to);
                     fen=board.toFen();
-                    if(turn.equals("w")){
+                    if(turn.equals(whiteUser)){
                         fen+="b";
                     }
-                    else if(turn.equals("b")){
+                    else if(turn.equals(blackUser)){
                         fen+="w";
                     }
                     QueryBuilder.updateState(whiteUser, blackUser, fen, turn);
