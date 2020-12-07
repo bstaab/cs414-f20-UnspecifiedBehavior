@@ -6,25 +6,6 @@ import {sendPostRequest} from "../components/API";
 
 
 function Match(props) {
-    const [chessBoardPopup, setChessBoardPopup] = useState(false);
-    const [popup, setPopup] = useState(false);
-    const [currentGame, setCurrentGame] = useState();
-
-
-    function defineRow(username) {
-        return (
-            <tr>
-                <td>{username}</td>
-                <td>
-                    <Button onClick={() => {
-                        toggleChessPopup(setChessBoardPopup, chessBoardPopup);
-                        setCurrentGame(username);
-                    }} color="primary">Play Game</Button>
-                </td>
-            </tr>
-        )
-
-    }
 
     function defineName() {
         return (
@@ -38,21 +19,38 @@ function Match(props) {
                 </thead>
                 <tbody>
                 {
-                    props.gameListW.concat(props.gameListB).map(username => {console.log(username); defineRow(username)})
+                    props.gameListW.concat(props.gameListB).map(username =>
+                        <tr>
+                            <td>{username}</td>
+                            <td>
+                                <Button onClick={() => {
+                                    props.setChessBoardPopup(!props.chessBoardPopup);
+                                    props.setCurrentGame(username);
+                                    fetch()
+                                }} color="primary">Play Game</Button>
+                            </td>
+                        </tr>
+                    )
                 }
                 </tbody>
             </Table>
         )
     }
 
+    function fetch() {
+        sendPostRequest('fetchGame', {'whiteUser': props.whiteUser, 'blackUser': props.blackUser})
+            .then(
+                r => {
+                    props.setFen(r.data.fen)
+                }
+            )
+    }
+
     return (
         <div>
-            {
-                chessBoardPopup ? <ChessBoard fen={props.fen} currentGame={currentGame} {...props}/> : null
-            }
             <Modal isOpen={props.popupOpen} centered={true} toggle={() => props.togglePopup(!props.popupOpen)}>
                 <ModalBody>
-                    {defineName(setChessBoardPopup, chessBoardPopup)}
+                    {defineName(props.setChessBoardPopup, props.chessBoardPopup)}
                 </ModalBody>
                 <ModalFooter>
                     <Button color="secondary" onClick={() => props.togglePopup(!props.popupOpen)}>Close</Button>
@@ -62,41 +60,5 @@ function Match(props) {
     )
 }
 
-function ChessBoard(props) {
-    let isWhite = props.gameListW.includes(props.currentGame);
-    //const [fen, setFen] = useState('rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR');
-
-    useEffect(() => {
-        sendPostRequest('fetchGame', {'whiteUser': isWhite ? props.currentGame : props.userData, "blackUser": isWhite ? props.userData : props.currentGame})
-            .then(
-                r => {
-                    props.setFen(r.data.fen)
-                }
-            )
-    }, [])
-
-    function onMove(from, to) {
-        sendPostRequest('move', {'from' : from, 'to' : to, 'match' : 1})
-            .then(
-
-            )
-    }
-
-    return (
-        <Col xs={9}>
-            <Chessground
-                width="38vw"
-                height="38vw"
-                fen={props.fen}
-                onMove={() => onMove()}
-            />
-        </Col>
-    )
-}
-
-
-function toggleChessPopup(setChessBoardPopup, chessBoardPopup) {
-    setChessBoardPopup(!chessBoardPopup)
-}
 
 export default Match;

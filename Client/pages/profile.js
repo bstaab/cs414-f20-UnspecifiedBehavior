@@ -54,16 +54,17 @@ export function Profile(props) {
 
 //TODO: get the user stats from the database
 function getUserStats(props, searchUser, setUsername, setEmail, setGamesLost, setGamesWon) {
+    console.log("im in")
     sendPostRequest('userData', {'username': searchUser})
         .then(r => {
-                //console.log(r.data);
+                console.log(r.data);
             let valid = r.data.valid;
             if (!valid) props.produceSnackBar("Invalid Username", "info");
             else {
                 setUsername(searchUser);
-                setEmail(r.data.email.toString());
-                setGamesLost(r.data.gamesLost.toString());
-                setGamesWon(r.data.gamesWon.toString());
+                setEmail(r.data.email);
+                setGamesLost(r.data.gamesLost);
+                setGamesWon(r.data.gamesWon);
             }
         })
 }
