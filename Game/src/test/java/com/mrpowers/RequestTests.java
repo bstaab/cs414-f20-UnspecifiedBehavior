@@ -25,7 +25,7 @@ public class RequestTests {
 
     }
 */
-
+/*
     @Test
     public void NewUserTest(){
         NewUser aUser=new NewUser("user5", "password", "user@mail.com");
@@ -175,6 +175,6 @@ public class RequestTests {
         String f=QueryBuilder.getTurn("h1", "h2");
         System.out.println(f.length());
         QueryBuilder.disconnectDb();
-    }
+    }*/
 
 }
