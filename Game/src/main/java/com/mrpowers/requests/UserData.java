@@ -16,6 +16,10 @@ public class UserData extends RequestData{
 
     }
 
+    public String getPassword() {
+        return password;
+    }
+
     public Integer getGamesWon(){
         return gamesWon;
     }

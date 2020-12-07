@@ -131,7 +131,6 @@ public class Move extends RequestData {
     }
 
     public Boolean Do() throws IllegalPositionException, IllegalMoveException {
-        System.out.println(to+" "+from);
         valid=false;
         QueryBuilder.connectDb();
         QueryBuilder.getDBTable();

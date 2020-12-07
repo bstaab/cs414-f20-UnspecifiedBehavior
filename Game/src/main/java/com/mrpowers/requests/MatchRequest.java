@@ -16,8 +16,6 @@ public class MatchRequest extends RequestData {
     }
     public String getErr(){return err;}
     public boolean Do() throws RequestException {
-        System.out.println(to);
-        System.out.println(from);
         valid=false;
         if(from.equals(to)){
             err="Can't invite yourself";
@@ -38,8 +36,10 @@ public class MatchRequest extends RequestData {
             return valid;
         }
         try{
-            QueryBuilder.addMessage(to, from, message);
-            valid=true;
+            if(!QueryBuilder.getMessage(to, from).equals(message)) {
+                QueryBuilder.addMessage(to, from, message);
+                valid = true;
+            }
         }
         catch(Exception e){
             err="DB error";
