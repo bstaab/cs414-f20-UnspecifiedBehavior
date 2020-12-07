@@ -15,6 +15,7 @@ public class Reject extends RequestData{
         QueryBuilder.connectDb();
         QueryBuilder.getMessagesTable();
         QueryBuilder.removeMessage(to, from, "INVITATION");
+        QueryBuilder.addMessage(to, from, "REJECTED");
         QueryBuilder.disconnectDb();
         valid=true;
     }

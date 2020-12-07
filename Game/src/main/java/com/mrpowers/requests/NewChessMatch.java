@@ -78,6 +78,9 @@ public class NewChessMatch extends RequestData{
     @Override
     public void buildResponse() throws RequestException, IllegalMoveException {
         this.Do();
-        this.DeleteInvitation();
+        try{this.DeleteInvitation();}
+        catch (Exception e){
+
+        }
     }
 }
