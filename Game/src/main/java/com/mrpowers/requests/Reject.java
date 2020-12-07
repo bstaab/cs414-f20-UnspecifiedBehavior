@@ -10,11 +10,13 @@ public class Reject extends RequestData{
     public Boolean valid;
 
     public void Do(){
+        valid=false;
         QueryBuilder.connectDb();
         QueryBuilder.connectDb();
         QueryBuilder.getMessagesTable();
         QueryBuilder.removeMessage(to, from, "INVITATION");
         QueryBuilder.disconnectDb();
+        valid=true;
     }
 
     @Override
