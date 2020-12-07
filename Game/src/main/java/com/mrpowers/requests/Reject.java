@@ -15,12 +15,16 @@ public class Reject extends RequestData{
         QueryBuilder.connectDb();
         QueryBuilder.getMessagesTable();
         QueryBuilder.removeMessage(to, from, "INVITATION");
+        QueryBuilder.addMessage(to, from, "REJECTED");
         QueryBuilder.disconnectDb();
         valid=true;
     }
 
     @Override
     public void buildResponse() throws RequestException, IllegalMoveException, IllegalPositionException {
-        this.Do();
+        try{this.Do();}
+        catch (Exception e){
+
+        }
     }
 }
